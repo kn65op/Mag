@@ -1,0 +1,71 @@
+\documentclass[pdflatex,11pt]{aghdpl}
+% \documentclass{aghdpl}               % przy kompilacji programem latex
+% \documentclass[pdflatex,en]{aghdpl}  % praca w języku angielskim
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+
+% dodatkowe pakiety
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{hyperref}
+%\usepackage{graphicx}
+\lstloadlanguages{TeX}
+
+%---------------------------------------------------------------------------
+
+\author{Tomasz Drzewiecki}
+\shortauthor{T. Drzewiecki}
+
+\titlePL{Równoległa realizacja algorytmu Scale Space przy pomocy procesorów graficznych}
+\titleEN{title en}
+
+\shorttitlePL{Równoległa realizacja algorytmu Scale Space} % skrócona wersja tytułu jeśli jest bardzo długi
+\shorttitleEN{short title en}
+
+\thesistypePL{Praca dyplomowa magisterska}
+\thesistypeEN{Bachelor's Thesis}
+
+\supervisorPL{dr inż. Mirosław Jabłoński}
+\supervisorEN{Mirosław Jabłoński, Ph.D}
+
+\date{2013}
+
+\departmentPL{Katedra Automatyki i~Inżynierii Biomedycznej}
+\departmentEN{Department of Automatics and Biomedical Engineering}
+
+\facultyPL{Wydział Elektrotechniki, Automatyki, Informatyki i~Inżynierii Biomedycznej}
+\facultyEN{Faculty of Electrical Engineering, Automatics, Computer Science and Biomedical Engineering}
+
+\acknowledgements{Serdecznie dziękuję }
+
+
+
+\setlength{\cftsecnumwidth}{10mm}
+
+%---------------------------------------------------------------------------
+
+\begin{document}
+
+\titlepages
+
+\tableofcontents
+\clearpage
+
+\include{wstep}
+%\include{realizacja}
+%\include{czesc_trzecia}
+%\include{technologie}
+%\include{wnioski}
+%\include{podsumowanie}
+
+%\include{rozdzial2}
+
+
+\bibliographystyle{plain}
+\bibliography{praca}{}
+
+%\appendix
+%\include{zawartoscCD}
+%\include{opiskodow}
+
+\end{document}
