@@ -8,10 +8,49 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 \label{sec:cel}
 Celem niniejszej pracy była realizacja algortmu Scale Space, służącemu ekstrakcji cech w~obrazach. Jest to jeden z bardziej interesujących algorytmów stworzonych do tego celu, ponieważ pozwala na analizę obrazu w~różnych skalach. Dzięki temu za pomocą Scale Space można ? dowolny obraz.
 
-Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do tworznia równoleglych programów. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel(TM), NVIDIA(TM)).
+Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do tworznia równoleglych programów. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered} , NVIDIA(TM)).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
+Scale Space jest algorytmem służącym do przkształcenia obrazu do reprezentacji skali, która pozwala na analizę obrazu w różnych stopniach szczegółowości.
+
+\subsection{Filtracja Gaussa}
+\label{subsec:filtracjaGaussa}
+Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, badź zostaje znacznie zmniejszony ich wpływ na całość.
+
+Kolejne filtry Gaussa w przestrzeni dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
+\begin{equation}
+\label{eq:gaussian}
+g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot ^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
+\end{equation}
+gdzie:\\
+$ x,y $ - położenie piksela na obrazie, \\
+$ \sigma $ - wariancja.
+
+Wariancja w~powyższym wzorze określa skalę. 
+
+\subsection{Reprezentacja skali}
+\label{subsec:reprezentacjaskali}
+Obraz poddawany jest filtracji Gaussa, z~różnymi rosnącymi wartościami $ \sigma $, w~sposób zgodny z~przedstawionym we~wzorze \ref{eq:scalespace}:
+
+\begin{equation}
+\label{eq:scalespace}
+L(\cdot,\cdot,\sigma) = g(\cdot,\cdot,\sigma)\cdot f(\cdot,\cdot)
+\end{equation}
+gdzie:\\
+$ g $ - filtr Gaussa, \\
+$ \sigma $ - wariancja.
+
+W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia początkową w scene w różnej skali. 
+
+\subsection{Rozpoznawnie}
+\label{subsec:rozpoznawanie}
 
 \section{OpenCL}
 \label{sec:OpenCL}
+
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnym miejscu.
+
+Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream.
+
+
