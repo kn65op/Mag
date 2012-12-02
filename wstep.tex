@@ -27,7 +27,7 @@ gdzie:\\
 $ x,y $ - położenie piksela na obrazie, \\
 $ \sigma $ - wariancja.
 
-Wariancja w~powyższym wzorze określa skalę. 
+Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy będzie przedstawiony. 
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -41,7 +41,7 @@ gdzie:\\
 $ g $ - filtr Gaussa, \\
 $ \sigma $ - wariancja.
 
-W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia początkową w scene w różnej skali. 
+W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia początkową w scene w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
 \subsection{Rozpoznawnie}
 \label{subsec:rozpoznawanie}
@@ -49,8 +49,10 @@ W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia poc
 \section{OpenCL}
 \label{sec:OpenCL}
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnym miejscu.
+Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream.
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
+
+Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
 
 
