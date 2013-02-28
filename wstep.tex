@@ -6,13 +6,17 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 
 \section{Cel pracy}
 \label{sec:cel}
-Celem niniejszej pracy była realizacja algortmu Scale Space, służącemu ekstrakcji cech w~obrazach. Jest to jeden z bardziej interesujących algorytmów stworzonych do tego celu, ponieważ pozwala na analizę obrazu w~różnych skalach. Dzięki temu za pomocą Scale Space można ? dowolny obraz.
+Celem niniejszej pracy była realizacja algortmu Scale Space, który służy do reprezentacji obrazu w wielu skalach w celu późniejszej ich analizy. Wiele algorytmów operujących na obrazach jest złożona obliczeniowo i~ich realizacja zajmuje dużo czasu. Dlatego zdecydowano się na realizację tego algorytmu z użyciem akceleracji w~postaci zrównoleglenia obliczeń z~użyciem karty lub kart graficznych (GPU).
 
-Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do tworznia równoleglych programów. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered} , NVIDIA(TM)).
+Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered} , NVIDIA\textsuperscript{\texttrademark}).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
-Scale Space jest algorytmem służącym do przkształcenia obrazu do reprezentacji skali, która pozwala na analizę obrazu w różnych stopniach szczegółowości.
+Scale Space jest algorytmem służącym do przkształcenia obrazu do reprezentacji skali, która pozwala na analizę obrazu w różnych stopniach szczegółowości. Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
+
+Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbajdziej interesujące skali.
+
+
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
@@ -27,7 +31,7 @@ gdzie:\\
 $ x,y $ - położenie piksela na obrazie, \\
 $ \sigma $ - wariancja.
 
-Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy będzie przedstawiony. 
+Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -43,8 +47,10 @@ $ \sigma $ - wariancja.
 
 W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia początkową w scene w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
-\subsection{Rozpoznawnie}
-\label{subsec:rozpoznawanie}
+Użycie filtrów Gaussa gwarantuje nam nie zwiększanie ekstremów lokalnych. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała.
+
+%\subsection{Rozpoznawnie}
+%\label{subsec:rozpoznawanie}
 
 \section{OpenCL}
 \label{sec:OpenCL}
