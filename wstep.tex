@@ -6,9 +6,9 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 
 \section{Cel pracy}
 \label{sec:cel}
-Celem niniejszej pracy była realizacja algortmu Scale Space, który służy do reprezentacji obrazu w wielu skalach w celu późniejszej ich analizy. Wiele algorytmów operujących na obrazach jest złożona obliczeniowo i~ich realizacja zajmuje dużo czasu. Dlatego zdecydowano się na realizację tego algorytmu z użyciem akceleracji w~postaci zrównoleglenia obliczeń z~użyciem karty lub kart graficznych (GPU).
+Celem niniejszej pracy była realizacja algortmu Scale Space, który służy do reprezentacji obrazu w~wielu skalach w celu późniejszej ich analizy. Wiele algorytmów operujących na obrazach jest złożona obliczeniowo i~ich realizacja zajmuje dużo czasu. Dlatego zdecydowano się na realizację tego algorytmu z użyciem akceleracji w~postaci zrównoleglenia obliczeń z~użyciem karty lub kart graficznych (GPU).
 
-Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered} , NVIDIA\textsuperscript{\texttrademark}).
+Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
@@ -20,7 +20,7 @@ Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma mo�
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
-Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, badź zostaje znacznie zmniejszony ich wpływ na całość.
+Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość.
 
 Kolejne filtry Gaussa w przestrzeni dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
@@ -31,6 +31,7 @@ gdzie:\\
 $ x,y $ - położenie piksela na obrazie, \\
 $ \sigma $ - wariancja.
 
+[Usunięcie akapitu]
 Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
 
 \subsection{Reprezentacja skali}
@@ -45,7 +46,7 @@ gdzie:\\
 $ g $ - filtr Gaussa, \\
 $ \sigma $ - wariancja.
 
-W~ten sposób można otrzymać wiele obrazów, w~których każdy przedstawia początkową w scene w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
+W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
 Użycie filtrów Gaussa gwarantuje nam nie zwiększanie ekstremów lokalnych. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała.
 
@@ -57,8 +58,8 @@ Użycie filtrów Gaussa gwarantuje nam nie zwiększanie ekstremów lokalnych. Oz
 
 Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają[trzeba podać jakie inne obecnie są wspierane]. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
 
-Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
+Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL[Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
 
 
