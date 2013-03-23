@@ -18,15 +18,14 @@ Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
 W~tej pracy przetwarzanymi sygnałami będą obrazy.
 
-Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbajdziej interesujące skali.
-
+Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbajdziej interesujące skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie brzegów, obiektów. Te opracje mogą być przeprowadzane tylko w~jednej skali lub dla większej ilości skal, w~szcególności we wszystkich skalach.
 
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
 Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość.
 
-Kolejne filtry Gaussa w przestrzeni dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
+Kolejne filtry Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
 g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot ^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
@@ -36,6 +35,18 @@ $ x,y $ - położenie piksela na obrazie, \\
 $ \sigma $ - wariancja.
 \newline
 Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
+
+Dla sygnałów dyskretnych zostały użyte filtry Gaussa określone wzorem \ref{eq:gaussian_discrete}:
+\begin{equation}
+\label{eq:gaussian_discrete}
+g(x,y,N,\sigma) = \alpha \cdot e^{-((x+y)-N/2)^2/(2 \cdot \sigma)^2}
+\end{equation}
+gdzie: \newline 
+$ x, y$ - współrzędne obrazu, \newline
+$ \alpha $ - współczynnik skalujący w celu normalizacji ($ \sum_x \sum_y g(x,y,N,\sigma) = 1 $), \newline
+$ N $ - rozmiar filtru, \newline
+$ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot 0,5 - 1) + 0,8$. \newline
+W~tym przypadku rozmiar filtru określa skalę.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -47,11 +58,11 @@ L(\cdot,\cdot,\sigma) = g(\cdot,\cdot,\sigma)\cdot f(\cdot,\cdot)
 \end{equation}
 gdzie:\\
 $ g $ - filtr Gaussa, \\
-$ \sigma $ - wariancja.
+$ \sigma $ - wariancja (parametr skali).
 
 W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
-Użycie filtrów Gaussa gwarantuje nam nie zwiększanie ekstremów lokalnych. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała.
+Użycie filtrów Gaussa gwarantuje nam, że libcza ekstremów lokalnych oraz ich wartości nie zwiększy się. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała.
 
 %\subsection{Rozpoznawnie}
 %\label{subsec:rozpoznawanie}
@@ -59,10 +70,10 @@ Użycie filtrów Gaussa gwarantuje nam nie zwiększanie ekstremów lokalnych. Oz
 \section{OpenCL}
 \label{sec:OpenCL}
 
-Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
+Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń , zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
 OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają[trzeba podać jakie inne obecnie są wspierane]. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
 
-Powyższe zalety spowodowały, że do implentacja został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL[Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
+Powyższe zalety spowodowały, że do implentacji został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL[Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
 
 
