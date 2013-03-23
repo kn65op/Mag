@@ -51,31 +51,39 @@ W~tym przypadku rozmiar filtru określa skalę.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
-Obraz poddawany jest filtracji Gaussa, z~różnymi rosnącymi wartościami $ \sigma $, w~sposób zgodny z~przedstawionym we~wzorze \ref{eq:scalespace}:
+Reprezentacja skali dla sygnałów ciągłych dwuwymiarowych (np. obrazów) powstaje w sposób przedstawiony we wzorze \ref{eq:scalespace}:
 
 \begin{equation}
 \label{eq:scalespace}
-L(\cdot,\cdot,\sigma) = g(\cdot,\cdot,\sigma)\cdot f(\cdot,\cdot)
+\begin{split}
+& L(\cdot,\cdot,0) = f(\cdot,\cdot) \\
+& L(\cdot,\cdot,\sigma) = g(\cdot,\cdot,\sigma)\cdot f(\cdot,\cdot)
+\end{split}
 \end{equation}
 gdzie:\\
+$ f $ - sygnał oryginalny, \\
 $ g $ - filtr Gaussa, \\
 $ \sigma $ - wariancja (parametr skali).
 
+Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, z~różnymi rosnącymi wartościami dyskretnymi $ \sigma $. Obraz bez zastosowania skali to obraz oryginalny.
+
 W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
-Użycie filtrów Gaussa gwarantuje nam, że libcza ekstremów lokalnych oraz ich wartości nie zwiększy się. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomany Scale Space są spełnione [\cite{SSFDS}].
+Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że libcza ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomany Scale Space są spełnione \cite{SSFDS}.
 
 %\subsection{Rozpoznawnie}
 %\label{subsec:rozpoznawanie}
 
+\subsection{Złożność obliczeniowa}
+\label{subsec:zlozonosc_obliczeniowa}
 
 \section{OpenCL}
 \label{sec:OpenCL}
 
-Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń , zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
+Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej. Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
 OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu na wielu różnego typu urządzeniach: procesorach wielordzeniowych, kartach graficznych oraz innych, wszystkich które go wspierają[trzeba podać jakie inne obecnie są wspierane]. Standard jest wspierany przez wszystich największych producentów sprzętu elektronicznego, więc jego zastosowanie pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
 
-Powyższe zalety spowodowały, że do implentacji został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL[Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
+Powyższe zalety spowodowały, że do implentacji został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL [!!!!!!Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.!!!!!!!]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
 
 
