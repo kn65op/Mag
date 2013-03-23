@@ -36,7 +36,8 @@ $ \sigma $ - wariancja.
 \newline
 Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
 
-Dla sygnałów dyskretnych zostały użyte filtry Gaussa określone wzorem \ref{eq:gaussian_discrete}:
+Ponieważ podczas obilczeń z~użyciem komputera nie jest możliwe używanie przestrzeni ciągłej, dlatego konieczene jest wprowadzenie reprezentacji dyskretnej. 
+Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określone wzorem \ref{eq:gaussian_discrete}:
 \begin{equation}
 \label{eq:gaussian_discrete}
 g(x,y,N,\sigma) = \alpha \cdot e^{-((x+y)-N/2)^2/(2 \cdot \sigma)^2}
@@ -66,6 +67,7 @@ Użycie filtrów Gaussa gwarantuje nam, że libcza ekstremów lokalnych oraz ich
 
 %\subsection{Rozpoznawnie}
 %\label{subsec:rozpoznawanie}
+
 
 \section{OpenCL}
 \label{sec:OpenCL}
