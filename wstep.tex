@@ -47,7 +47,7 @@ $ x, y$ - współrzędne obrazu, \newline
 $ \alpha $ - współczynnik skalujący w celu normalizacji ($ \sum_x \sum_y g(x,y,N,\sigma) = 1 $), \newline
 $ N $ - rozmiar filtru, \newline
 $ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot 0,5 - 1) + 0,8$. \newline
-W~tym przypadku rozmiar filtru określa skalę.
+W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki maski, z~użyciem której będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -65,7 +65,7 @@ $ f $ - sygnał oryginalny, \\
 $ g $ - filtr Gaussa, \\
 $ \sigma $ - wariancja (parametr skali).
 
-Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, z~różnymi rosnącymi wartościami dyskretnymi $ \sigma $. Obraz bez zastosowania skali to obraz oryginalny.
+Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, dla różnych, rosnących wartości $ \sigma $. Obraz bez zastosowania skali to obraz oryginalny.
 
 W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
 
@@ -76,6 +76,10 @@ Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwaran
 
 \subsection{Złożność obliczeniowa}
 \label{subsec:zlozonosc_obliczeniowa}
+
+Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Do wyznaczenia obrazu będącego reprezntacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Do wykonania tej operacji konieczne będzie przeprowadzenia $ M $ działań mnożenia oraz $ M - 1 $ działań dodawania dla każdego z~$N$ pikseli obrazu. To daje $ N \cdot (2M - 1) $ operacji.
+
+Przyjmując $ I $ jako liczbę skal, w~których będzie przedstawiony obraz konieczne będzie wykonanie $ I \cdot N \cdot (2M_I - 1) $ operacji tylko w celu obliczenia reprezentacji. $ M_I $ jest zależne od skali, ponieważ dla większych skal używana jest maska o~większym rozmiarze. Dla każdej skali konieczne będzie dodatkowe wykonanie dodatkowych obliczeń, do których należy wyznaczenie maski. 
 
 \section{OpenCL}
 \label{sec:OpenCL}
