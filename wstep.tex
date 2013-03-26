@@ -82,9 +82,9 @@ Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwaran
 
 Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej.
 
-Do wykorzystania kart graficznych w~dowolnych obliczeniach można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
+Do wykorzystania kart graficznych w~obliczeniach ogólnego przeznaczenia można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu (z~dokładnością do wspieranej wersji standaru) na wielu różnego typu urządzeniach. Wśród nich znajdują się komputery ze wspraciem dla najpopularnieszych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM. Prodenci wspierający standard to Intel,
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu (z~dokładnością do wspieranej wersji standaru) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego z~najpopularnieszych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Prodenci wspierający standard to Intel,
 QUALCOMM,
 ARM,
 AMD,
@@ -94,8 +94,12 @@ STMicroelectronics International NV,
 IBM Corporation,
 Imagination Technologies,
 Creative Labs.
-Dzięki temu zastosowanie standardu pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane.
+Dzięki temu zastosowanie standardu pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane. Prace nad standardem rozpoczęły się w~2008 roku. Jest to technologia wciąż rozwijająca się oraz zapewaniająca wsteczną kompatybilność. 
 
-Powyższe zalety spowodowały, że do implentacji został wybrany standard OpenCL, zamiast użycia technologii dedykowanych do urządzeń produkowanych przez konkretne firmy. Przykładem takich rozwiązań są: CUDA lub ATI Stream. Rozwiązania dostarczane przez producentów urządzeń są szybsze niż implementacja standardu OpenCL [!!!!!!Czy zawsze? Trzeba podać jakieś referencje lub wyniki własnych testów.!!!!!!!]. Różnica nie jest jednak duża, więc jest to do zaakceptowania, zwłaszcza w~porówaniu do korzyści osianiętych z wykorzystania OpenCL.
+Przykładem technologii stworzonych przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta są technologie CUDA firmy NVIDIA oraz ATI Stream. Technologie te są ograniczone tylko do produktów jednego producenta, co znacznie zmniejsza przenośność stworzonej aplikacji. Technologie te powstały w~2006 roku. Znacznie bardziej znaną obecnie jest technologia CUDA. Te technologie również są w~fazie intensywnego rozwoju oraz oferują wsteczną kompatybilnosć.
+
+Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez producentów należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istieje lub jest znikoma (w~zależności od użytych instrukcji). Dlatego ten aspekt nie był brany pod uwagę podczas wyboru technologii.
+
+Biorąc pod uwagę powyższe cechy standardu OpenCL oraz technologii dedykowanych przez producentów sprzętu zdecydowano się na realizację algorytmu za pomocą OpenCL. Dzięki temu implementacja będzie mogła być wykorzystana w~różnych konfiguracjach sprzętowych.
 
 
