@@ -77,9 +77,19 @@ Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwaran
 \subsection{Złożność obliczeniowa}
 \label{subsec:zlozonosc_obliczeniowa}
 
-Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Do wyznaczenia obrazu będącego reprezntacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Do wykonania tej operacji konieczne będzie przeprowadzenia $ M $ działań mnożenia oraz $ M - 1 $ działań dodawania dla każdego z~$N$ pikseli obrazu. To daje $ N \cdot (2M - 1) $ operacji.
+Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacownie ich liczby. Przyjęto następujące oznaczenia:
+\begin{itemize}
+\item $ N $ - liczba pikseli obrazu,
+\item $ I $ - rozmiar reprezentacji skal (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
+\item $ M_i $ - rozmiar maski, za pomocą której zostanie wyzaczony obraz w $ i-tej $ skali,
+\item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika maski.
+\end{itemize}
 
-Przyjmując $ I $ jako liczbę skal, w~których będzie przedstawiony obraz konieczne będzie wykonanie $ I \cdot N \cdot (2M_I - 1) $ operacji tylko w celu obliczenia reprezentacji. $ M_I $ jest zależne od skali, ponieważ dla większych skal używana jest maska o~większym rozmiarze. Dla każdej skali konieczne będzie dodatkowe wykonanie dodatkowych obliczeń, do których należy wyznaczenie maski. 
+Do wyznaczenia obrazu będącego reprezntacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Do wykonania tej operacji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$N$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ N \cdot (2M_i - 1) $ operacji.
+
+Do wyznaczenia całej reprezentacji konieczne będzie wykonanie $ I \cdot N \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Przedtem będzie konieczne wyznacznie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
+
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + N \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << N $ to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot N \cdot M_I) $.
 
 \section{OpenCL}
 \label{sec:OpenCL}
