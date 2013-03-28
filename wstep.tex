@@ -6,19 +6,19 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 
 \section{Cel pracy}
 \label{sec:cel}
-Celem niniejszej pracy była realizacja algortmu Scale Space, który służy do reprezentacji syngłów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
+Celem niniejszej pracy była realizacja algorytmu Scale Space, który służy do reprezentacji syngłów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
 Wiele algorytmów operujących na obrazach jest złożona obliczeniowo i~ich realizacja zajmuje dużo czasu, zwłaszcza dla dużych porcji danych. Dlatego zdecydowano się na realizację tego algorytmu z użyciem akceleracji w~postaci zrównoleglenia obliczeń z~użyciem karty lub kart graficznych (GPU).
 
-Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechnony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
+Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechniony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
-Scale Space jest algorytmem służącym do przkształcenia sygnałów do reprezentacji skali. Reprezentacja skali jest to rodzina sygnałów reprezentująca oryginalny syngał w~różnych stopniach skali.
+Scale Space jest algorytmem służącym do przekształcenia sygnałów do reprezentacji skali. Reprezentacja skali jest to rodzina sygnałów reprezentująca oryginalny sygnał w~różnych stopniach skali.
 Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach szczegółowości.
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
 W~tej pracy przetwarzanymi sygnałami będą obrazy.
 
-Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbajdziej interesujące skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie brzegów, obiektów. Te opracje mogą być przeprowadzane tylko w~jednej skali lub dla większej ilości skal, w~szcególności we wszystkich skalach.
+Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesujące skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie brzegów, obiektów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej ilości skal, w~szczególności we wszystkich skalach.
 
 
 \subsection{Filtracja Gaussa}
@@ -36,7 +36,7 @@ $ \sigma $ - wariancja.
 \newline
 Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
 
-Ponieważ podczas obilczeń z~użyciem komputera nie jest możliwe używanie przestrzeni ciągłej, dlatego konieczene jest wprowadzenie reprezentacji dyskretnej. 
+Ponieważ podczas obliczeń z~użyciem komputera nie jest możliwe używanie przestrzeni ciągłej, dlatego konieczne jest wprowadzenie reprezentacji dyskretnej. 
 Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określone wzorem \ref{eq:gaussian_discrete}:
 \begin{equation}
 \label{eq:gaussian_discrete}
@@ -67,27 +67,27 @@ $ \sigma $ - wariancja (parametr skali).
 
 Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, dla różnych, rosnących wartości $ \sigma $. Obraz bez zastosowania skali to obraz oryginalny.
 
-W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorymtu Scale Space.
+W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorytmu Scale Space.
 
-Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że libcza ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomany Scale Space są spełnione \cite{SSFDS}.
+Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że liczba ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomaty Scale Space są spełnione \cite{SSFDS}.
 
 %\subsection{Rozpoznawnie}
 %\label{subsec:rozpoznawanie}
 
-\subsection{Złożność obliczeniowa}
+\subsection{Złożoność obliczeniowa}
 \label{subsec:zlozonosc_obliczeniowa}
 
-Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacownie ich liczby. Przyjęto następujące oznaczenia:
+Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacowanie ich liczby. Przyjęto następujące oznaczenia:
 \begin{itemize}
 \item $ N $ - liczba pikseli obrazu,
 \item $ I $ - rozmiar reprezentacji skal (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
-\item $ M_i $ - rozmiar maski, za pomocą której zostanie wyzaczony obraz w $ i-tej $ skali,
+\item $ M_i $ - rozmiar maski, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
 \item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika maski.
 \end{itemize}
 
-Do wyznaczenia obrazu będącego reprezntacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Do wykonania tej operacji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$N$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ N \cdot (2M_i - 1) $ operacji.
+Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Do wykonania tej operacji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$N$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ N \cdot (2M_i - 1) $ operacji.
 
-Do wyznaczenia całej reprezentacji konieczne będzie wykonanie $ I \cdot N \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Przedtem będzie konieczne wyznacznie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
+Do wyznaczenia całej reprezentacji konieczne będzie wykonanie $ I \cdot N \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Przedtem będzie konieczne wyznaczenie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
 
 Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + N \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << N $ to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot N \cdot M_I) $.
 
@@ -98,7 +98,7 @@ Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej 
 
 Do wykorzystania kart graficznych w~obliczeniach ogólnego przeznaczenia można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwa realizację jednego algorytmu (z~dokładnością do wspieranej wersji standaru) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego z~najpopularnieszych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Prodenci wspierający standard to Intel,
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwia realizację jednego algorytmu (z~dokładnością do wspieranej wersji standardu) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego z~najpopularniejszych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Producenci wspierający standard to Intel,
 QUALCOMM,
 ARM,
 AMD,
@@ -108,11 +108,11 @@ STMicroelectronics International NV,
 IBM Corporation,
 Imagination Technologies,
 Creative Labs.
-Dzięki temu zastosowanie standardu pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane. Prace nad standardem rozpoczęły się w~2008 roku. Jest to technologia wciąż rozwijająca się oraz zapewaniająca wsteczną kompatybilność. 
+Dzięki temu zastosowanie standardu pozwala stworzyć oprogramowanie, które może być wykorzystane w~praktycznie dowolnej konfiguracji urządzeń przetwarzających dane. Prace nad standardem rozpoczęły się w~2008 roku. Jest to technologia wciąż rozwijająca się oraz zapewniająca wsteczną kompatybilność. 
 
-Przykładem technologii stworzonych przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta są technologie CUDA firmy NVIDIA oraz ATI Stream. Technologie te są ograniczone tylko do produktów jednego producenta, co znacznie zmniejsza przenośność stworzonej aplikacji. Technologie te powstały w~2006 roku. Znacznie bardziej znaną obecnie jest technologia CUDA. Te technologie również są w~fazie intensywnego rozwoju oraz oferują wsteczną kompatybilnosć.
+Przykładem technologii stworzonych przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta są technologie CUDA firmy NVIDIA oraz ATI Stream. Technologie te są ograniczone tylko do produktów jednego producenta, co znacznie zmniejsza przenośność stworzonej aplikacji. Technologie te powstały w~2006 roku. Znacznie bardziej znaną obecnie jest technologia CUDA. Te technologie również są w~fazie intensywnego rozwoju oraz oferują wsteczną kompatybilność.
 
-Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez producentów należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istieje lub jest znikoma (w~zależności od użytych instrukcji). Dlatego ten aspekt nie był brany pod uwagę podczas wyboru technologii.
+Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez producentów należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istnieje lub jest znikoma (w~zależności od użytych instrukcji). Dlatego ten aspekt nie był brany pod uwagę podczas wyboru technologii.
 
 Biorąc pod uwagę powyższe cechy standardu OpenCL oraz technologii dedykowanych przez producentów sprzętu zdecydowano się na realizację algorytmu za pomocą OpenCL. Dzięki temu implementacja będzie mogła być wykorzystana w~różnych konfiguracjach sprzętowych.
 
