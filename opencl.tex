@@ -6,3 +6,8 @@ W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standa
 \section{Szczegóły implementacji z użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
 
+Realizacja algorytmów z~użyciem standardu OpenCL składa się z~dwóch cześci. Pierwszą jest kod algorytmu zapisany w~języku stworzonym w ramach standardu OpenCL, drugą jest kod wykonywany na procesorze ogólnego przeznaczania wykorzystujący API, które jest zdefiniowane w języku C.
+
+Algorytmy zapisywane są w~postaci funkcji, które są nazywane kernelami. Są one zapisywane w~języku stworzonym przez twórców standardu. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służacymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów oraz macierzy. 
+
+Kod kontrolera można podzielić na dwa etapy. W~pierwszym, jest to inicjalizacja, jest dokonywana kompilacja kerneli. W~drugim, podczas realizacji algorytmu jest to przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy każdym nowy algorytmie.
