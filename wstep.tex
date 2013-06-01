@@ -7,9 +7,9 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 \section{Cel pracy}
 \label{sec:cel}
 Celem niniejszej pracy była realizacja algorytmu Scale Space, który służy do reprezentacji syngłów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
-Wiele algorytmów operujących na obrazach jest złożona obliczeniowo i~ich realizacja zajmuje dużo czasu, zwłaszcza dla dużych porcji danych. Dlatego zdecydowano się na realizację tego algorytmu z użyciem akceleracji w~postaci zrównoleglenia obliczeń z~użyciem karty lub kart graficznych (GPU).
+Wiele algorytmów operujących na obrazach jest złożonych obliczeniowo i~ich realizacja zajmuje dużo czasu, zwłaszcza dla dużych porcji danych. Dlatego zdecydowano się na realizację tego algorytmu w~postaci równoległej z~użyciem kart graficznych.
 
-Implementacja algorytmu została zrealizowana w~OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jest dość rozpowszechniony oraz wspierany przez wszystkich największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
+Implementacja algorytmu została zrealizowana w~środowisku OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jego wspierany przez największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
@@ -18,19 +18,20 @@ Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
 W~tej pracy przetwarzanymi sygnałami będą obrazy.
 
-Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesujące skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie brzegów, obiektów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej ilości skal, w~szczególności we wszystkich skalach.
+Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesującej skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie plam, narożników, grani lub brzegów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej liczby skal, w~szczególności we wszystkich skalach.
 
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
 Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość.
 
-Kolejne filtry Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
+Współczynniki kolejnech filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
 g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot \sigma^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
 \end{equation}
 gdzie:\\
+
 $ x,y $ - położenie piksela na obrazie, \\
 $ \sigma $ - wariancja.
 \newline
@@ -43,11 +44,12 @@ Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określ
 g(x,y,N,\sigma) = \alpha \cdot e^{-((x+y)-N/2)^2/(2 \cdot \sigma)^2}
 \end{equation}
 gdzie: \newline 
+
 $ x, y$ - współrzędne obrazu, \newline
 $ \alpha $ - współczynnik skalujący w celu normalizacji ($ \sum_x \sum_y g(x,y,N,\sigma) = 1 $), \newline
 $ N $ - rozmiar filtru, \newline
 $ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot 0,5 - 1) + 0,8$. \newline
-W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki maski, z~użyciem której będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
+W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki filtra, z~użyciem którego będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -65,9 +67,9 @@ $ f $ - sygnał oryginalny, \\
 $ g $ - filtr Gaussa, \\
 $ \sigma $ - wariancja (parametr skali).
 
-Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, dla różnych, rosnących wartości $ \sigma $. Obraz bez zastosowania skali to obraz oryginalny.
+Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, dla różnych, rosnących wartości $ \sigma $.
 
-W~ten sposób można otrzymać wiele wynikowych obrazów, w~których każdy przedstawia początkową w scenę w różnej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorytmu Scale Space.
+W~ten sposób można otrzymać wiele wynikowych obrazów, z~których każdy przedstawia początkową w scenę w innej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorytmu Scale Space.
 
 Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że liczba ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomaty Scale Space są spełnione \cite{SSFDS}.
 
@@ -96,9 +98,9 @@ Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I 
 
 Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej.
 
-Do wykorzystania kart graficznych w~obliczeniach ogólnego przeznaczenia można zastosować otwarty standard OpenCL lub technologie stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
+Do wykorzystania kart graficznych w~obliczeniach ogólnego przeznaczenia można zastosować otwarty standard OpenCL lub środowiska stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwia realizację jednego algorytmu (z~dokładnością do wspieranej wersji standardu) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego z~najpopularniejszych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Producenci wspierający standard to Intel,
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwia realizację jednego algorytmu (z~dokładnością do wspieranej wersji standardu) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego popularnych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Producenci wspierający obecnie standard to Intel,
 QUALCOMM,
 ARM,
 AMD,
