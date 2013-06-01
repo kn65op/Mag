@@ -28,7 +28,7 @@ Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzan
 Kolejne filtry Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
-g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot ^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
+g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot \sigma^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
 \end{equation}
 gdzie:\\
 $ x,y $ - położenie piksela na obrazie, \\
@@ -115,5 +115,4 @@ Przykładem technologii stworzonych przez producentów procesorów graficznych d
 Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez producentów należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istnieje lub jest znikoma (w~zależności od użytych instrukcji). Dlatego ten aspekt nie był brany pod uwagę podczas wyboru technologii.
 
 Biorąc pod uwagę powyższe cechy standardu OpenCL oraz technologii dedykowanych przez producentów sprzętu zdecydowano się na realizację algorytmu za pomocą OpenCL. Dzięki temu implementacja będzie mogła być wykorzystana w~różnych konfiguracjach sprzętowych.
-
 
