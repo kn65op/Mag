@@ -1,7 +1,7 @@
 \chapter{OpenCL}
 \label{cha:opencl}
 
-W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą jej ułatwieniu. Zdecydowano się na jej stworzenie z~uwagi na to, że w cześci programu, która kontroluje wykonanie kodu na karcie graficznej (kerneli) wiele czynności się powtarza przy każdym kolejnym algorytmie. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL.
+W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą jej ułatwieniu. Zdecydowano się na jej stworzenie z~uwagi na to, że w cześci programu, która kontroluje wykonanie kodu na karcie graficznej (kerneli) wiele czynności się powtarza przy każdym kolejnym algorytmie. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwiego rozszerzania dostępnych funkji.
 
 \section{Szczegóły implementacji z użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
@@ -11,3 +11,15 @@ Realizacja algorytmów z~użyciem standardu OpenCL składa się z~dwóch cześci
 Algorytmy zapisywane są w~postaci funkcji, które są nazywane kernelami. Są one zapisywane w~języku stworzonym przez twórców standardu. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służacymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów oraz macierzy. 
 
 Kod kontrolera można podzielić na dwa etapy. W~pierwszym, jest to inicjalizacja, jest dokonywana kompilacja kerneli. W~drugim, podczas realizacji algorytmu jest to przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy każdym nowy algorytmie.
+
+\section{Zrealizowana biblioteka}  
+\label{sec:biblioteka}
+
+Biblioteka zastała zaimplementowana w języku C++. Wybrano ten język ponieważ jego integracja z~API OpenCL napisanym w języku C jest ?prosta?. 
+
+Bibliotekę można podzielić na dwie części: część odpowiedzialną za kompilację kerneli oraz wszelkie powiązane z~tym kwestie oraz część odpowiedzialną za wykonywanie kerneli.
+Ponieżej są przedstawione możliwości oraz szczegóły techniczne poszczególnych cześci.
+
+\subsection{Kompilacja kerneli oraz obsługa urządzeń}
+\label{subsec:kompilacjakerneli}
+
