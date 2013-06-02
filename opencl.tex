@@ -33,12 +33,14 @@ Zadaniem tej części jest ułatwienie użytkownikowi procesu kompilacji oraz wy
 \subsection{Tworzenie potoków kerneli}
 \label{subsec:potokikerneli}
 
+Potoki są często wykorzystywanym mechanizmem podczas przetwarzaniu obrazów. Pozwalają na łączenie kilku mniejszcyh operacji w~jeden większy algorytm. Wiele z~tych mniejszych operacji jest używana do większej liczby algorytmów, dlatego cennym jest, aby można było użyć raz napisanego kernela. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięcie urządzenia. W~bibliotece zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest to, że jeden kernel może być wykorzystywany zarówno w~obliczeniach z zastosowaniem potoku, jak również może być wykonywany osobno.
+
 
 
 \subsection{Reguły dotyczące kerneli}
 \label{subsec:regulykerneli}
 
-
+Każdy kernel, który ma być użyty z~zastosowaniem bblioteki musi spełniać klika zasad. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowie a drugim dane wyjściowe. Obecnie wspierane są argumenty: wektor, obraz 2D lub obraz 3D. Kolejnymi argumentami są dane pomocnicze, jeśli są konieczne do wykonania obliczeń.
 
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
@@ -47,3 +49,5 @@ Biblioteka przekazuje błędy występujące podczas wyoływania API OpenCL do u�
 
 \subsection{Zaimplementowane algorytmy}
 \label{subsec:algorytmy}
+
+W~ramach biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: filtr Bayera, obliczanie konwolucji obrazu z maską, algorytmy służące rozpoznawaniu przedstawione w rodziale \ref{cos:cos}.
