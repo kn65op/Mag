@@ -1,16 +1,18 @@
 \chapter{OpenCL}
 \label{cha:opencl}
 
-W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą jej ułatwieniu. Zdecydowano się na jej stworzenie z~uwagi na to, że w cześci programu, która kontroluje wykonanie kodu na karcie graficznej (kerneli) wiele czynności się powtarza przy każdym kolejnym algorytmie. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwiego rozszerzania dostępnych funkji.
+W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą ułatwieniu pracy. Zdecydowano się na realizację danej biblioteki z~uwagi na to, że w~cześci programu, która kontroluje wykonanie kodu na karcie graficznej (nazywanego kernelami) wiele czynności jest powtarzanych przy implementacji każdego algorytmu. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwiego rozszerzania dostępnych funkji.
 
-\section{Szczegóły implementacji z użyciem OpenCL}  
+\section{Implementacja algorytmów z~użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
 
-Realizacja algorytmów z~użyciem standardu OpenCL składa się z~dwóch cześci. Pierwszą jest kod algorytmu zapisany w~języku stworzonym w ramach standardu OpenCL, drugą jest kod wykonywany na procesorze ogólnego przeznaczania wykorzystujący API, które jest zdefiniowane w języku C.
+W celu implementacji algorytmów z~użyciem standardu OpenCL konieczne jest napisanie dwóch oddzielnych części. Pierwszą jest kod algorytmu zapisany w~języku stworzonym w ramach standardu OpenCL, drugą jest kod wykonywany na procesorze ogólnego przeznaczania wykorzystujący API, które jest zdefiniowane w języku C.
 
-Algorytmy zapisywane są w~postaci funkcji, które są nazywane kernelami. Są one zapisywane w~języku stworzonym przez twórców standardu. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służacymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów oraz macierzy. 
+Algorytmy implementowane są w~postaci funkcji, które są nazywane kernelami. Są one napisane w~języku stworzonym przez twórców standardu. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służacymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów, macierzy oraz obrazów. Kompilacja kodu napisanego w~tym języku odbywa się w~trakcie działania programu kontrolera, ponieważ sposób kompilacji jest zależny od posiadanego urządzenia, na którym będzie wykonywany kod. Jest to spowodowane tym, że kod języka OpenCL jest kompilowany zależnie od platformy, na której jest uruchamiany. Może to powodować problemy z~przenoszalnością pomiędzy różnymi urządzeniami w~przypadku, gdy używane są rozszerzenia OpenCL. W~celu uniknięcia problemów należy stosować konstrukcje języka, które są częścią podstawowej wersji standardu. Ta część jest wystarczająca do większości algorytmów.
 
-Kod kontrolera można podzielić na dwa etapy. W~pierwszym, jest to inicjalizacja, jest dokonywana kompilacja kerneli. W~drugim, podczas realizacji algorytmu jest to przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy każdym nowy algorytmie.
+Zadania kodu kontrolera można podzielić na dwa fragmenty. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowaego oraz kompilacja kerneli. Proces wyboru urządzenia może być bardziej skomplikony w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~zależności od parametrów urządzeniem może być porządane użycie jednej, lepszej karty lub obu. OpenCL pozwala na wykorzystanie obu rozwiązań. Dzięki temu, że kod kerneli może być wykonywany asynchronicznie można przeprowadzać obliczenia jednocześnie na wielu urządzeniach. Po wyborze platformy docelowej należy skompilować kernel. Dopisać o kompilacji!!!!!!!!!!!!!
+
+Drugim fragmentem kodu kontrolera jest przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy każdym nowy algorytmie.
 
 \section{Zrealizowana biblioteka}  
 \label{sec:biblioteka}
@@ -22,7 +24,7 @@ Ponieżej są przedstawione możliwości oraz szczegóły techniczne poszczegól
 
 \subsection{Kompilacja kerneli oraz obsługa urządzeń}
 \label{subsec:kompilacjakerneli}
-W~skład tej części wchodzi jedna klasa. Jest to klasa \lstinline{OpenCLDevice}. Jest ona odpowiedzialna za pobieranie lisy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniu, tworzenie i~udostępnianie kontekstu oraz kolejki komend (fragmentu standardu OpenCL) oraz za kompilację kernela na dane urządzenie. 
+W~skład tej części wchodzi jedna klasa przedstawiona na rysunku \ref{fig:opencldevice}. Jest ona odpowiedzialna za pobieranie lisy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniu, tworzenie i~udostępnianie kontekstu oraz kolejki komend (fragmentu standardu OpenCL) oraz za kompilację kernela na dane urządzenie. Kod kernela[synonim] może być podany jednej z~dwóch postaci: jako string lub zapisany w~osobnym pliku. Podczas tworzenia algorytmu bardziej przydatne jest używanie pliku, ponieważ łatwiej go edytować. Gdy praca nad kernelem jest zakończona wtedy można umieścić jego kod w~źródłach programu, aby uniknąć problemów z~przenoszeniem aplikacji.
 
 \subsection{Wykonywanie kerneli}
 \label{subsec:wykonywaniekerneli}
