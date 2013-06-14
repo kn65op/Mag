@@ -46,12 +46,12 @@ W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku u�
 \subsection{Reguły dotyczące kerneli}
 \label{subsec:regulykerneli}
 
-Każdy kernel, który ma być użyty z~zastosowaniem bblioteki musi spełniać klika zasad. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowie a drugim dane wyjściowe. Obecnie wspierane są argumenty: wektor, obraz 2D lub obraz 3D (tylko jako argument wejściowy). Kolejnymi argumentami są inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
+Każdy kernel, który ma być użyty z~zastosowaniem bblioteki musi spełniać klika zasad. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowie a drugim dane wyjściowe. Obecnie wspierane są argumenty: wektor, obraz 2D lub obraz 3D (tylko jako argument wejściowy). Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
 
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
 
-Biblioteka przekazuje błędy występujące podczas wyoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}.
+Biblioteka przekazuje błędy występujące podczas wyoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~punktu widzenia biblioteki dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci opisowej, dlatego wraz z~dokumentacją OpenCL pozwala na szybkie rozpoznanie błędu.
 
 \subsection{Zaimplementowane algorytmy}
 \label{subsec:algorytmy}
