@@ -10,16 +10,9 @@ W celu implementacji algorytmów z~użyciem standardu OpenCL konieczne jest napi
 
 Algorytmy implementowane są w~postaci funkcji, które są nazywane kernelami. Są one napisane w~języku stworzonym przez twórców standardu. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służacymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów, macierzy oraz obrazów. Kompilacja kodu napisanego w~tym języku odbywa się w~trakcie działania programu kontrolera, ponieważ sposób kompilacji jest zależny od posiadanego urządzenia, na którym będzie wykonywany kod. Jest to spowodowane tym, że kod języka OpenCL jest kompilowany zależnie od platformy, na której jest uruchamiany. Może to powodować problemy z~przenoszalnością pomiędzy różnymi urządzeniami w~przypadku, gdy używane są rozszerzenia OpenCL. W~celu uniknięcia problemów należy stosować konstrukcje języka, które są częścią podstawowej wersji standardu. Ta część jest wystarczająca do większości algorytmów.
 
-Zadania kodu kontrolera można podzielić na dwa fragmenty. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowaego oraz kompilacja kerneli. Proces wyboru urządzenia może być bardziej skomplikony w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~zależności od parametrów urządzeniem może być porządane użycie jednej, lepszej karty lub obu. OpenCL pozwala na wykorzystanie obu rozwiązań. Dzięki temu, że kod kerneli może być wykonywany asynchronicznie można przeprowadzać obliczenia jednocześnie na wielu urządzeniach. Po wyborze platformy docelowej należy skompilować kernel. Dopisać o kompilacji!!!!!!!!!!!!!.
+Zadania kodu kontrolera można podzielić na dwa fragmenty. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowaego, kompilacja kerneli oraz przygotowanie do wykonania. Proces wyboru urządzenia może być bardziej skomplikony w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~zależności od parametrów urządzeniem może być porządane użycie jednej, lepszej karty lub obu. OpenCL pozwala na wykorzystanie obu rozwiązań. Dzięki temu, że kod kerneli może być wykonywany asynchronicznie można przeprowadzać obliczenia jednocześnie na wielu urządzeniach. Po wyborze platformy docelowej należy skompilować kernel, który należy następnie przygotować do wykonania. W~tym celu należy utworzyć obiekty, które będą parametrami kernela. Mogą to być wektory danych lub obrazy. Po stworzeniu tych obiektów, należy przypisać je do argumentów kernala, zgodnie z~deklaracją w~kodzie.
 
-stworznie buforów.
-kopiowanie danych
-wykonanie
-kopiowanie danych
-
-Drugim fragmentem kodu kontrolera jest przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy wykonaniu każdego algorytmu. 
-
-DOPISA!
+Drugim fragmentem kodu kontrolera jest przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizwane przy wykonaniu każdego algorytmu. Dane, z~których korzysta kernel są kopiowane pomiędzy pamięcią urządzenia a~pamięcią RAM komputera, na którym jest wykonywany kontroler. Każdą z~tych operacji można wykonać synchroniczne lub asynchronicznie. Przy wykonaniu asynchronicznym jest możliwość, aby zarejestrować funckję zwrotną lub poczekać na zakończenie wykonania.
 
 \section{Zrealizowana biblioteka}  
 \label{sec:biblioteka}
@@ -56,7 +49,7 @@ Każdy kernel, który ma być użyty z~zastosowaniem bblioteki musi spełniać k
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
 
-Biblioteka przekazuje błędy występujące podczas wyoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~punktu widzenia biblioteki dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci opisowej, dlatego wraz z~dokumentacją OpenCL pozwala na szybkie rozpoznanie błędu.
+Biblioteka przekazuje błędy występujące podczas wyoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~punktu widzenia biblioteki dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci zgodnej z dokumetacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
 
 \subsection{Zaimplementowane algorytmy}
 \label{subsec:algorytmy}
