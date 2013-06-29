@@ -6,7 +6,7 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 
 \section{Cel pracy}
 \label{sec:cel}
-Celem niniejszej pracy była realizacja algorytmu Scale Space, który służy do reprezentacji syngłów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
+Celem niniejszej pracy była realizacja algorytmu Scale Space, który służy do reprezentacji sygnałów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
 Wiele algorytmów operujących na obrazach jest złożonych obliczeniowo i~ich realizacja zajmuje dużo czasu, zwłaszcza dla dużych porcji danych. Dlatego zdecydowano się na realizację tego algorytmu w~postaci równoległej z~użyciem kart graficznych.
 
 Implementacja algorytmu została zrealizowana w~środowisku OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ jego wspierany przez największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
@@ -32,11 +32,11 @@ Pierwszą istotną kwestią jest to, by podczas uzyskiwania wartości sygnałów
 
 \item Nie zwiększanie wartości lokalnych ekstremów
 
-Kolejnym ważnym elementem przy wyznaczniu reprezentacji skali jest nie zwiększanie wartości lokalnych ekstremów. Przez nie zwiększanie wartości jest rozumiane to, że maksimum lokalne w~większej skali będzie miało warość mniejszą lub równą wartości w~skali mniejszej, natomiast minimum lokalne wraz ze wzrostem skali powinno mieć wartość większą lub równą.
+Kolejnym ważnym elementem przy wyznaczaniu reprezentacji skali jest nie zwiększanie wartości lokalnych ekstremów. Przez nie zwiększanie wartości jest rozumiane to, że maksimum lokalne w~większej skali będzie miało wartość mniejszą lub równą wartości w~skali mniejszej, natomiast minimum lokalne wraz ze wzrostem skali powinno mieć wartość większą lub równą.
 
 \end{enumerate}
 
-Sygnał w reprezentacji skali może być w przestrzeni ciągłej lub dyskretnej. Dodatkowo parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzene będą sygnały dyskretne (obrazy) przy użyciu dyskretnym parametrze skali.
+Sygnał w reprezentacji skali może być w przestrzeni ciągłej lub dyskretnej. Dodatkowo parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) przy użyciu dyskretnym parametrze skali.
 
 Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przyjąć pewne założenia~\cite{SSFDS}:
 \begin{itemize}
@@ -45,13 +45,13 @@ Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przy
 \item Wszystkie sygnały są funkcjami: $ Z -> R $ zdefiniowane na tym samym skończonym zbiorze.
 \end{itemize}
 
-Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą ilości lokalnych ekstremów. Dlatego istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem paramteru skali.
+Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą ilości lokalnych ekstremów. Dlatego istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem parametru skali.
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
 Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest ich zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
 
-Współczynniki kolejnech filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
+Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
 g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot \sigma^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
@@ -99,7 +99,7 @@ W~ten sposób można otrzymać wiele wynikowych obrazów, z~których każdy prze
 
 Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że liczba ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomaty Scale Space są spełnione \cite{SSFDS}.
 
-%\subsection{Rozpoznawnie}
+%\subsection{Rozpoznawanie}
 %\label{subsec:rozpoznawanie}
 
 \subsection{Złożoność obliczeniowa}
@@ -126,7 +126,8 @@ Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej 
 
 Do wykorzystania kart graficznych w~obliczeniach ogólnego przeznaczenia można zastosować otwarty standard OpenCL lub środowiska stworzone przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta.
 
-OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwia realizację jednego algorytmu (z~dokładnością do wspieranej wersji standardu) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających pod kontrolą jednego popularnych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Producenci wspierający obecnie standard to Intel,
+OpenCL jest to otwarty, wieloplatformowy standard pozwalający na realizację algorytmów w~sposób równoległy. Umożliwia realizację jednego algorytmu (z~dokładnością do wspieranej wersji standardu) na wielu różnego typu ~urządzeniach. Wśród nich znajdują się procesory oraz karty graficzne dla komputerów osobistych działających
+ pod kontrolą jednego popularnych systemów operacyjnych (Windows, Linux, OS X), telefony komórkowe, procesory ARM (również wielordzeniowe). Producenci wspierający obecnie standard to Intel,
 QUALCOMM,
 ARM,
 AMD,
@@ -140,7 +141,7 @@ Dzięki temu zastosowanie standardu pozwala stworzyć oprogramowanie, które mo�
 
 Przykładem środowisk stworzonych przez producentów procesorów graficznych dedykowanych dla urządzeń danego producenta są: CUDA firmy NVIDIA oraz ATI Stream. Środowiska te są ograniczone tylko do produktów jednego producenta, co znacznie zmniejsza przenośność stworzonej aplikacji. Powstały w~2006 roku. Znacznie bardziej znaną obecnie jest środowisko CUDA. Przedstawione alternatywy do OpenCL również są w~fazie intensywnego rozwoju oraz oferują wsteczną kompatybilność, to znaczy napisany kod będzie działał tak samo na nowszych wersjach danego środowiska, jak na poprzednich. Nie sprawdzono jak bardzo dane środowiska są zgodne z~tym założeniem.
 
-Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez różnych producentów kart graficznych należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istnieje lub jest znikoma (w~zależności od użytych instrukcji)\cite{FromCudaToOpenCL}. Dlatego ten aspekt nie był brany pod uwagę podczas wyboru środowiska do programowania kart graficzncyh.
+Porównując wydajność OpenCL z rozwiązaniami opracowanymi przez różnych producentów kart graficznych należy zauważyć, że implementacje standardu są w~większości opracowywane przez producentów sprzętu wraz ze~sterownikami. W~związku z tym różnica w~efektywności działania nie istnieje lub jest znikoma (w~zależności od użytych instrukcji)\cite{FromCudaToOpenCL}. Dlatego ten aspekt nie był brany pod uwagę podczas wyboru środowiska do programowania kart graficznych.
 
 Biorąc pod uwagę powyższe cechy standardu OpenCL oraz środowisk dedykowanych przez producentów sprzętu zdecydowano się na realizację algorytmu za pomocą OpenCL. Dzięki temu implementacja będzie mogła być wykorzystana w~różnych konfiguracjach sprzętowych.
 

@@ -1,17 +1,16 @@
 \chapter{Obsługa kamery}
 \label{cha:obslugakamery}
 
-W niniejszym rodziale przedstawiono szczegóły techniczne wykorzystanej kamery oraz implementację obsługi kamery.
+W niniejszym rozdziale przedstawiono szczegóły techniczne wykorzystanej kamery oraz implementację obsługi kamery.
 
 \section{Specyfikacja techniczna kamery}
 \label{sec:specyfikacjaKamery}
 
-Do testów została wykorystano przemysłową kamerę wysokiej rozdzielczości: JAI BB-500GE. Maksymalna rozdzielczość to 2456 na 2058 pikseli, przy której można pobrać 15 klatek na sekundę. Możliwe jest pobranie pikseli wielkości 8, 10, 12 lub 16 bitów. Dane są pobierane za pomocą standardu Gigabit Ethernet. 
+Do testów została wykorzystano przemysłową kamerę wysokiej rozdzielczości: JAI BB-500GE. Maksymalna rozdzielczość to 2456 na 2058 pikseli, przy której można pobrać 15 klatek na sekundę. Możliwe jest pobranie pikseli wielkości 8, 10, 12 lub 16 bitów. Dane są pobierane za pomocą standardu Gigabit Ethernet. 
 
 \section{Implementacja obsługi kamery}
 \label{sec:implementacjaKamery}
 
-Implmenentacja obsługi kamery została zrealizowana z użyciem JAI SDK \cite{JAISDK}. Stworzono klasę odpowiedzialną za obsługę kamery, ponieważ sposób pobierania obrazu nie był odpowiadający. Korzystając z JAI SDK obraz pobierany jest asynchronicznie, to znaczy po wysłaniu obrazu z~kamery wywoływana jest określona wcześniej funkcja. Jest to niezgodne z~oczekiwanym zachowaniem, ponieważ potrzeba jest, aby można było pobrać obraz w~określonej chwili.
+Implementacja obsługi kamery została zrealizowana z użyciem JAI SDK \cite{JAISDK}. Stworzono klasę odpowiedzialną za obsługę kamery, ponieważ sposób pobierania obrazu nie był odpowiadający. Korzystając z JAI SDK obraz pobierany jest asynchronicznie, to znaczy po wysłaniu obrazu z~kamery wywoływana jest określona wcześniej funkcja. Jest to niezgodne z~oczekiwanym zachowaniem, ponieważ potrzeba jest, aby można było pobrać obraz w~określonej chwili.
 
 W~klasie realizującej obsługę kamery stworzono kolejkę obrazów. Trafiają do niej ramki z~kamery w~momencie ich wysłania. W~dowolnym momencie można pobrać obraz. Jeżeli kolejka jest pusta (pobrano wszystkie obrazy oraz w~międzyczasie nie został dodany nowy) to wyrzucany jest wyjątek. Jeśli natomiast kolejka zostanie zapełniona (obrazy są dodawane szybciej niż są przetwarzanie) to nie zostanie dodana nowa ramka i~nie będzie można już jej odzyskać.
-
