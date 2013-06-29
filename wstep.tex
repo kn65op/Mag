@@ -13,17 +13,43 @@ Implementacja algorytmu została zrealizowana w~środowisku OpenCL \cite{OpenCL}
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
-Scale Space jest algorytmem służącym do przekształcenia sygnałów do reprezentacji skali. Reprezentacja skali jest to rodzina sygnałów reprezentująca oryginalny sygnał w~różnych stopniach skali.
+Scale Space jest algorytmem służącym do przekształcenia sygnałów do reprezentacji skali \cite{SSFramework}. Reprezentacja skali jest to rodzina sygnałów reprezentująca oryginalny sygnał w~różnych stopniach skali.
 Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach szczegółowości.
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
 W~tej pracy przetwarzanymi sygnałami będą obrazy.
 
 Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesującej skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie plam, narożników, grani lub brzegów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej liczby skal, w~szczególności we wszystkich skalach.
 
+\subsection{Aksjomaty Scale Space}
+\label{subsec:aksjomaty}
+
+Operator wykorzystywany do wyznaczenia reprezentacji skali musi spełniać przedstawione poniżej warunki nazwane aksjomatami Scale Space. 
+
+\begin{enumerate}
+\item Nie tworzenie nowych lokalny ekstremów.
+
+Pierwszą istotną kwestią jest to, by podczas uzyskiwania wartości sygnałów dla większych skali nie były tworzone nowe lokalne ekstrema. Celem uzyskiwania sygnału w~większej skali jest ograniczenie liczby szczegółów widocznych w~sygnale w~skali mniejszej. Dlatego liczba lokalnych ekstremów powinna być mniejsza lub równa przy zwiększaniu skali.
+
+\item Nie zwiększanie wartości lokalnych ekstremów
+
+Kolejnym ważnym elementem przy wyznaczniu reprezentacji skali jest nie zwiększanie wartości lokalnych ekstremów. Przez nie zwiększanie wartości jest rozumiane to, że maksimum lokalne w~większej skali będzie miało warość mniejszą lub równą wartości w~skali mniejszej, natomiast minimum lokalne wraz ze wzrostem skali powinno mieć wartość większą lub równą.
+
+\end{enumerate}
+
+Sygnał w reprezentacji skali może być w przestrzeni ciągłej lub dyskretnej. Dodatkowo parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzene będą sygnały dyskretne (obrazy) przy użyciu dyskretnym parametrze skali.
+
+Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przyjąć pewne założenia~\cite{SSFDS}:
+\begin{itemize}
+\item Cała reprezentacja skali jest stworzona z~obrazu źródłowego za pomocą jednej rodziny filtrów.
+\item Wraz ze zwiększaniem parametru skali $ t $ otrzymywane sygnały odpowiadają większym skalom. Przy $ t = 0 $ otrzymanym obrazem jest obraz źródłowy.
+\item Wszystkie sygnały są funkcjami: $ Z -> R $ zdefiniowane na tym samym skończonym zbiorze.
+\end{itemize}
+
+Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą ilości lokalnych ekstremów. Dlatego istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem paramteru skali.
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
-Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość.
+Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest ich zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
 
 Współczynniki kolejnech filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
 \begin{equation}
