@@ -134,6 +134,23 @@ Wykorzystując wyznaczoną reprezentację skali można zastosować określone op
 \subsubsection{Rozpoznawanie plam}
 \label{subsubsec:rozpoznawaniePlam}
 
+Do rozpoznawania plam wykorzystano operator Laplace'a, który w~postaci dyskretnej został przedstawiony na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocę tego operatora. Następnie wśród otrzymanej struktury trójwymiarowej szukane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \ref{eq:blobRadius}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=3cm]{laplacian.pdf}
+\end{center}
+\caption{Operator Laplace'a}
+\label{fig:laplacian_kernel}
+\end{figure}
+
+\begin{equation}
+\label{eq:blobRadius}
+r = \sigma \cdot \sqrt{2}
+\end{equation}
+gdzie:
+
+$ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaussa dla danej skali.
 
 
 \subsubsection{Rozpoznawanie narożników}
