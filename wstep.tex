@@ -131,6 +131,14 @@ Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I 
 
 Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematycze w~celu wyznaczenia pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
 
+W~opisie wszystkich procesach rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
+
+\begin{itemize}
+\item $ L_a $ - pierwsza pochodna obrazu w~danej skali po współrzędnej $ a $.
+\item $ L_{ab} $ - druga pochodna obrazu w~danej skali po współrzędnych $ a $~i~$b$.
+\item $ L_{abc} $ - trzecia pochodna obrazu w~danej skali po współrzędnych $ a $,~$b$~i~$c$.
+\end{itemize}
+
 \subsubsection{Rozpoznawanie plam}
 \label{subsubsec:rozpoznawaniePlam}
 
@@ -155,10 +163,33 @@ $ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaus
 \subsubsection{Rozpoznawanie krawędzi}
 \label{subsubsec:rozpoznawanieKrawedzi}
 
+Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \ref{eq:edgeDetection}.
+
+\begin{equation}
+\label{eq:edgeDetection}
+\left\{ \begin{array}{rl}
+L_x^2 L_{xx} + 2L_xL_yL_{xy} + L_y^2L_{yy} = 0 \\
+L_x^3L_{xxx} + 3L_x^2L_yL_{xxy} + 3L_xL_y^2L_{xyy} + L_y^3L_{yyy} < 0
+\end{array} \right.
+\end{equation}
+
+W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \ref{eq:edgeDetection}. Następnie każdy punkt obrazów reprezentacji skali jest sprawdzany czy warunki \ref{eq:edgeDetection} są spełnione. Jeśli tak to dany punkt jest uznawany za fragment krawędzi.
+
+W~przypadku sygnałów dyskretnych problemem staje się miejsce występowania miejsc, w którym pierwszy warunek z \ref{eq:edgeDetection} jest spełniony. Nie jest to w punktach gdzie znajdują się piksele, lecz pomiędzy nimi. Z~tego powodu zmiast porównywania do zera w~warunku pierwszy sprawdzane jest czy zmienia się znak pomiędzy dwoma pikselami. Dla analizowanego piksela sprawdzany są jedynie trzy sąsiednie piksle oznaczone na rys. \ref{fig:comparePixels}. 
+
+
+\subsubsection{Rozpoznawanie grani}
+\label{subsubsec:rozpoznawanieGrani}
+
+Warunk istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \ref{eq:ridgeDetection}.
 
 
 
-\section{OpenCL}
+\subsubsection{Rozpoznawanie narożników}
+\label{subsubsec:rozpoznawanieNaroznikow}
+
+
+\section{Standard OpenCL}
 \label{sec:OpenCL}
 
 Ponieważ realizacja algorytmu Scale Space wymaga przeprowadzenia bardzo dużej liczby obliczeń, zdecydowano, że algorytm będzie zrealizowany z użyciem karty graficznej.
