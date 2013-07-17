@@ -198,6 +198,17 @@ W~tym przypadku również konieczne jest sprawdzanie zmiany znaku pomiędzy piks
 \subsubsection{Rozpoznawanie narożników}
 \label{subsubsec:rozpoznawanieNaroznikow}
 
+Do wyznacznie narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \ref{eq:cornerDetection}.
+
+\begin{equation}
+\label{eq:cornerDetection}
+\left\{ \begin{array}{rl}
+k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}|
+\end{array} \right.
+\end{equation}
+
+Współczynnik krzywizny jest obliczany dla każdego piksela w każdej skali. Następnie wśród trójwymiarowej struktury są wyszukiwane lokalne maksima. W punktach występowania lokalnych maksimów znajdują się wykryte narożniki.
+
 
 \section{Standard OpenCL}
 \label{sec:OpenCL}
