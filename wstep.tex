@@ -177,6 +177,8 @@ W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy
 
 W~przypadku sygnałów dyskretnych problemem staje się miejsce występowania miejsc, w którym pierwszy warunek z \ref{eq:edgeDetection} jest spełniony. Nie jest to w punktach gdzie znajdują się piksele, lecz pomiędzy nimi. Z~tego powodu zmiast porównywania do zera w~warunku pierwszy sprawdzane jest czy zmienia się znak pomiędzy dwoma pikselami. Dla analizowanego piksela sprawdzany są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. 
 
+Drugim problemem są błedy obliczeń spowodowane dyskretyzacją sygnałów i~ograniczoną możliwością reprezentacji liczb w~komputerach. Z~tego powodu piksele, które powinny mieć wartość równą zeru przyjmują wartości bliskie zeru. Dodatkowo mogą być różnych znaków, co może powodować błędy podczas wykrywania punktów, w~których druga pochodna przyjmuje wartość zerową. Z~tego powodu zdecydowano, że otrzymane liczby bliskie zeru (wartość bezwzględna poniżej $ 10^-5 $) będą miały przypiywaną wartość zero.
+
 
 \subsubsection{Rozpoznawanie grani}
 \label{subsubsec:rozpoznawanieGrani}
@@ -202,9 +204,7 @@ Do wyznacznie narożników wykorzystywany jest współczynnik krzywizny, który 
 
 \begin{equation}
 \label{eq:cornerDetection}
-\left\{ \begin{array}{rl}
 k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}|
-\end{array} \right.
 \end{equation}
 
 Współczynnik krzywizny jest obliczany dla każdego piksela w każdej skali. Następnie wśród trójwymiarowej struktury są wyszukiwane lokalne maksima. W punktach występowania lokalnych maksimów znajdują się wykryte narożniki.
