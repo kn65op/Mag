@@ -3,17 +3,26 @@
 
 W niniejszym rozdziale przedstawiono proces testowania oraz ich wyniki. Obszarem zainteresowań jest poprawność zaimplementowanego algorytmu oraz porównanie szybkości działania z~innymi implementacjami.
 
-Do porównań opracowano trzy dodatkowe implementacje algorytmu: jedną zrealizowaną w Matlabie, drugą w OpenCV z~uyciem procesora (CPU) i~trzecią w OpenCV z~użyciem karty graficznej (GPU).
+Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z użyciem biblioteki OpenCV: jedna przeprowadza obliczenia na procesorze (CPU), druga przeprowadza obliczenia na karcie graficznej (GPU).
 
 \section{Testowanie poprawności}
 \label{sec:testPoprawnosc}
+
+Celem tej części testowania było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Proces testowania był następujący:
+\begin{enumarate}
+\item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej rozpoznawanej cechy.
+\item Zestawienie obrazów wynikowych z~podziałem na cechy oraz skalę. Dla każdej cechy i~skali otrzymano trzy obrazy, po jednym dla każdej implementacji.
+\item Porównanie wyników. Idealnym wynikiem byłoby otrzymanie trzech identycznych obrazów wynikowych. W praktyce jest to mało prawdopodobne, z~uwagi na różnice podczas zaokrąglenia obliczeń w~implementacjach.
+\end{enumerate}
+
+
 
 % porównanie poprawności, obrazy różnicowe itp.
 
 \section{Testowanie szybkości działania}
 \label{sec:testSzybkosc1}
 
-Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space.
+Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space. 
 
 %opis maszyn, na których były wykonane testy
 
