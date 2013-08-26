@@ -9,7 +9,7 @@ Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z u
 \label{sec:testPoprawnosc}
 
 Celem tej części testowania było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Proces testowania był następujący:
-\begin{enumarate}
+\begin{enumerate}
 \item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej rozpoznawanej cechy.
 \item Zestawienie obrazów wynikowych z~podziałem na cechy oraz skalę. Dla każdej cechy i~skali otrzymano trzy obrazy, po jednym dla każdej implementacji.
 \item Porównanie wyników. Idealnym wynikiem byłoby otrzymanie trzech identycznych obrazów wynikowych. W praktyce jest to mało prawdopodobne, z~uwagi na różnice podczas zaokrąglenia obliczeń w~implementacjach.
@@ -22,7 +22,13 @@ Celem tej części testowania było sprawdzenie czy zrealizowane implementacje d
 \section{Testowanie szybkości działania}
 \label{sec:testSzybkosc1}
 
-Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space. 
+Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space. Liczony był czas działania algorytmu. Im krótszy czas tym lepsza implementacja algorytmu Scale Space.
+
+Mierzeniu podlagał czas trwania następujących czynności:
+\begin{itemize}
+\item Czas wyzaczania reprezentacji Scale Space.
+\item Czas wkrywania cech na obrazach (wraz z~wcześniejszym wyznaczeniem reprezentacji Scale Space) - osobno dla każdej cechy.
+\end{itemize}
 
 %opis maszyn, na których były wykonane testy
 
