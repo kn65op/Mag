@@ -23,29 +23,29 @@ Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma mo�
 \subsection{Aksjomaty Scale Space}
 \label{subsec:aksjomaty}
 
-Operator wykorzystywany do wyznaczenia reprezentacji skali musi spełniać przedstawione poniżej warunki nazwane aksjomatami Scale Space. 
+Operator wykorzystywany do wyznaczenia reprezentacji skali musi spełniać przedstawione poniżej warunki nazwane aksjomatami Scale Space\cite{ScaleSpaceAxioms}. 
 
 \begin{enumerate}
-\item Nie tworzenie nowych lokalny ekstremów.
+\item Nietworzenie nowych lokalny ekstremów.
 
-Pierwszą istotną kwestią jest to, by podczas uzyskiwania wartości sygnałów dla większych skali nie były tworzone nowe lokalne ekstrema. Celem uzyskiwania sygnału w~większej skali jest ograniczenie liczby szczegółów widocznych w~sygnale w~skali mniejszej. Dlatego liczba lokalnych ekstremów powinna być mniejsza lub równa przy zwiększaniu skali.
+Pierwszą istotnym wymaganiem jest to, by podczas uzyskiwania wartości sygnałów dla większych skali nie były tworzone nowe lokalne ekstrema. Celem uzyskiwania sygnału w~większej skali jest ograniczenie liczby szczegółów widocznych w~sygnale w~skali mniejszej. Dlatego liczba lokalnych ekstremów powinna być mniejsza lub równa przy zwiększaniu skali.
 
-\item Nie zwiększanie wartości lokalnych ekstremów
+\item Niezwiększanie wartości lokalnych ekstremów
 
-Kolejnym ważnym elementem przy wyznaczaniu reprezentacji skali jest nie zwiększanie wartości lokalnych ekstremów. Przez nie zwiększanie wartości jest rozumiane to, że maksimum lokalne w~większej skali będzie miało wartość mniejszą lub równą wartości w~skali mniejszej, natomiast minimum lokalne wraz ze wzrostem skali powinno mieć wartość większą lub równą.
+Kolejnym ważnym warunkiem przy wyznaczaniu reprezentacji skali jest niezwiększanie wartości lokalnych ekstremów. Przez niezwiększanie wartości jest rozumiane to, że maksimum lokalne w~większej skali będzie miało wartość mniejszą lub równą wartości w~skali mniejszej, natomiast minimum lokalne wraz ze wzrostem skali powinno mieć wartość większą lub równą.
 
 \end{enumerate}
 
-Sygnał w reprezentacji skali może być w przestrzeni ciągłej lub dyskretnej. Dodatkowo parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) przy użyciu dyskretnym parametrze skali.
+Sygnał w reprezentacji skali może być przedstawiany w przestrzeni ciągłej lub dyskretnej. Dodatkowo, parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) oraz stosowany będzie dyskrety parametr skali.
 
 Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przyjąć pewne założenia~\cite{SSFDS}:
 \begin{itemize}
 \item Cała reprezentacja skali jest stworzona z~obrazu źródłowego za pomocą jednej rodziny filtrów.
 \item Wraz ze zwiększaniem parametru skali $ t $ otrzymywane sygnały odpowiadają większym skalom. Przy $ t = 0 $ otrzymanym obrazem jest obraz źródłowy.
-\item Wszystkie sygnały są funkcjami: $ Z -> R $ zdefiniowane na tym samym skończonym zbiorze.
+\item Wszystkie sygnały są funkcjami: $ Z \rightarrow R $ zdefiniowane na tym samym skończonym zbiorze.
 \end{itemize}
 
-Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą ilości lokalnych ekstremów. Dlatego istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem parametru skali.
+Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą liczby lokalnych ekstremów. Z tego powodu istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem parametru skali.
 
 \subsection{Filtracja Gaussa}
 \label{subsec:filtracjaGaussa}
@@ -124,14 +124,14 @@ Do wyznaczenia całej reprezentacji konieczne będzie wykonanie
 %$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
 $ I \cdot P \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
 
-Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << P $ to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jedokrotnego obliczenia współczynników maski i~zachowania ich w~pamięci dla wielu obrazów, to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
 
 \subsection{Rozpoznawanie cech}
 \label{subsec:rozpoznawanie}
 
-Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematycze w~celu wyznaczenia pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
+Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematycze w~celu detekcji pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
 
-W~opisie wszystkich procesach rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
+W~opisie wszystkich procesów rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
 
 \begin{itemize}
 \item $ L_a $ - pierwsza pochodna obrazu w~danej skali po współrzędnej $ a $.
@@ -142,7 +142,7 @@ W~opisie wszystkich procesach rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$
 \subsubsection{Rozpoznawanie plam}
 \label{subsubsec:rozpoznawaniePlam}
 
-Do rozpoznawania plam wykorzystano operator Laplace'a, który w~postaci dyskretnej został przedstawiony na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocę tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie wśród otrzymanej struktury trójwymiarowej szukane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \ref{eq:blobRadius}.
+Do rozpoznawania plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnej zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \ref{eq:blobRadius}.
 
 \begin{figure}
 \begin{center}
@@ -163,7 +163,7 @@ $ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaus
 \subsubsection{Rozpoznawanie krawędzi}
 \label{subsubsec:rozpoznawanieKrawedzi}
 
-Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \ref{eq:edgeDetection}.
+Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniu \ref{eq:edgeDetection}.
 
 \begin{equation}
 \label{eq:edgeDetection}
@@ -173,11 +173,11 @@ L_x^3L_{xxx} + 3L_x^2L_yL_{xxy} + 3L_xL_y^2L_{xyy} + L_y^3L_{yyy} < 0
 \end{array} \right.
 \end{equation}
 
-W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \ref{eq:edgeDetection}. Następnie każdy punkt obrazów reprezentacji skali jest sprawdzany czy warunki \ref{eq:edgeDetection} są spełnione. Jeśli tak to dany punkt jest uznawany za fragment krawędzi.
+W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \ref{eq:edgeDetection}. Następnie każdy punkt wszystkich obrazów reprezentacji skali jest sprawdzany czy warunki \ref{eq:edgeDetection} są spełnione. Jeśli tak to dany punkt jest uznawany za fragment krawędzi.
 
-W~przypadku sygnałów dyskretnych problemem staje się miejsce występowania miejsc, w którym pierwszy warunek z \ref{eq:edgeDetection} jest spełniony. Nie jest to w punktach gdzie znajdują się piksele, lecz pomiędzy nimi. Z~tego powodu zmiast porównywania do zera w~warunku pierwszy sprawdzane jest czy zmienia się znak pomiędzy dwoma pikselami. Dla analizowanego piksela sprawdzany są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. 
+W~przypadku sygnałów dyskretnych, problemem staje się to, że większość pikseli z~miejsc występowania krawędzi, nie osiąga watości zero, więc nie spełnia pierwszego waruneku z~\ref{eq:edgeDetection}. Wartości zerowe znajdują się pomiędzy pikselami. Z~tego powodu zamiast porównywania do zera w~warunku pierwszym sprawdzane jest czy zmienia się znak pomiędzy dwoma pikselami. Dla analizowanego piksela sprawdzane są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. 
 
-Drugim problemem są błedy obliczeń spowodowane dyskretyzacją sygnałów i~ograniczoną możliwością reprezentacji liczb w~komputerach. Z~tego powodu piksele, które powinny mieć wartość równą zeru przyjmują wartości bliskie zeru. Dodatkowo mogą być różnych znaków, co może powodować błędy podczas wykrywania punktów, w~których druga pochodna przyjmuje wartość zerową. Z~tego powodu zdecydowano, że otrzymane liczby bliskie zeru (wartość bezwzględna poniżej $ 10^{-5} $) będą miały przypiywaną wartość zero.
+Drugim problemem są błędy obliczeń spowodowane dyskretyzacją sygnałów i~ograniczoną możliwością reprezentacji liczb w~komputerach. Z~tego powodu piksele, które powinny mieć wartość równą zeru przyjmują wartości bliskie zeru. Dodatkowo mogą być różnych znaków, co może powodować błędy podczas wykrywania punktów, w~których druga pochodna przyjmuje wartość zerową. Z~tego powodu zdecydowano, że otrzymane liczby bliskie zeru (wartość bezwzględna poniżej $ 10^{-5} $) będą miały przypisywaną wartość zero.
 
 
 \subsubsection{Rozpoznawanie grani}
@@ -193,14 +193,15 @@ L_xL_y(L_{xx}-L_{yy}) - (L_x^2 - L_y^2)L_{xy} = 0 \\
 \end{array} \right.
 \end{equation}
 
-Sposób postępowania jest analogiczny jak dla wykrywania krawędzi. Liczone są odpowiednie obrazu odpowiadające warunkom \ref{eq:ridgeDetection} a~następnie są one sprawdzane.
+Sposób postępowania jest analogiczny jak dla wykrywania krawędzi. Liczone są odpowiednie pochodne obrazu
+Potem są obliczane wyniki działań odpowiadające warunkom \ref{eq:ridgeDetection} a~następnie są one sprawdzane.
 
 W~tym przypadku również konieczne jest sprawdzanie zmiany znaku pomiędzy pikselami, ponieważ wartości zerowe dla pierwszego warunku są osiągane pomiędzy punktami sygnału dyskretnego. Także są sprawdzane tylko trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}.
 
 \subsubsection{Rozpoznawanie narożników}
 \label{subsubsec:rozpoznawanieNaroznikow}
 
-Do wyznacznie narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \ref{eq:cornerDetection}.
+Do wyznacznia narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \ref{eq:cornerDetection}.
 
 \begin{equation}
 \label{eq:cornerDetection}
