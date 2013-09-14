@@ -8,6 +8,8 @@ W niniejszym rozdziale przedstawiono szczegóły techniczne wykorzystanej kamery
 
 Do testów została wykorzystano przemysłową kamerę wysokiej rozdzielczości: JAI BB-500GE. Jej maksymalna rozdzielczość to 2456 na 2058 pikseli, przy której można pobrać 15 klatek na sekundę. Możliwe jest pobranie pikseli o rodzielczości wielkości 8, 10, 12 lub 16 bitów. Dane są pobierane za pomocą standardu Gigabit Ethernet. 
 
+Obraz pobierany za pomocą kamery jest w formacie filtru Bayera. Jest to sposób reprezentacji obrazu, który jest używane w~kamerach lub aparatach cyfrowych. Z~tego powodu konieczne było zastosowanie interpolacji obrazu barwnego. Do realizacji tego celu użyto implementacji stworzonej w \cite{BFIOCL}.
+
 \section{Implementacja obsługi kamery}
 \label{sec:implementacjaKamery}
 
