@@ -62,9 +62,9 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 
 W~ramach biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące rozpoznawaniu przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}.
 
-Na listingu \ref{lis:edgeDetector}.
+Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \ref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 
-\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true}
+\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left}
 \begin{lstlisting}
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_MIRRORED_REPEAT | CLK_FILTER_NEAREST;
 
@@ -111,3 +111,13 @@ __kernel void  edge_detector(__read_only image2d_t input, __write_only image2d_t
 	write_imagef(out_Lvvv, (int2)(i, j), Lvvv);
 }
 \end{lstlisting}
+
+W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do piobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+
+W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej. Wartości te używane są wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
+
+W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do  obliczenia warunków rozpozawania krawędzi.
+
+W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
+
+Na końcu w liniach 42~i~43 obliczone wartości są zapisywane do obrazów wyjściowych.
