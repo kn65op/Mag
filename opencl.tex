@@ -1,7 +1,7 @@
 \chapter{OpenCL}
 \label{cha:opencl}
 
-W~niniejszym rozdziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą ograniczeniu liczby błędów oraz przyśpieszeniu pracy poprzez uniknięcie powtarzania kodu. Zdecydowano się na realizację danej biblioteki z~uwagi na to, że w~części programu, która kontroluje wykonanie kodu na karcie graficznej (nazywanego kernelami) wiele czynności jest powtarzanych przy implementacji każdego algorytmu. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwego rozszerzania dostępnych funkcji. Biblioteka była tworzona oraz testowana dla wersji 1.1 standardu OpenCL.
+W~niniejszym rozdziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą ograniczeniu liczby błędów oraz przyśpieszeniu pracy poprzez uniknięcie powtarzania kodu. Zdecydowano się na realizację danej biblioteki z~uwagi na to, że w~części programu, która kontroluje wykonanie kodu na karcie graficznej (nazywanego kernelami) wiele czynności jest powtarzanych przy implementacji każdego algorytmu. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwego rozszerzania dostępnych funkcji. Biblioteka była tworzona oraz testowana dla wersji 1.1 standardu OpenCL. Przedstawiono i~omówiono również część z~zaimplementowanych kerneli.
 
 \section{Implementacja algorytmów z~użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
@@ -57,8 +57,57 @@ Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, 
 
 Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~punktu widzenia biblioteki dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
 
-\subsection{Zaimplementowane algorytmy}
-\label{subsec:algorytmy}
+\subsection{Zaimplementowane kernele}
+\label{subsec:kernele}
 
-W~ramach biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: filtr Bayera, obliczanie konwolucji obrazu z maską, algorytmy służące rozpoznawaniu przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}.
+W~ramach biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące rozpoznawaniu przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}.
 
+Na listingu \ref{lis:edgeDetector}.
+
+\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true}
+\begin{lstlisting}
+const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_MIRRORED_REPEAT | CLK_FILTER_NEAREST;
+
+__kernel void  edge_detector(__read_only image2d_t input, __write_only image2d_t out_Lvv, __write_only image2d_t out_Lvvv)
+{
+	int i = get_global_id(0); //column number
+	int j = get_global_id(1); //row number
+
+	float ul = read_imagef(input, sampler, (int2)(i - 1, j - 1)).x;
+	float u = read_imagef(input, sampler, (int2)(i, j - 1)).x;
+	float ur = read_imagef(input, sampler, (int2)(i + 1, j - 1)).x;
+	float l = read_imagef(input, sampler, (int2)(i - 1, j)).x;
+	float c = read_imagef(input, sampler, (int2)(i, j)).x;
+	float r = read_imagef(input, sampler, (int2)(i + 1, j)).x;
+	float dl = read_imagef(input, sampler, (int2)(i - 1, j + 1)).x;
+	float d = read_imagef(input, sampler, (int2)(i, j + 1)).x;
+	float dr = read_imagef(input, sampler, (int2)(i + 1, j + 1)).x;
+
+	float Lx =  0.5 * (ur + 2.0 * r + dr - ul - 2.0 * l - dl);
+	float Ly =  0.5 * (dl + 2.0 * d + dr - ul - 2.0 * u - ur);
+	float Lxx =  ul / 12.0 - u / 6.0 + ur / 12.0 +
+                5.0 * l / 6.0 - 5.0 * c / 3.0 + 5.0 * r / 6.0 +
+				dl / 12.0 - d / 6.0 + dr / 12.0;//*/
+	float Lxy =  ul / 4.0 - ur / 4.0 +
+				-dl / 4.0 + dr / 4.0;
+	float Lyy =  ul / 12.0 + 5.0 * u / 6.0 + ur / 12.0 -
+                l / 6.0 - 5.0 * c / 3.0 - r / 6.0 +
+				dl / 12.0 +  5.0 * d / 6.0 + dr / 12.0;
+	float Lxxx =  0.5 * (ul + dl - ur - dr) + l - r;
+	float Lxxy =  - ul / 8.0 + u / 4.0 - ur / 8.0
+					+ dl / 8.0 - d / 4.0 + dr / 8.0;
+	float Lxyy =  ul / 8.0 - ur / 8.0
+					- l / 4.0 + r / 4.0
+					+ dl / 8.0 - dr / 8.0;
+	float Lyyy =  0.5 * (ul + ur - dr - dl) + u - d;
+	
+	float Lvv = Lx * Lx * Lxx + 2.0 * Lx * Ly * Lxy + Ly * Ly * Lyy;
+	if (fabs(Lvv) < 1e-5)
+	{
+		Lvv = 0;
+	}
+	float Lvvv = (Lx * Lx * Lx * Lxxx + 3.0 * Lx * Lx * Ly * Lxxy + 3.0 * Lx * Ly * Ly * Lxyy + Ly * Ly * Ly * Lyyy);
+	write_imagef(out_Lvv, (int2)(i, j), Lvv);
+	write_imagef(out_Lvvv, (int2)(i, j), Lvvv);
+}
+\end{lstlisting}
