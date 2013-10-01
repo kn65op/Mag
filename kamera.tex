@@ -10,9 +10,25 @@ Do testów została wykorzystano przemysłową kamerę wysokiej rozdzielczości:
 
 Obraz pobierany za pomocą kamery jest w formacie filtru Bayera. Jest to sposób reprezentacji obrazu, który jest używane w~kamerach lub aparatach cyfrowych. Z~tego powodu konieczne było zastosowanie interpolacji obrazu barwnego. Do realizacji tego celu użyto implementacji stworzonej w \cite{BFIOCL}.
 
+\section{Szczegóły obsługi kamery}
+\label{sec:szczegolyObslugiKamery}
+
+Implementacja obsługi kamery została zrealizowana z użyciem dostarczonej przez producenta biblioteki JAI SDK \cite{JAISDK}. Ponieważ jest ona zrealizowane w~języku C, to stworzono klasę odpowiedzialną za obsługę kamery. Klasa automatycznie zarządza zasobami, ustawieniami oraz dostępem do kamery. Dzięki temu korzystanie z~niej jest łatwiejsze.
+
+Biblioteka JAI SDK ma duże możliwości. Poza umożliwieniem połączenia się z~kamerą i~pobraniu zarejestrowanego obrazu udostępnia wiele algorytmów. Między innymi zaimpllementowana jest interpolacja obrazu barwnego z~obrazu w~formacie filtru Bayera i~redukcja zniekształceń pochodzących z~obiektywu.
+
+Do celów tej pracy nie była potrzebna żadna zaawansowana możliwość kamery i~dostarczonej do niej biblioteki poza możliwością połączenia się z~kamerą oraz pobrania obrazu. Dlatego stworzona klasa korzysta tylko z~podstawowych możliwości kamery oraz dostarczonej do niej biblioteki.
+
 \section{Implementacja obsługi kamery}
 \label{sec:implementacjaKamery}
 
-Implementacja obsługi kamery została zrealizowana z użyciem JAI SDK \cite{JAISDK}. Stworzono klasę odpowiedzialną za obsługę kamery, ponieważ sposób pobierania obrazu nie był odpowiadający. Korzystając z JAI SDK obraz pobierany jest asynchronicznie, to znaczy po wysłaniu obrazu z~kamery wywoływana jest określona wcześniej funkcja. Jest to niezgodne z~oczekiwanym zachowaniem, ponieważ potrzeba jest, aby można było pobrać obraz w~określonej chwili.
-
-W~klasie realizującej obsługę kamery stworzono kolejkę obrazów. Trafiają do niej ramki z~kamery w~momencie ich wysłania. W~dowolnym momencie można pobrać obraz. Jeżeli kolejka jest pusta (pobrano wszystkie obrazy oraz w~międzyczasie nie został dodany nowy) to wyrzucany jest wyjątek. Jeśli natomiast kolejka zostanie zapełniona (obrazy są dodawane szybciej niż są przetwarzanie) to nie zostanie dodana nowa ramka i~nie będzie można już jej odzyskać.
+Zaimplementowana klasa realizuje podstawowe operacje z~poniższego zbioru. 
+\begin{itemize}
+\item Wyszukiwanie kamer - pierwszą zaimplementowaną czynnością jest wyszukiwanie kamer w~systemie, do których możliwy jest dostęp z~użyciem biblioteki JAI SDK. Jest to pierwsza czynność, którą należy wykonać, aby móc pobierać obrazy z~kamery, ponieważ w~ten sposób jest zrealizowana biblioteka dołączona do kamery. Po procesie wyszukiwania zwracana jest lista dostępnych kamer.
+\item Otwarcie kamery - po wybraniu danej kamery należy ją otworzyć. Dopiero po otwarciu kamery można wykonywanać na niej operacje. Na tym etapie można ustawić parametry kamery. Dostępnym parametrem do ustawienia jest ustalenie rozmiaru piksela (8, 10, 12 lub 16 bitów).
+\item Rozpoczęcie rejestracji obrazów - w~tym momencie następuje akwizycja obrazów. Obrazy są zapisywane w~kolejce o~określonym rozmiarze. W~przypadku przepełnienia się bufora kolejne rejestrowane obrazy będą odrzucane do momentu, aż jakiś obraz zostanie ściągnięty z kolejki.
+\item Pobranie kolejnego obrazu - po rozpoczęciu rejestarcji można w~dowolnym momencie pobrać ostatni obraz z~kolejki. Jeśli jest ona pusta to zostanie to zgłoszone użytkownikowi.
+\item Zakończenie akwizycji obrazów - zatrzymuje zapisywanie obrazów z~kamery w~kolejce. Nie jest ona kasowana, więc już zarejestrowane obrazy są dostępne dla użytkownika. W~dowolnym momencie można rozpocząć rejestrację ponownie.
+\item Zamknięcie kamery - zwalnia zasoby kamery i~umożliwia innym programom dostęp. W~celu ponownej rejestracji obrazów należy otworzyć kamerę ponownie.
+\end{itemize}
+Operacje zakończenia akwizycji obrazów i~zamknięcie kamery są realizowane również w~destruktorze, co pozwala na automatyczne zwalnianie zasobów kiedy nie są już potrzebne.
