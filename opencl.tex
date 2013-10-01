@@ -112,7 +112,9 @@ __kernel void  edge_detector(__read_only image2d_t input, __write_only image2d_t
 }
 \end{lstlisting}
 
-W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do piobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+
+W linii 3 następuje zaczyna się definicja kernela. Posiada on trzy parametry, które są typu obraz 2D. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
 
 W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej. Wartości te używane są wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 
@@ -121,3 +123,39 @@ W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne
 W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
 
 Na końcu w liniach 42~i~43 obliczone wartości są zapisywane do obrazów wyjściowych.
+
+\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,numbers=left}
+\begin{lstlisting}
+const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP | CLK_FILTER_NEAREST;
+
+__kernel void  edge_max(__read_only image2d_t Lvv_image, __write_only image2d_t output, __read_only image2d_t Lvvv_image)
+{
+	int i = get_global_id(0); //column number
+	int j = get_global_id(1); //row number
+
+	float c = read_imagef(Lvv_image, sampler, (int2)(i, j)).x;
+	float r = read_imagef(Lvv_image, sampler, (int2)(i + 1, j)).x;
+	float d = read_imagef(Lvv_image, sampler, (int2)(i, j + 1)).x;
+	float dr = read_imagef(Lvv_image, sampler, (int2)(i + 1, j + 1)).x;
+	
+	float Lvvv = read_imagef(Lvvv_image, sampler, (int2)(i, j)).x;
+	if ((c * r < 0 
+		|| c * dr <0
+		|| c * d <0)
+		&& Lvvv < 0
+		)
+	{
+		write_imageui(output, (int2)(i, j), 255);
+	}
+}
+\end{lstlisting}
+
+Na listingu \ref{lis:edgeDetector} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsec:rozpoznawanieKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
+
+W~pierwszej linii, analogicznie do poprzedniego kernela, pojawia się definicja samplera, który jest używany do pobierania wartości obrazów. Używany jest sampler o~tych samych własnościach, co poprzednio wspomniany.
+
+W~linii 3 rozpoczyna się definicja kernela. Ma on trzy parametry, które są typu obraz 2D. Pierwsze dwa są wartościami pikseli wyliczonymi za pomocą poprzedniego kernela i~są tylko do odczytu. Ostatni argument jest obrazem, do jest zapisywana informacja o~tym, czy znaleziono w~danym miejscu krawędź.
+
+W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wrości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
+
+W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby zostać uznanym za piksel krawędzi. Jest to zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela. Wszystkie piksele obrazu wyjściowego przed wywołaniem kernela mają wartość zero.
