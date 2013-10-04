@@ -8,7 +8,7 @@ Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z u
 \section{Testowanie poprawności}
 \label{sec:testPoprawnosc}
 
-Celem tej części testowania było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Do testów użyto kilku obrazów wejściowych przedstawionych na rys. \ref{fig:danePoprawnosc}. Proces testowania był następujący:
+Celem tej części testowania było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Proces testowania był następujący:
 
 \begin{enumerate}
 \item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej rozpoznawanej cechy.
@@ -16,7 +16,45 @@ Celem tej części testowania było sprawdzenie czy zrealizowane implementacje d
 \item Porównanie wyników. Idealnym wynikiem byłoby otrzymanie trzech identycznych obrazów wynikowych. W praktyce jest to mało prawdopodobne, z~uwagi na różnice podczas zaokrąglenia obliczeń w~implementacjach.
 \end{enumerate}
 
- % porównanie poprawności, obrazy różnicowe itp.
+Dla każdej rozpoznawanej cechy oraz dla samego wyznaczania reprezentacji skali wybrano pięć obrazów. Obliczenia przeprowadzono dla dziesięciu skal przy kroku cztery. Spośród otrzymanych obrazów wybrano dwa najbardziej interesujące (dla każdej cechy i~dla reprezentacji skali) i~zaprezentowano w~części \ref{subsec:prezentacjaObrazowRoznicowych}.
+
+Wszystkie obrazy wyjściowe zostały wykorzystane do analizy poprawności implementacji. W celu porównania wszystkich implementacji opracowano dwa współczynniki przedstawione we wzorach: \ref{eq:procentZlychPikseli} i~\ref{eq:sredniaOdchylenia}.
+
+\begin{equation}
+\label{eq:procentZlychPikseli}
+p_{XY} = \frac{\sum_{i}^{N}|sgn(X_{ij}-Y_{ij})	|}{N}
+\end{equation}
+gdzie:
+
+$ p_{XY} $ - współczynnik ilości różnych pikseli,
+
+$ X, Y $ - obrazy, dla których wyznaczany jest współczynnik,
+
+$ N $ - liczba pikseli w~obrazie,
+
+$ sgn $ - funkcja signum \cite{Signum}.
+
+\begin{equation}
+\label{eq:sredniaOdchylenia}
+v_{XY} = \frac{\sum_{i}^{N}|X_{ij}-Y_{ij}|}{\sum_{i}^{N}|sgn(X_{ij}-Y_{ij})|}
+\end{equation}
+gdzie:
+
+$ v_{XY} $ - współczynnik wielkości średniego odchylenia,
+
+$ X, Y $ - obrazy, dla których wyznaczany jest współczynnik,
+
+$ N $ - liczba pikseli w~obrazie,
+
+$ sgn $ - funkcja signum \cite{Signum}.
+
+Współczynnik ilości różnych pikseli pokazuje ile różnych pikseli, w~stosunku do całego obrazu, jest obecnych dla dwóch różnych implementacji. Współczynnik wielkości średniego odchylenia jest wykorzystywany tylko dla obrazów reprezentacji skali, ponieważ obrazy wyjściowe dla wyznaczania cech są binarne. Współczynnik są wyliczane dla jednego obrazu w~jednej skali dla wszystkich trzech implementacji (wyk
+
+\subsection{Prezentacja różnych w~obrazach wyjściowych}
+\label{subsec:prezentacjaObrazowRoznicowych}
+
+\subsection{Porówanie}
+\label{subsec:prezentacjaObrazowRoznicowych}
 
 \section{Testowanie szybkości działania}
 \label{sec:testSzybkosc1}
