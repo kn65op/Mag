@@ -1,0 +1,27 @@
+\chapter{Instrukcja}
+\label{cha:instrukcja}
+
+Krótka instrukcja u¿ytkownia stworzonego programu.
+
+Program jest uruchamiany w~konsoli i~nie posiada ¿adnego graficznego interfejsu u¿ytkowania. Do programu do³¹czona jest pomoc. Parametry podawane s¹ w~sposób zgodne ze standardem znanym z~projektu GNU.
+
+Program przyjmuje nastêpuj¹ce parametry, które zosta³y opisane w~poni¿szym spisie. Ka¿dy parametr mo¿e byæ podany w formie krótkiej lub d³ugiej.
+
+\begin{itemize}
+\item -i,--in - input file instead of use camera. Default input file type is gray.
+\item -I,--in-prefix -input files wille be in format: prefix_XX.bmp. It ends when files ends (i. e. no next file). Default input files type is bayer.
+\item -o,--out - output files prefix. Output file will be PREFIX_PROCESSOR_IMAGENUMBER_SCALENUMBER.bmp.
+\item -m,--mode - Scale Space mode. One of: blob, corner, edge, ridge.
+\item -t,--type - Input file type. Can be bayer or gray. It works only with file.
+\item -p,--processor - Select implementation. It can be:
+	\begin{itemize}
+		\item cl, opencl - for OpenCL implementation.
+        \item cv, opencv, cpu - for OpenCV implementation.
+        \item cv_gpu, opencv_gpu, gpu - for OpenCV GPU implementation.
+	\end{itemize}
+\item -s,--scale - Set scales in format a b, where a is scale step and b is number of scales.
+\item --no-show - Don't save images on drive.
+\item -d,--debug - Show intermediate images. It can be very slow.
+\item -q,--quiet - Don't show any output.
+\item --no-first-image - Don't measure time for first image.
+\end{itemize}
