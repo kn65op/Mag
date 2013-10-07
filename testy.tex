@@ -18,7 +18,7 @@ Celem tej części testowania było sprawdzenie czy zrealizowane implementacje d
 
 Dla każdej rozpoznawanej cechy oraz dla samego wyznaczania reprezentacji skali wybrano pięć obrazów. Obliczenia przeprowadzono dla dziesięciu skal przy kroku cztery. Spośród otrzymanych obrazów wybrano dwa najbardziej interesujące (dla każdej cechy i~dla reprezentacji skali) i~zaprezentowano w~części \ref{subsec:prezentacjaObrazowRoznicowych}.
 
-Wszystkie obrazy wyjściowe zostały wykorzystane do analizy poprawności implementacji. W celu porównania wszystkich implementacji opracowano dwa współczynniki przedstawione we wzorach: \ref{eq:procentZlychPikseli} i~\ref{eq:sredniaOdchylenia}.
+Wszystkie obrazy wyjściowe zostały wykorzystane do analizy poprawności implementacji. W celu porównania wszystkich implementacji opracowano dwa współczynniki przedstawione we wzorach: \ref{eq:procentZlychPikseli} i~\ref{eq:sredniaOdchylenia}. Wyniki oraz ich omówienie zaprezentowano w~części \ref{subsec:porownanieNumerycznePoprawnosc}.
 
 \begin{equation}
 \label{eq:procentZlychPikseli}
@@ -50,11 +50,35 @@ $ sgn $ - funkcja signum \cite{Signum}.
 
 Współczynnik ilości różnych pikseli pokazuje ile różnych pikseli, w~stosunku do całego obrazu, jest obecnych dla dwóch różnych implementacji. Współczynnik wielkości średniego odchylenia jest wykorzystywany tylko dla obrazów reprezentacji skali, ponieważ obrazy wyjściowe dla wyznaczania cech są binarne. Współczynnik są wyliczane dla jednego obrazu w~jednej skali dla wszystkich trzech implementacji (porównywany jest wynik każdej implementacji z~każdą).
 
-\subsection{Prezentacja różnych w~obrazach wyjściowych}
+\subsection{Prezentacja różnic w~obrazach wyjściowych}
 \label{subsec:prezentacjaObrazowRoznicowych}
+
+Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa obrazy wejściowe wybrane spośród pięciu, dla każdego punktu.
 
 \subsubsection{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSkaliRysunki}
+
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPure03}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=3cm]{TestyPoprawnosci/in_pure_02.bmp}
+\end{center}
+\caption{Pierwszy obraz wejśćiowy dla reprezentacji skali}
+\label{fig:valPure02}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=3cm]{TestyPoprawnosci/in_pure_03.bmp}
+\end{center}
+\caption{Drugi obraz wejśćiowy dla reprezentacji skali}
+\label{fig:valPure03}
+\end{figure}
+
+Obrazy różnicowe są przedstawione na rys \ref{fig:valPure}. Pododawać subfigure.
+
+Na podstawie obrazów różnicycowych można stwierdzić, że główne rozbierzności pomiędzy implementacjami występują na krawędziach.  dzi
 
 \subsubsection{Plamy}
 \label{subsubsec:plamyRysunki}
@@ -69,8 +93,8 @@ Współczynnik ilości różnych pikseli pokazuje ile różnych pikseli, w~stosu
 \label{subsubsec:granieRysunki}
 % rysunki
 
-\subsection{Porówanie}
-\label{subsec:prezentacjaObrazowRoznicowych}
+\subsection{Porównanie wszystkich obrazów}
+\label{subsec:porownanieNumerycznePoprawnosc}
 
 % tabele
 
