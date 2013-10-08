@@ -8,9 +8,9 @@ CLCVCPU = abs(CL - CVCPU);
 CLCVGPU = abs(CL - CVGPU);
 CVCPUCVGPU = abs(CVCPU - CVGPU);
 
-imwrite(CLCVCPU, strcat('diff_', mode, '_CL-CVCPU_', image_number, '.bmp'));
-imwrite(CLCVGPU, strcat('diff_', mode, '_CL-CVGPU_', image_number, '.bmp'));
-imwrite(CVCPUCVGPU, strcat('diff_', mode, '_CVCPU-CVCPU_', image_number, '.bmp'));
+imwrite(imcomplement(CLCVCPU), strcat('diff_', mode, '_CL-CVCPU_', image_number, '.png'));
+imwrite(imcomplement(CLCVGPU), strcat('diff_', mode, '_CL-CVGPU_', image_number, '.png'));
+imwrite(imcomplement(CVCPUCVGPU), strcat('diff_', mode, '_CVCPU-CVCPU_', image_number, '.png'));
 
 end
 
