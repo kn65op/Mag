@@ -1,27 +1,40 @@
 \chapter{Instrukcja}
 \label{cha:instrukcja}
 
-Kr�tka instrukcja u�ytkownia stworzonego programu.
+Krótka instrukcja użytkownia stworzonego programu.
 
-Program jest uruchamiany w~konsoli i~nie posiada �adnego graficznego interfejsu u�ytkowania. Do programu do��czona jest pomoc. Parametry podawane s� w~spos�b zgodne ze standardem znanym z~projektu GNU.
+Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświelić używają parametru -h lub --help). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
 
-Program przyjmuje nast�puj�ce parametry, kt�re zosta�y opisane w~poni�szym spisie. Ka�dy parametr mo�e by� podany w formie kr�tkiej lub d�ugiej.
+Program przyjmuje następujące parametry, które zostały opisane w~poniższym spisie. Każdy parametr może być podany w formie krótkiej lub długiej.
 
 \begin{itemize}
-\item -i,--in - input file instead of use camera. Default input file type is gray.
-\item -I,--in-prefix -input files wille be in format: prefix_XX.bmp. It ends when files ends (i. e. no next file). Default input files type is bayer.
-\item -o,--out - output files prefix. Output file will be PREFIX_PROCESSOR_IMAGENUMBER_SCALENUMBER.bmp.
-\item -m,--mode - Scale Space mode. One of: blob, corner, edge, ridge.
-\item -t,--type - Input file type. Can be bayer or gray. It works only with file.
-\item -p,--processor - Select implementation. It can be:
+\item -i,--in - obraz jest odczytywany z pliku podanego jako argument.
+\item -I,--in-prefix - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefix\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: bmp, jpg lub png.
+\item -o,--out - określa prefiks nazwy plików wujściowych. Pliki wyjściowe są zapisywane w formacie: A\_B\_XX\_YY.bmp, gdzie:
 	\begin{itemize}
-		\item cl, opencl - for OpenCL implementation.
-        \item cv, opencv, cpu - for OpenCV implementation.
-        \item cv_gpu, opencv_gpu, gpu - for OpenCV GPU implementation.
+		\item A - podany prefiks,
+		\item B - nazwa implementacji, która była wykorzystana,
+		\item XX - numer przetwarzanego obrazu (zawsze dwucyforwy),
+		\item YY - numer przetwarzanej skali (zawsze dwucyfrowy).
 	\end{itemize}
-\item -s,--scale - Set scales in format a b, where a is scale step and b is number of scales.
-\item --no-show - Don't save images on drive.
-\item -d,--debug - Show intermediate images. It can be very slow.
-\item -q,--quiet - Don't show any output.
-\item --no-first-image - Don't measure time for first image.
+\item -m,--mode - wybór detekcji cech. Dozwolone wartości:
+	\begin{itemize}
+		\item blob - plamy,
+		\item edge - krawędzie,
+		\item ridge - granie,
+		\item corner - narożniki.
+	\end{itemize}
+	Jeśli parametr nie jest ustalony, to wyznaczana jest tylko reprezentacja skali.
+\item -t,--type - format pliku wejściowego. Dostępne wartości to: bayer - oznaczający odczytywanie pliku zapisanego za pomocą filtru Bayera lub gray - oznaczający odczytywanie pliku nie zapisanego za pomocą filtru Bayera.
+\item -p,--processor - wybór implementacji. Dozwolone wartości:
+	\begin{itemize}
+		\item cl, opencl - implementacja z~użyciem OpenCL,
+        \item cv, opencv, cpu - implementacja z~użyciem OpenCV wykonywana na procesorze,
+        \item cv\_gpu, opencv\_gpu, gpu - implementacja z~użyciem OpenCV wykonywana na karcie graficznej.
+	\end{itemize}
+\item -s,--scale - określenie ilości skal oraz kroku. Konieczne jest podanie dwóch parametrów w~podanej kolejności: kroku i~liczby skal.
+\item --no-show - ustalenie, że żadne obrazy wyjściowe nie będą zapisane na dysku. Ta opcja jest przydatna w~przypadku przeprowadzania testów szybkościowych.
+\item -d,--debug - dodatkowe zapisywanie obrazów pośrednich na dysku.
+\item -q,--quiet - nie jest wyświetlane nic w~konsoli, jeśli nie ma błędów.
+\item --no-first-image - pozwala na rozpoczęcie mierzenia czasu po przetworzeniu pierwszego obrazu. Ta opcja jest przydatna w~przypadku przeprowadzania testów szybkościowych.
 \end{itemize}
