@@ -53,7 +53,7 @@ Współczynnik ilości różnych pikseli pokazuje ile różnych pikseli, w~stosu
 \subsection{Prezentacja różnic w~obrazach wyjściowych}
 \label{subsec:prezentacjaObrazowRoznicowych}
 
-Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa obrazy wejściowe wybrane spośród pięciu, dla każdego punktu.
+Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa obrazy wejściowe wybrane spośród pięciu, dla każdego punktu. Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności.
 
 \subsubsection{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSkaliRysunki}
@@ -62,7 +62,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=3cm]{TestyPoprawnosci/in_pure_02.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_02.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla reprezentacji skali}
 \label{fig:valPure02}
@@ -70,15 +70,79 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=3cm]{TestyPoprawnosci/in_pure_03.png}
+\includegraphics[width=\linewidth]{TestyPoprawnosci/in_pure_03.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla reprezentacji skali}
 \label{fig:valPure03}
 \end{figure}
 
-Obrazy różnicowe są przedstawione na rys \ref{fig:valPure}. Pododawać subfigure.
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure2}. 
 
-Na podstawie obrazów różnicowych można stwierdzić, że główne rozbierzności pomiędzy implementacjami występują głównie na krawędziach. Ponadto różnice są niewielkie. Największa różnica nie przekracza $ 0,3% $.
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVCPU_02_09.png}}
+	\caption{Porównanie implementacji CL i CVCPU}
+	\label{fig:valPure2CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVGPU_02_09.png}}
+	\caption{Porównanie implementacji CL i CVGPU}
+	\label{fig:valPure2CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_02_09.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU}
+	\label{fig:valPure2CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe reprezentacji skali pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valPure2}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVCPU_03_09.png}}
+	\caption{Porównanie implementacji CL i CVCPU}
+	\label{fig:valPure3CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVGPU_03_09.png}}
+	\caption{Porównanie implementacji CL i CVGPU}
+	\label{fig:valPure3CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_03_09.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU}
+	\label{fig:valPure3CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe reprezentacji skali pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valPure3}
+\end{figure}
+
+Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami występują głównie na krawędziach. Ponadto różnice są niewielkie. Największa różnica nie przekracza $ 0,3\% $ maksymalnej wartości piksela. Istotne obiekty, które mają być rozpoznane znajdują się w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,3\% $ maksymalnej wartości piksela). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVCPU}.
 
 \subsubsection{Plamy}
 \label{subsubsec:plamyRysunki}
