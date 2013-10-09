@@ -62,7 +62,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_pure_02.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_pure_02.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla reprezentacji skali}
 \label{fig:valPure02}
@@ -70,7 +70,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_pure_03.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_pure_03.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla reprezentacji skali}
 \label{fig:valPure03}
@@ -79,7 +79,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. 
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -88,7 +88,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\label{fig:valPure2CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -97,13 +97,13 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\label{fig:valPure2CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_02_09.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
-	\label{fig:valPure2CVCPUCVCPU}                 
+	\label{fig:valPure2CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe reprezentacji skali dla pierwszego pliku wejściowego}
 \label{lena_scales}
@@ -111,7 +111,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 \end{figure}
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -120,7 +120,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\label{fig:valPure3CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -129,20 +129,20 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\label{fig:valPure3CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_03_09.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
-	\label{fig:valPure3CVCPUCVCPU}                 
+	\label{fig:valPure3CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe reprezentacji skali dla drugiego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valPure3}
 \end{figure}
 
-Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami występują głównie na krawędziach. Ponadto różnice są niewielkie. Największa różnica nie przekracza $ 0,3\% $ maksymalnej wartości piksela. Istotne obiekty, które mają być rozpoznane znajdują się w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,3\% $ maksymalnej wartości piksela). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVCPU}. Można też zauważyć, że różnice występują pojedynczo, nie są zgrupowane.
+Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami występują głównie na krawędziach. Ponadto różnice są niewielkie. Maksymalna wartość odchylenia nie przekracza $ 0,3\% $ maksymalnej wartości piksela. Rozbieżności pomiędzy implementacjami są sposodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Istotne obiekty, które mają być rozpoznane znajdują się w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,3\% $ maksymalnej wartości piksela). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVCPU}. Można też zauważyć, że różnice występują pojedynczo, nie są zgrupowane.
 
 Implementacje wykonane w~OpenCV dla liczenia reprezentacji skali dają identyczne wyniki, co można zauważyć na obrazach \ref{fig:valPure2CVCPUCVGPU} i~\ref{fig:valPure3CVCPUCVGPU}.
 
@@ -153,7 +153,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valBlob01} i \ref{fig:valBl
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_blob_01.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_blob_01.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla rozpoznawania plam}
 \label{fig:valBlob01}
@@ -161,7 +161,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valBlob01} i \ref{fig:valBl
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_blob_02.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_blob_02.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla rozpoznawania plam}
 \label{fig:valBlob02}
@@ -170,7 +170,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valBlob01} i \ref{fig:valBl
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob2}. 
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -179,7 +179,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBl
 	\label{fig:valBlob2CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -188,21 +188,21 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBl
 	\label{fig:valBlob2CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_01_09.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
-	\label{fig:valblob2CVCPUCVCPU}                 
+	\label{fig:valblob2CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania plam dla pierwszego pliku wejściowego}
 \label{lena_scales}
-\label{fig:valBlob2}
+\label{fig:valBlob1}
 \end{figure}
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -211,7 +211,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBl
 	\label{fig:valBlob3CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -220,20 +220,22 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBl
 	\label{fig:valBlob3CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_02_09.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
-	\label{fig:valBlob3CVCPUCVCPU}                 
+	\label{fig:valBlob3CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania plam dla drugiego pliku wejściowego}
 \label{lena_scales}
-\label{fig:valBlob3}
+\label{fig:valBlob2}
 \end{figure}
 
-!!!!TEXT!!!!
+Z~przedstawionych obrazów wynika, że podczas rozpoznawania plam najwięcej różnic powstaje w~okolicach krawędzi. Jest to dobrze widoczne na obrazach \ref{fig:valBlob2CLCVCPU} i~\ref{fig:valBlob2CLCVCPU}. Porównując do wyników testów dla reprezentacji skali można wywnioskować że te różnice są sposodowane różnicami powstałymi podczas filtracji Gaussa.
+
+Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnice te są sposodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Ilość różnych pikseli nie jest duża, lecz większa niż w~przypadku innych rozpoznawanych cech.
 
 
 \subsubsection{Krawędzie}
@@ -243,7 +245,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEd
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_edge_00.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_edge_00.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla rozpoznawania krawędzi}
 \label{fig:valEdge00}
@@ -251,7 +253,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEd
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_edge_02.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_edge_02.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla rozpoznawania krawędzi}
 \label{fig:valEdge02}
@@ -260,7 +262,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEd
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. 
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -269,7 +271,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEd
 	\label{fig:valEdge0CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -278,13 +280,13 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEd
 	\label{fig:valEdge0CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_00_00.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
-	\label{fig:valEdge0CVCPUCVCPU}                 
+	\label{fig:valEdge0CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania krawędzi dla pierwszego pliku wejściowego}
 \label{lena_scales}
@@ -292,7 +294,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEd
 \end{figure}
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -301,7 +303,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEd
 	\label{fig:valEdge2CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -310,20 +312,20 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEd
 	\label{fig:valEdge2CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_02_03.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
-	\label{fig:valEdge2CVCPUCVCPU}                 
+	\label{fig:valEdge2CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania krawędzi dla drugiego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valEdge2}
 \end{figure}
 
-!!!!TEXT!!!!
+Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauważyć, że licza różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
 
 \subsubsection{Narożniki}
 \label{subsubsec:naroznikiRysunki}
@@ -332,24 +334,24 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valCorner01} i \ref{fig:val
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_corner_01.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_corner_01.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla rozpoznawania narożników}
-\label{fig:val!!!}
+\label{fig:valCorner01}
 \end{figure}
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_corner_02.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_corner_02.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla rozpoznawania narożników}
-\label{fig:val!!!}
+\label{fig:valCorner02}
 \end{figure}
 
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. 
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -358,7 +360,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:val
 	\label{fig:valCorner1CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -367,13 +369,13 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:val
 	\label{fig:valCorner1CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_01_07.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
-	\label{fig:valCorner1CVCPUCVCPU}                 
+	\label{fig:valCorner1CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania narożników dla pierwszego pliku wejściowego}
 \label{lena_scales}
@@ -381,7 +383,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:val
 \end{figure}
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -390,7 +392,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:val
 	\label{fig:valCorner2CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -399,22 +401,22 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:val
 	\label{fig:valCorner2CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_02_06.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
-	\label{fig:valCorner2CVCPUCVCPU}                 
+	\label{fig:valCorner2CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania narożników dla drugiego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valCorner2}
 \end{figure}
 
-!!!!TEXT!!!!
+Na obrazach różnicowych można zauważyć pojedyncze różnice. Jest to też efektem tego, że liczba wykrywanych narożników na przedstawionych obrazach w~wybranej skali nie jest duża. Mniejsza ilość wykrytych obiektów powoduje, że liczba błędów jest mniejsza.
 
-
+Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 
 \subsubsection{Granie}
 \label{subsubsec:granieRysunki}
@@ -423,7 +425,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valR
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_ridge_01.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_ridge_01.png}
 \end{center}
 \caption{Pierwszy obraz wejśćiowy dla rozpoznawania grani}
 \label{fig:valRidge01}
@@ -431,7 +433,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valR
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_ridge_04.png}
+\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_ridge_04.png}
 \end{center}
 \caption{Drugi obraz wejśćiowy dla rozpoznawania grani}
 \label{fig:valRidge04}
@@ -440,7 +442,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valR
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. 
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -449,7 +451,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valR
 	\label{fig:valRidge1CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -458,13 +460,13 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valR
 	\label{fig:valRidge1CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_01_01.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
-	\label{fig:valRidge1CVCPUCVCPU}                 
+	\label{fig:valRidge1CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania grani dla pierwszego pliku wejściowego}
 \label{lena_scales}
@@ -472,7 +474,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valR
 \end{figure}
 
 \begin{figure}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -481,7 +483,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valR
 	\label{fig:valRidge4CLCVCPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
@@ -490,21 +492,20 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valR
 	\label{fig:valRidge4CLCVGPU}
 \end{subfigure}
 ~
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_04_04.png}}
 	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
-	\label{fig:valRidge4CVCPUCVCPU}                 
+	\label{fig:valRidge4CVCPUCVGPU}                 
 \end{subfigure}
 \caption{Obrazy różnicowe rozpoznawania grani dla drugiego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valRidge4}
 \end{figure}
 
-!!!!TEXT!!!!
-
+Na obrazach różnicowych można zauważyć, że na krawędziach powstało bardzo dużo różnic. Są one pochodną rozbieżności powstałych na etapie tworzenia reprezentacji skali. W~środku obrazu widać tylko pojedyncze różnice. 
 
 \subsection{Porównanie wszystkich obrazów}
 \label{subsec:porownanieNumerycznePoprawnosc}
