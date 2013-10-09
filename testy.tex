@@ -76,7 +76,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPu
 \label{fig:valPure03}
 \end{figure}
 
-Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure2}. 
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. 
 
 \begin{figure}
 \begin{subfigure}[b]{0.3\textwidth}
@@ -84,7 +84,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVCPU_02_09.png}}
-	\caption{Porównanie implementacji CL i CVCPU}
+	\caption{Porównanie implementacji CL i CVCPU dla reprezentacji skali}
 	\label{fig:valPure2CLCVCPU}
 \end{subfigure}
 ~
@@ -93,7 +93,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVGPU_02_09.png}}
-	\caption{Porównanie implementacji CL i CVGPU}
+	\caption{Porównanie implementacji CL i CVGPU dla reprezentacji skali}
 	\label{fig:valPure2CLCVGPU}
 \end{subfigure}
 ~
@@ -102,10 +102,10 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_02_09.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
 	\label{fig:valPure2CVCPUCVCPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe reprezentacji skali pierwszego pliku wejściowego}
+\caption{Obrazy różnicowe reprezentacji skali dla pierwszego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valPure2}
 \end{figure}
@@ -116,7 +116,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVCPU_03_09.png}}
-	\caption{Porównanie implementacji CL i CVCPU}
+	\caption{Porównanie implementacji CL i CVCPU dla reprezentacji skali}
 	\label{fig:valPure3CLCVCPU}
 \end{subfigure}
 ~
@@ -125,7 +125,7 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CL-CVGPU_03_09.png}}
-	\caption{Porównanie implementacji CL i CVGPU}
+	\caption{Porównanie implementacji CL i CVGPU dla reprezentacji skali}
 	\label{fig:valPure3CLCVGPU}
 \end{subfigure}
 ~
@@ -134,10 +134,10 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_pure_CVCPU-CVCPU_03_09.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
 	\label{fig:valPure3CVCPUCVCPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe reprezentacji skali pierwszego pliku wejściowego}
+\caption{Obrazy różnicowe reprezentacji skali dla drugiego pliku wejściowego}
 \label{lena_scales}
 \label{fig:valPure3}
 \end{figure}
@@ -149,17 +149,362 @@ Implementacje wykonane w~OpenCV dla liczenia reprezentacji skali dają identyczn
 \subsubsection{Plamy}
 \label{subsubsec:plamyRysunki}
 
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valBlob01} i \ref{fig:valBlob02}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_blob_01.png}
+\end{center}
+\caption{Pierwszy obraz wejśćiowy dla rozpoznawania plam}
+\label{fig:valBlob01}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_blob_02.png}
+\end{center}
+\caption{Drugi obraz wejśćiowy dla rozpoznawania plam}
+\label{fig:valBlob02}
+\end{figure}
+
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob2}. 
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVCPU_01_09.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania plam}
+	\label{fig:valBlob2CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVGPU_01_09.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania plam}
+	\label{fig:valBlob2CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_01_09.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
+	\label{fig:valblob2CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania plam dla pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valBlob2}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVCPU_02_09.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania plam}
+	\label{fig:valBlob3CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVGPU_02_09.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania plam}
+	\label{fig:valBlob3CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_02_09.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
+	\label{fig:valBlob3CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania plam dla drugiego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valBlob3}
+\end{figure}
+
+!!!!TEXT!!!!
 
 
 \subsubsection{Krawędzie}
 \label{subsubsec:krawedzieRysunki}
 
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEdge02}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_edge_00.png}
+\end{center}
+\caption{Pierwszy obraz wejśćiowy dla rozpoznawania krawędzi}
+\label{fig:valEdge00}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_edge_02.png}
+\end{center}
+\caption{Drugi obraz wejśćiowy dla rozpoznawania krawędzi}
+\label{fig:valEdge02}
+\end{figure}
+
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. 
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVCPU_00_00.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge0CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVGPU_00_00.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge0CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_00_00.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge0CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania krawędzi dla pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valEdge0}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVCPU_02_03.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge2CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVGPU_02_03.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge2CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_02_03.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
+	\label{fig:valEdge2CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania krawędzi dla drugiego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valEdge2}
+\end{figure}
+
+!!!!TEXT!!!!
+
 \subsubsection{Narożniki}
 \label{subsubsec:naroznikiRysunki}
 
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valCorner01} i \ref{fig:valCorner02}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_corner_01.png}
+\end{center}
+\caption{Pierwszy obraz wejśćiowy dla rozpoznawania narożników}
+\label{fig:val!!!}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_corner_02.png}
+\end{center}
+\caption{Drugi obraz wejśćiowy dla rozpoznawania narożników}
+\label{fig:val!!!}
+\end{figure}
+
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. 
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVCPU_01_07.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania narożników}
+	\label{fig:valCorner1CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_01_07.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\label{fig:valCorner1CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_01_07.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
+	\label{fig:valCorner1CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania narożników dla pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valCorner1}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVCPU_02_06.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania narożników}
+	\label{fig:valCorner2CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_02_06.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\label{fig:valCorner2CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_02_06.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
+	\label{fig:valCorner2CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania narożników dla drugiego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valCorner2}
+\end{figure}
+
+!!!!TEXT!!!!
+
+
+
 \subsubsection{Granie}
 \label{subsubsec:granieRysunki}
-% rysunki
+
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valRidge04}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_ridge_01.png}
+\end{center}
+\caption{Pierwszy obraz wejśćiowy dla rozpoznawania grani}
+\label{fig:valRidge01}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{TestyPoprawnosci/in_ridge_04.png}
+\end{center}
+\caption{Drugi obraz wejśćiowy dla rozpoznawania grani}
+\label{fig:valRidge04}
+\end{figure}
+
+Obrazy różnicowe są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. 
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVCPU_01_01.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania grani}
+	\label{fig:valRidge1CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVGPU_01_01.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania grani}
+	\label{fig:valRidge1CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_01_01.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
+	\label{fig:valRidge1CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania grani dla pierwszego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valRidge1}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVCPU_04_04.png}}
+	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania grani}
+	\label{fig:valRidge4CLCVCPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVGPU_04_04.png}}
+	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania grani}
+	\label{fig:valRidge4CLCVGPU}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\setlength\fboxsep{0pt}
+	\setlength\fboxrule{0.5pt}
+	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_04_04.png}}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
+	\label{fig:valRidge4CVCPUCVCPU}                 
+\end{subfigure}
+\caption{Obrazy różnicowe rozpoznawania grani dla drugiego pliku wejściowego}
+\label{lena_scales}
+\label{fig:valRidge4}
+\end{figure}
+
+!!!!TEXT!!!!
+
 
 \subsection{Porównanie wszystkich obrazów}
 \label{subsec:porownanieNumerycznePoprawnosc}
