@@ -3,7 +3,7 @@ N = 9;
 EdgeScales = zeros(N, 3);
 
 for i=0:N
-    [EdgeScales(i + 1,1) EdgeScales(i + 1,2) EdgeScales(i + 1,3)] = DiffScale('ridge', i);
+    [EdgeScales(i + 1,1) EdgeScales(i + 1,2) EdgeScales(i + 1,3)] = DiffScale('edge', i);
 end
 
 RidgeScales = zeros(N, 3);
@@ -32,3 +32,8 @@ for i=0:N
     [BlobScales(i + 1,1) BlobScales(i + 1,2) BlobScales(i + 1,3)] = DiffScale('blob', i);
 end
 
+csvwrite('CSV/ImageEdgeScales.csv', EdgeScales);
+csvwrite('CSV/ImagePureScales.csv', PureScales);
+csvwrite('CSV/ImageRidgeScales.csv', RidgeScales);
+csvwrite('CSV/ImageCornerScales.csv', CornerScales);
+csvwrite('CSV/ImageBlobScales.csv', BlobScales);

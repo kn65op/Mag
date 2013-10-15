@@ -3,7 +3,7 @@ N = 4;
 EdgeImages = zeros(N, 3);
 
 for i=0:N
-    [EdgeImages(i + 1,1) EdgeImages(i + 1,2) EdgeImages(i + 1,3)] = DiffImage('ridge', i);
+    [EdgeImages(i + 1,1) EdgeImages(i + 1,2) EdgeImages(i + 1,3)] = DiffImage('edge', i);
 end
 
 RidgeImages = zeros(N, 3);
@@ -32,3 +32,9 @@ for i=0:N
     [BlobImages(i + 1,1) BlobImages(i + 1,2) BlobImages(i + 1,3)] = DiffImage('blob', i);
 end
 
+
+csvwrite('CSV/ImageEdgeImages.csv', EdgeImages);
+csvwrite('CSV/ImagePureImages.csv', PureImages);
+csvwrite('CSV/ImageRidgeImages.csv', RidgeImages);
+csvwrite('CSV/ImageCornerImages.csv', CornerImages);
+csvwrite('CSV/ImageBlobImages.csv', BlobImages);

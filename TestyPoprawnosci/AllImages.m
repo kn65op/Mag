@@ -1,0 +1,4 @@
+AllImagesCalcImage;
+AllImagesCalcScale;
+AllImagesCalcImageDeviation;
+AllImagesCalcScaleDeviation;
