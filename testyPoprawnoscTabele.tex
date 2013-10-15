@@ -3,23 +3,100 @@
 
 Poniżej przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione na równaniach \ref{eq:procentZlychPikseli}~i~\ref{eq:sredniaOdchylenia}.
 
+Do stworzenia zestawień wykorzystano pięć obrazów dla każdej rozpoznawanej cechy i~reprezentacji skali, które zostały odpowiedno dobrane. Obliczenia przeprowadzane są dla dziesięciu skal.
+
+Z przedstawionych danych wynika, że implementacje wykonane z~użyciem biblioteki OpenCV są prawie identyczne. Z~tego powodu główna uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL a~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
+\subsubsection{Reprezentacja skali}
+\label{subsubsec:reprezentacjaSakliTabele}
+
 \begin{table}
-\caption{cos}
-\label{tab:cos}
-\begin{tabular}{|c|c|c|}
+\caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na skale}
+\label{tab:imageScaleRep}
+\begin{tabular}{|c|c|c|c|}
+ \hline
+Nr. skali & CL \- CVCPU & CL \- CVGPU & CVCPU \- CVGPU \\ \hline
+1 & 0,14778\% & 0,14778\% & 0\% \\ \hline
+2 & 0,25987\% & 0,25987\% & 0\% \\ \hline
+3 & 0,37288\% & 0,37288\% & 0\% \\ \hline
+4 & 0,49627\% & 0,49627\% & 0\% \\ \hline
+5 & 0,62658\% & 0,62658\% & 0\% \\ \hline
+6 & 0,7716\% & 0,7716\% & 0\% \\ \hline
+7 & 0,92989\% & 0,92989\% & 0\% \\ \hline
+8 & 1,0854\% & 1,0854\% & 0\% \\ \hline
+9 & 1,2398\% & 1,2398\% & 0\% \\ \hline
+10 & 1,4086\% & 1,4086\% & 0\% \\ \hline
+\end{tabular}
+\end{table}
+
+W~tabeli \ref{tab:imageScaleRep} przedstawiono ilość różnych pikseli dla porównań implementacji podczas twozenia reprezentacji skali podzielone na skale. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli, które są poza obrazem. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
+
+\begin{table}
+\caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na obrazy}
+\label{tab:imageImageRep}
+\begin{tabular}{|c|c|c|c|}
 \hline
-0,0027897 & 0,0027812 & 4,4179e-05 \\ \hline
-0,003062 & 0,003046 & 4,1661e-05 \\ \hline
-0,002602 & 0,002684 & 0,00011341 \\ \hline
-0,0022778 & 0,0023323 & 7,9742e-05 \\ \hline
-0,002077 & 0,0021068 & 4,9272e-05 \\ \hline
-0,0023807 & 0,0023871 & 5,4858e-05 \\ \hline
-0,0020579 & 0,0020779 & 6,3091e-05 \\ \hline
-0,0019524 & 0,0019555 & 5,4328e-05 \\ \hline
-0,0022939 & 0,0022904 & 5,1616e-05 \\ \hline
-0,0023304 & 0,002334 & 6,8522e-05 \\ \hline
+Nr. obrazu & CL \- CVCPU & CL \- CVGPU & CVCPU \- CVGPU \\ \hline
+1 & 1,7374\% & 1,7374\% & 0\% \\ \hline
+2 & 0,31958\% & 0,31958\% & 0\% \\ \hline
+3 & 0,18205\% & 0,18205\% & 0\% \\ \hline
+4 & 0,12112\% & 0,12112\% & 0\% \\ \hline
+5 & 1,3092\% & 1,3092\% & 0\% \\ \hline
+\end{tabular}
+\end{table}
+
+W~tabeli \ref{tab:imageImageRep} przedstawiono ilość różnych pikseli dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na obrazy. Duże różnice pomiędzy obrazami są spowodowane ich wielkością. Im większy obraz, tym mniejszy jest stosunek liczby pikseli brzegowych w~stounku do ogólnej liczby pikseli. Niska wartość obliczona dla obrazu czwartego wynika z~tego, że na tym obrazie obszary bliskie krawędzi są jednorodne.
+
+\begin{table}
+\caption{Średni błąd pikseli dla reprezentacji skali podzielony na skale}
+\label{tab:devScaleRep}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Nr. obrazu & CL \- CVCPU & CL \- CVGPU & CVCPU \- CVGPU \\ \hline
+1 & 1,4498 & 1,4498 & 0 \\ \hline
+2 & 1,5611 & 1,5611 & 0 \\ \hline
+3 & 1,6277 & 1,6277 & 0 \\ \hline
+4 & 1,6815 & 1,6815 & 0 \\ \hline
+5 & 1,7246 & 1,7246 & 0 \\ \hline
+6 & 1,7619 & 1,7619 & 0 \\ \hline
+7 & 1,7901 & 1,7901 & 0 \\ \hline
+8 & 1,8191 & 1,8191 & 0 \\ \hline
+9 & 1,8468 & 1,8468 & 0 \\ \hline
+10 & 1,8715 & 1,8715 & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+W~tabeli \ref{tab:devScaleRep} przedstawiono średnią różnicę pomiędzy błędnymi pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na skale. Duże różnice pomiędzy obrazami są spowodowane ich wielkością. Im większa skala, tym wartość średniej różnicy jest większa. Jest to spowodowane nieco odminnym traktowaniem pikseli brzegowych. 
+
+\begin{table}
+\caption{Średni błąd pikseli dla reprezentacji skali podzielony na obrazy}
+\label{tab:devImageRep}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Nr. obrazu & CL \- CVCPU & CL \- CVGPU & CVCPU \- CVGPU \\ \hline
+1 & 1,7115 & 1,7115 & 0 \\ \hline
+2 & 1,6422 & 1,6422 & 0 \\ \hline
+3 & 1,2433 & 1,2433 & 0 \\ \hline
+4 & 1 & 1 & 0 \\ \hline
+5 & 2,9701 & 2,9701 & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+W~tabeli \ref{tab:devImageRep} przedstawiono średnią różnicę pomiędzy błędnymi pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na obrazy. Różnice pomiędzy obrazami są zależne głównie od charakterystyki obrazu na brzegach. Im bardziej złożone struktury są obecne na brzegach obrazu tym większy jest uzyskiwany błąd. Obraz numer cztery jest obrazem przedstawionym na rys. \ref{fig:valPure03}. Można zauważyć, że tło na tym obrazie, do któreg należą wszystkie piksele brzegowe, jest wolnozmienne, co zmniejsza błąd. Pozostałe obrazy posiadają bardziej złożone struktury przy brzegach. Dotyczy to zwłaszcza obrazy piątego.
+
+\subsubsection{Plamy}
+\label{subsubsec:plamyTabele}
+
+\subsubsection{Krawędzie}
+\label{subsubsec:krawedzieTabele}
+
+\subsubsection{narożniki}
+\label{subsubsec:naroznikiTabele}
+
+\subsubsection{Granie}
+\label{subsubsec:granieTabele}
+
 
 \end{tabular}
 \end{table}
-% tabele
+\% tabele
 
