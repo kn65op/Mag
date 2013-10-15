@@ -13,11 +13,19 @@ CLCVCPU = abs(CL - CVCPU);
 CLCVGPU = abs(CL - CVGPU);
 CVCPUCVGPU = abs(CVCPU - CVGPU);
 
-[NN MM] = size(CL);
-N = NN * MM;
 CLCPU = sumCLCVCPU / sum(sum(abs(sign(CLCVCPU))));
 CLGPU = sumCLCVGPU / sum(sum(abs(sign(CLCVGPU))));
 CV = sumCVCPUCVGPU / sum(sum(abs(sign(CVCPUCVGPU))));
+
+if (isnan(CLCPU))
+    CLCPU = 0;
+end
+if (isnan(CLGPU))
+    CLGPU = 0;
+end
+if (isnan(CV))
+    CV = 0;
+end 
 
 end
 

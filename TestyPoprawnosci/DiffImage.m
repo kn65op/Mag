@@ -7,8 +7,8 @@ oCV = 0;
 oCLCPU = 0;
 oCLGPU = 0;
 
-n = 9;
-for i=0:n
+n = 10;
+for i=0:n-1
     [CLCPU, CLGPU, CV] = DiffPixels(mode, strcat('0', int2str(image_number), '_0', int2str(i)));
     oCV = oCV + CV;
     oCLCPU = oCLCPU + CLCPU;
@@ -18,7 +18,6 @@ end
 oCV = oCV / n;
 oCLCPU = oCLCPU / n;
 oCLGPU = oCLGPU / n;
-
 
 end
 

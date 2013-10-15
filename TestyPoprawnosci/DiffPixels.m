@@ -15,5 +15,15 @@ CLCPU = sum(sum(abs(sign(CLCVCPU)))) / N;
 CLGPU = sum(sum(abs(sign(CLCVGPU)))) / N;
 CV = sum(sum(abs(sign(CVCPUCVGPU)))) / N;
 
+if (isnan(CLCPU))
+    CLCPU = 0;
+end
+if (isnan(CLGPU))
+    CLGPU = 0;
+end
+if (isnan(CV))
+    CV = 0;
+end 
+
 end
 
