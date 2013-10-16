@@ -14,7 +14,7 @@ Z przedstawionych danych wynika, że implementacje wykonane z~użyciem bibliotek
 \centering
 \caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na skale}
 \label{tab:imageScaleRep}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
  \hline
 Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,14778\% & 0,14778\% & 0\% \\ \hline
@@ -38,7 +38,7 @@ W~tabeli \ref{tab:imageScaleRep} przedstawiono ilość różnych pikseli dla por
 \centering
 \caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na obrazy}
 \label{tab:imageImageRep}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 1,7374\% & 1,7374\% & 0\% \\ \hline
@@ -57,7 +57,7 @@ W~tabeli \ref{tab:imageImageRep} przedstawiono ilość różnych pikseli dla por
 \centering
 \caption{Średni błąd pikseli dla reprezentacji skali podzielony na skale}
 \label{tab:devScaleRep}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 1,4498 & 1,4498 & 0 \\ \hline
@@ -81,7 +81,7 @@ W~tabeli \ref{tab:devScaleRep} przedstawiono średnią różnicę pomiędzy piks
 \centering
 \caption{Średni błąd pikseli dla reprezentacji skali podzielony na obrazy}
 \label{tab:devImageRep}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 1,7115 & 1,7115 & 0 \\ \hline
@@ -103,7 +103,7 @@ W~tabeli \ref{tab:devImageRep} przedstawiono średnią różnicę pomiędzy piks
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania plam podzielone na skale}
 \label{tab:imageScaleBlob}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
  \hline
 Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,27897\% & 0,27812\% & 4,4179 \textperiodcentered 10 \textsuperscript{-3}\% \\ \hline
@@ -127,7 +127,7 @@ W~tabeli \ref{tab:imageScaleBlob} przedstawiono ilość różnych pikseli dla po
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania plam podzielone na obrazy}
 \label{tab:imageImageBlob}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,25688\% & 0,25704\% & 2,7605 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
@@ -149,7 +149,7 @@ W~tabeli \ref{tab:imageImageBlob} przedstawiono ilość różnych pikseli dla po
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania krawędzi podzielone na skale}
 \label{tab:imageScaleEdge}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
  \hline
 Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,49906\% & 0,49899\% & 7,303 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
@@ -160,8 +160,8 @@ Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 6 & 0,38358\% & 0,38358\% & 8,7535 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
 7 & 0,33234\% & 0,33234\% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
 8 & 0,31114\% & 0,31114\% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-9 & 0,28536\% & 0,28536\% & 0 \\ \hline
-10 & 0,28143\% & 0,28143\% & 0 \\ \hline
+9 & 0,28536\% & 0,28536\% & 0\% \\ \hline
+10 & 0,28143\% & 0,28143\% & 0\% \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -173,14 +173,14 @@ W~tabeli \ref{tab:imageScaleEdge} przedstawiono ilość różnych pikseli dla po
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania krawędzi podzielone na obrazy}
 \label{tab:imageImageEdge}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,12932\% & 0,12906\% & 2,5431 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-2 & 1,7384\% & 1,7384\% & 0 \\ \hline
+2 & 1,7384\% & 1,7384\% & 0\% \\ \hline
 3 & 4,2717 \textperiodcentered 10 \textsuperscript{-3} \% & 4,2717 \textperiodcentered 10 \textsuperscript{-3} \% & 1,4589 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 4 & 0,10846\% & 0,1084\% & 5,7747 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 0,31775\% & 0,31775\% & 0 \\ \hline
+5 & 0,31775\% & 0,31775\% & 0\% \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -197,19 +197,19 @@ W~tabeli \ref{tab:imageImageEdge} przedstawiono ilość różnych pikseli dla po
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania narożników podzielone na skale}
 \label{tab:imageScaleCorner}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
  \hline
 Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,061282\% & 0,061282\% & 0 \\ \hline
+1 & 0,061282\% & 0,061282\% & 0\% \\ \hline
 2 & 0,061043\% & 0,0611\% & 6,2534 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 3 & 0,037336\% & 0,03735\% & 1,3931 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
 4 & 0,024146\% & 0,024137\% & 2,6261 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 5 & 0,1417\% & 0,14165\% & 1,5355 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
 6 & 0,108\% & 0,10851\% & 5,0863 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 7 & 7,8875 \textperiodcentered 10 \textsuperscript{-3} \% & 7,8817 \textperiodcentered 10 \textsuperscript{-3} \% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-8 & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 0 \\ \hline
-9 & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 0 \\ \hline
-10 & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 0 \\ \hline
+8 & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
+9 & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
+10 & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
@@ -221,13 +221,13 @@ W~tabeli \ref{tab:imageScaleCorner} przedstawiono ilość różnych pikseli dla 
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania narożników podzielone na obrazy}
 \label{tab:imageImageCorner}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 9,3842 \textperiodcentered 10 \textsuperscript{-3} \% & 9,4096 \textperiodcentered 10 \textsuperscript{-3} \% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 2 & 7,4219 \textperiodcentered 10 \textsuperscript{-3} \% & 7,5195 \textperiodcentered 10 \textsuperscript{-3} \% & 9,7656 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-3 & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 0 \\ \hline
-4 & 0,091095\% & 0,091095\% & 0 \\ \hline
+3 & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
+4 & 0,091095\% & 0,091095\% & 0\% \\ \hline
 5 & 3,3905 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3949 \textperiodcentered 10 \textsuperscript{-3} \% & 4,5226 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 \end{tabular}
 \end{table}
@@ -244,11 +244,11 @@ W~tabeli \ref{tab:imageImageCorner} przedstawiono ilość różnych pikseli dla 
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania grani podzielone na skale}
 \label{tab:imageScaleRidge}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
  \hline
 Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,068543\% & 0,068543\% & 0 \\ \hline
-2 & 0,17888\% & 0,17888\% & 0 \\ \hline
+1 & 0,068543\% & 0,068543\% & 0\% \\ \hline
+2 & 0,17888\% & 0,17888\% & 0\% \\ \hline
 3 & 0,30359\% & 0,30361\% & 1,3755 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
 4 & 0,42218\% & 0,42226\% & 7,9365 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
 5 & 0,50509\% & 0,5051\% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
@@ -268,7 +268,7 @@ W~tabeli \ref{tab:imageScaleRidge} przedstawiono ilość różnych pikseli dla p
 \centering
 \caption{Wyniki porównań obrazów dla rozpoznawania grani podzielone na obrazy}
 \label{tab:imageImageRidge}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|r|r|r|}
 \hline
 Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
 1 & 0,031446\% & 0,03137\% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
