@@ -40,4 +40,5 @@
 *.png
 *.ini
 TestyPoprawnosci/*.txt
+Operation/*.txt
 *.csv

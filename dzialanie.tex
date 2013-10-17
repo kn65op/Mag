@@ -3,11 +3,43 @@
 
 W~niniejszym rodziale przedsawiono przykład działania algorytmu. Do stworzenia przykładu użyto napisaną implementację z~zastosowaniem biblioteki OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:kamera}, który jest przedstawiony na rys \ref{fig:input}.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=3cm]{input.png}
-\end{center}
-\caption{Wejściowy obraz użyty do przedstawienia działania algorytmu}
-\label{fig:input}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=3cm]{Operation/input.png}
+%\end{center}
+%\caption{Wejściowy obraz użyty do przedstawienia działania algorytmu}
+%\label{fig:input}
+%\end{figure}
 
+\section{Reprezentacja skali}
+\label{sec:dzialanieRep}
+
+Reprezentacja skali jest przedstawiona na rys \ref{fig:dzialanieRep}. Jest to obraz otrzymany po zastosowaniu filtru Gaussa. Filtracji podlega obraz w~skali szarości, które jest otrzymany z~wyniku barwnej aproksymacji obrazu zapisanego w~postaci filtru Bayera. Aproksymacja jest zrealizowana również na karcie graficznej z~użyciem OpenCL. Jest to również obraz wejściowy dla dalszych kroków algorytmu.
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=3cm]{Operation/reprezentacja.png}
+%\end{center}
+%\caption{Fragment reprezentacji skali obrazu wejściowego}
+%\label{fig:input}
+%\end{figure}
+
+\section{Rozpoznawanie plam}
+\label{sec:dzialanieBlob}
+
+Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Wynikiem działania podanego operatora jest obraz przedstawiony na rys. \ref{blobLaplacian}. Na obrazie są przedstawione otzymane wartości
+
+\section{Rozpoznawanie krawędzi}
+\label{sec:dzialanieEdge}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:edgeDetection}.
+
+\section{Rozpoznawanie narożników}
+\label{sec:dzialanieCorner}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego na równaniu \ref{eq:cornerDetection}. Otrzymane wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{cornerK}.
+
+\section{Rozpoznawanie grani}
+\label{sec:dzialanieRidge}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:ridgeDetection}. 
