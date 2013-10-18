@@ -150,7 +150,7 @@ __kernel void  edge_max(__read_only image2d_t Lvv_image, __write_only image2d_t 
 }
 \end{lstlisting}
 
-Na listingu \ref{lis:edgeDetector} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsec:rozpoznawanieKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
+Na listingu \ref{lis:edgeDetector} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsubsec:rozpoznawanieKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
 
 W~pierwszej linii, analogicznie do poprzedniego kernela, pojawia się definicja samplera, który jest używany do pobierania wartości obrazów. Używany jest sampler o~tych samych własnościach, co poprzednio wspomniany.
 
