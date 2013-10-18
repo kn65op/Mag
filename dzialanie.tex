@@ -1,45 +1,141 @@
 \chapter{Przdstawienie działania programu i~algorytmu}
 \label{cha:dzialanie}
 
-W~niniejszym rodziale przedsawiono przykład działania algorytmu. Do stworzenia przykładu użyto napisaną implementację z~zastosowaniem biblioteki OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:kamera}, który jest przedstawiony na rys \ref{fig:input}.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/input.png}
+\end{center}
+\caption{Wejściowy obraz użyty do przedstawienia działania algorytmu}
+\label{fig:input}
+\end{figure}
 
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=3cm]{Operation/input.png}
-%\end{center}
-%\caption{Wejściowy obraz użyty do przedstawienia działania algorytmu}
-%\label{fig:input}
-%\end{figure}
+W~niniejszym rodziale przedsawiono przykład działania algorytmu. Do stworzenia przykładu użyto napisaną implementację z~zastosowaniem biblioteki OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery}, który jest przedstawiony na rys \ref{fig:input}. Obraz jest zapisany z~zastosowaniem filtru Bayera, co można łatwo zauważyć.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/reprezentacja.png}
+\end{center}
+\caption{Fragment reprezentacji skali obrazu wejściowego}
+\label{fig:dzialanieRep}
+\end{figure}
+
 
 \section{Reprezentacja skali}
 \label{sec:dzialanieRep}
 
 Reprezentacja skali jest przedstawiona na rys \ref{fig:dzialanieRep}. Jest to obraz otrzymany po zastosowaniu filtru Gaussa. Filtracji podlega obraz w~skali szarości, które jest otrzymany z~wyniku barwnej aproksymacji obrazu zapisanego w~postaci filtru Bayera. Aproksymacja jest zrealizowana również na karcie graficznej z~użyciem OpenCL. Jest to również obraz wejściowy dla dalszych kroków algorytmu.
 
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=3cm]{Operation/reprezentacja.png}
-%\end{center}
-%\caption{Fragment reprezentacji skali obrazu wejściowego}
-%\label{fig:input}
-%\end{figure}
+Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają się w jeden obiekt. W~sposób można otrzymać większą skalę i~rozpoznawać obiekty, które są większe, pomijając szczegóły. Reprezentacja skali składa się z~kilku takich obrazów w~różnych skalach.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/reprezentacja.png}
+\end{center}
+\caption{Fragment reprezentacji skali obrazu wejściowego}
+\label{fig:input}
+\end{figure}
 
 \section{Rozpoznawanie plam}
 \label{sec:dzialanieBlob}
 
-Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Wynikiem działania podanego operatora jest obraz przedstawiony na rys. \ref{blobLaplacian}. Na obrazie są przedstawione otzymane wartości
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/blobIntermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni używany przy rozpoznawaniu plam}
+\label{fig:blobIntermediate}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/blobResult.png}
+\end{center}
+\caption{Przykładowy wynik rozpoznawania plam}
+\label{fig:blobResult}
+\end{figure}
+
+
+
+Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Ciemne punkty oznaczają wartości bliskie zera. Im jaśniejszy piksel tym większa wartość. Za punkty środkowe plam (aproksymowane jako koła) są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu rozpoznawania plam.
 
 \section{Rozpoznawanie krawędzi}
 \label{sec:dzialanieEdge}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:edgeDetection}.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/edge01Intermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni otrzymany przy rozpoznawaniu krawędzi, wynik warunku pierwszego}
+\label{fig:edgeIntermediate1}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/edge02Intermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni używany przy rozpoznawaniu krawędzi, wynik warunku drugiego}
+\label{fig:edgeIntermediate2}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/edge01Intermediate.png}
+\end{center}
+\caption{Przykładowy wynik rozpoznawania krawędzi}
+\label{fig:edgeResult}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na przedstaionych rysunkach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~mniejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemene. Wynik działania algorytmu rozpoznawania krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}.
+
+Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego warunku, aby wyszukiwać miejsca, gdzie pierwszy znak zmienia znak zamiast wartości zerowych.
 
 \section{Rozpoznawanie narożników}
 \label{sec:dzialanieCorner}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego na równaniu \ref{eq:cornerDetection}. Otrzymane wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{cornerK}.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/cornerIntermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni używany przy rozpoznawaniu narożników}
+\label{fig:cornerIntermediate}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/cornerResult.png}
+\end{center}
+\caption{Przykładowy wynik rozpoznawania narożników}
+\label{fig:cornerResult}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego na równaniu \ref{eq:cornerDetection}. Otrzymane wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{fig:cornerIntermediate}. Ciemne punkty oznaczają wartości bliskie zera. Im jaśniejszy piksel tym większą ma wartość. Wyszukiwane są lokalne maksima, które są przedstawione na rys \ref{fig:cornerResult}. Jest to wynik algorytmu rozpoznawania krawędzi.
 
 \section{Rozpoznawanie grani}
 \label{sec:dzialanieRidge}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:ridgeDetection}. 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/ridge01Intermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni używany przy rozpoznawaniu grani, wynik warunku pierwszego}
+\label{fig:ridgeIntermediate1}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/ridge02Intermediate.png}
+\end{center}
+\caption{Przykładowy obraz pośredni używany przy rozpoznawaniu grani, wynik warunku drugiego}
+\label{fig:ridgeIntermediate2}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Operation/ridgeResult.png}
+\end{center}
+\caption{Przykładowy wynik rozpoznawania krawędzi}
+\label{fig:ridgeResult}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \ref{eq:ridgeDetection}. Wartości wyznaczone za pomocą przedstawionych wyżej warunków są przedstawione na rys. \ref{fig:ridgeIntermediate1}~i~\ref{fig:ridgeIntermediate1}. Piksele szare oznaczają wartości bliskie zera. Ciemniejsze punkty to wartości ujemne, a jaśniejsze przedstawiają wartości dodatnie. Wynik rozpoznawania grani są przedstawione na rys. \ref{fig:ridgeResult}.
