@@ -84,9 +84,9 @@ Za samą realizację potoku jest odpowiedzialna klasa przedstawiona na rys. \ref
 
 Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać klika warunków. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowe a drugim struktura, do której są zapisywane wyniki. Obecnie wspierane są następujące typy argumentów:
 \begin{itemize}
-\item wektor - \texttt{float*} lub \texttt{int*},
-\item obraz 2D - \texttt{image2d_t},
-\item obraz 3D (tylko jako argument wejściowy) - \texttt{image2d_t}.
+\item wektor - \texttt{float\*} lub \texttt{int\*},
+\item obraz 2D - \texttt{image2d\_t},
+\item obraz 3D (tylko jako argument wejściowy) - \texttt{image3d\_t}.
 \end{itemize}
 Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub wksaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
 
@@ -126,7 +126,7 @@ Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warun
 \begin{lstlisting}
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
 
-__kernel void  edge_detector(__read_only image2d_t input, __write_only image2d_t out_Lvv, __write_only image2d_t out_Lvvv)
+__kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\_t out_Lvv, __write_only image2d\_t out_Lvvv)
 {
 	int i = get_global_id(0); //column number
 	int j = get_global_id(1); //row number
@@ -172,7 +172,7 @@ __kernel void  edge_detector(__read_only image2d_t input, __write_only image2d_t
 
 W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
 
-W linii 3, następuje zaczyna się definicja kernela. Posiada on trzy parametry, które są typu \texttt{image2d_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
+W linii 3, następuje zaczyna się definicja kernela. Posiada on trzy parametry, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
 
 W~liniach 5~i~6 pobierane są współrzędne przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 
@@ -186,7 +186,7 @@ Na końcu w liniach 42~i~43 obliczone wartości są zapisywane do obrazów wyjś
 \begin{lstlisting}
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP | CLK_FILTER_NEAREST;
 
-__kernel void  edge_max(__read_only image2d_t Lvv_image, __write_only image2d_t output, __read_only image2d_t Lvvv_image)
+__kernel void  edge_max(__read_only image2d\_t Lvv_image, __write_only image2d\_t output, __read_only image2d\_t Lvvv_image)
 {
 	int i = get_global_id(0); //column number
 	int j = get_global_id(1); //row number
