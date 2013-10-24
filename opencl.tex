@@ -120,8 +120,6 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 
 W~ramach stworzonej biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
-Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
-
 \lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left}
 \begin{lstlisting}
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
@@ -169,6 +167,8 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 	write_imagef(out_Lvvv, (int2)(i, j), Lvvv);
 }
 \end{lstlisting}
+
+Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 
 W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
 
