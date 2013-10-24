@@ -65,9 +65,9 @@ Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliw
 \label{fig:diagrampotok}
 \end{figure}
 
-Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku mniejszych operacji w~jeden większy algorytm. Wiele z~tych mniejszych operacji jest używana w~większej liczbie algorytmów, dlatego pożądane jest, aby umożliwić wielokrotne użycie raz napisanego kernela przy jak najmniejszym nakładzie pracy.
+Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele z~tych mniejszych operacji jest używana w~większej liczbie algorytmów, dlatego pożądane jest, aby umożliwić wielokrotne użycie raz napisanego kernela.
 
-W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów w~dwóch wymiarach. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem. Wadą użycia potoku jest utrudniona możliwość zwrócenia dodatkowych danych przez kernele, które nie są ostatnimi w~potoku. Znacznie utrudnione jest też pobranie wyników pośrednich.
+W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem. Wadą użycia potoku jest utrudniona możliwość zwrócenia dodatkowych danych przez kernele, które nie są ostatnimi w~potoku. Znacznie utrudnione jest też pobranie wyników pośrednich.
 
 \begin{figure}
 \begin{center}
@@ -84,11 +84,11 @@ Za samą realizację potoku jest odpowiedzialna klasa przedstawiona na rys. \ref
 
 Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać klika warunków. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowe a drugim struktura, do której są zapisywane wyniki. Obecnie wspierane są następujące typy argumentów:
 \begin{itemize}
-\item wektor,
-\item obraz 2D,
-\item obraz 3D (tylko jako argument wejściowy).
+\item wektor - \texttt{float*} lub \texttt{int*},
+\item obraz 2D - \texttt{image2d_t},
+\item obraz 3D (tylko jako argument wejściowy) - \texttt{image2d_t}.
 \end{itemize}
-Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
+Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub wksaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
 
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
@@ -103,7 +103,7 @@ Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, 
 \label{fig:diagramwyjatkow}
 \end{figure}
 
-Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~punktu widzenia biblioteki dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
+Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~biblioteki, dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
 
 \subsection{Zaimplementowane kernele}
 \label{subsec:kernele}
@@ -118,7 +118,7 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 \label{fig:diagramWszystko}
 \end{figure}
 
-W~ramach biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące rozpoznawaniu przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+W~ramach stworzonej biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
 Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \ref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 
