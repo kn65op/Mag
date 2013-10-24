@@ -51,7 +51,7 @@ Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów
 \label{subsec:filtracjaGaussa}
 Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest ich zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
 
-Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \ref{eq:gaussian}:
+Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \eqref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
 g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot \sigma^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
@@ -65,7 +65,7 @@ $ \sigma $ - wariancja.
 Wariancja w~powyższym wzorze określa skalę, w~jakiej obraz wyjściowy jest przedstawiony. 
 
 Ponieważ podczas obliczeń z~użyciem komputera nie jest możliwe używanie przestrzeni ciągłej, dlatego konieczne jest wprowadzenie reprezentacji dyskretnej. 
-Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określone wzorem \ref{eq:gaussian_discrete}:
+Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określone wzorem \eqref{eq:gaussian_discrete}:
 \begin{equation}
 \label{eq:gaussian_discrete}
 g(x,y,N,\sigma) = \alpha \cdot e^{-((x+y)-N/2)^2/(2 \cdot \sigma)^2}
@@ -84,7 +84,7 @@ W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru oblicz
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
-Reprezentacja skali dla sygnałów ciągłych dwuwymiarowych (np. obrazów) powstaje w sposób przedstawiony we wzorze \ref{eq:scalespace}:
+Reprezentacja skali dla sygnałów ciągłych dwuwymiarowych (np. obrazów) powstaje w sposób przedstawiony we wzorze \eqref{eq:scalespace}:
 
 \begin{equation}
 \label{eq:scalespace}
@@ -118,7 +118,7 @@ Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości
 \item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika maski.
 \end{itemize}
 
-Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \ref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Zgodnie z~wzorem \ref{eq:gaussian_discrete} współczynniki maski są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
+Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki maski są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
 
 Do wyznaczenia całej reprezentacji konieczne będzie wykonanie 
 %$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
@@ -142,7 +142,7 @@ W~opisie wszystkich procesów rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$
 \subsubsection{Rozpoznawanie plam}
 \label{subsubsec:rozpoznawaniePlam}
 
-Do rozpoznawania plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnej zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \ref{eq:blobRadius}.
+Do rozpoznawania plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnej zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \eqref{eq:blobRadius}.
 
 \begin{figure}
 \begin{center}
@@ -163,7 +163,7 @@ $ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaus
 \subsubsection{Rozpoznawanie krawędzi}
 \label{subsubsec:rozpoznawanieKrawedzi}
 
-Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniu \ref{eq:edgeDetection}.
+Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniu \eqref{eq:edgeDetection}.
 
 \begin{equation}
 \label{eq:edgeDetection}
@@ -173,7 +173,7 @@ L_x^3L_{xxx} + 3L_x^2L_yL_{xxy} + 3L_xL_y^2L_{xyy} + L_y^3L_{yyy} < 0
 \end{array} \right.
 \end{equation}
 
-W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \ref{eq:edgeDetection}. Następnie, dla każdego punktu wszystkich obrazów reprezentacji skali sprawdzane są warunki \ref{eq:edgeDetection}. Jeśli są one spełnione to dany punkt jest uznawany za fragment krawędzi.
+W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \eqref{eq:edgeDetection}. Następnie, dla każdego punktu wszystkich obrazów reprezentacji skali sprawdzane są warunki \eqref{eq:edgeDetection}. Jeśli są one spełnione to dany punkt jest uznawany za fragment krawędzi.
 
 Podane warunki mogą być bez żadnych zmian zastosowane do sygnałów ciągłych. W~przypadku obrazów dyskretnych konieczna jest modyfikacja pierwszego z~podanych warunków. Jest to spodowane tym, że miejsca, gdzie pierwszy warunek jest spełniony znajdują się pomiędzy pikselami. Dlatego, aby odnaleźć te punkty należy zbadać, czy pomiędzy dwoma pikselami wartość wynikająca z pierwszego warunku zmienia znak. Jeśli tak, oznacza to, że pomiędzy danymi pikselami występuje wartość zero, więc pierwszy warunek jest spełniony. Dla analizowanego piksela sprawdzane są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. Dzięki temu każda krawędź jest wykrywana tylko dla jednego piksela.
 
@@ -191,7 +191,7 @@ Drugim problemem są błędy obliczeń spowodowane dyskretyzacją sygnałów i~o
 \subsubsection{Rozpoznawanie grani}
 \label{subsubsec:rozpoznawanieGrani}
 
-Warunk istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \ref{eq:ridgeDetection}.
+Warunk istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \eqref{eq:ridgeDetection}.
 
 \begin{equation}
 \label{eq:ridgeDetection}
@@ -202,14 +202,14 @@ L_xL_y(L_{xx}-L_{yy}) - (L_x^2 - L_y^2)L_{xy} = 0 \\
 \end{equation}
 
 Sposób postępowania jest analogiczny jak dla wykrywania krawędzi. Liczone są odpowiednie pochodne obrazu
-Potem są obliczane wyniki działań odpowiadające warunkom \ref{eq:ridgeDetection} a~następnie są one sprawdzane.
+Potem są obliczane wyniki działań odpowiadające warunkom \eqref{eq:ridgeDetection} a~następnie są one sprawdzane.
 
 W~tym przypadku nie konieczne jest sprawdzanie zmiany znaku pomiędzy pikselami, ponieważ wartości zerowe dla pierwszego warunku są osiągane dokładnie tam, gdzie są piksele. 
 
 \subsubsection{Rozpoznawanie narożników}
 \label{subsubsec:rozpoznawanieNaroznikow}
 
-Do wyznacznia narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \ref{eq:cornerDetection}.
+Do wyznacznia narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \eqref{eq:cornerDetection}.
 
 \begin{equation}
 \label{eq:cornerDetection}

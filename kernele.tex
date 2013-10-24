@@ -8,10 +8,10 @@ W~trakcie realizacji praca stworzono poniżej przedstawione kernele. Wszystkie k
 \texttt{\_\_kernel void findLocalMax(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel znajdujący maksima lokalne na obrazie wejściowym. Używany jest przy detekcji plam oraz narożników. Do obrazu wyjściowego są zapisywane wartości 255 dla współrzędnych punktów, które zostały uznane za maksima lokalne obrazu wejściowego.
 
 \item 
-\texttt{\_\_kernel void  edge\_max(\_\_read\_only image2d\_t Lvv\_image, \_\_write\_only image2d\_t output, \_\_read\_only image2d\_t Lvvv\_image)} - kernel wyznaczający punkty, w~których znaleziono krawędzie. Obrazami wejściowymi są wartości wyznaczone za pomocą warunków opisanych w~równaniu \ref{eq:edgeDetection}. Do obrazu wyjściowego są zapisywane wartości 255 w~punktach, które zostały uznane za krawędzie zgodnie z~warunkami.
+\texttt{\_\_kernel void  edge\_max(\_\_read\_only image2d\_t Lvv\_image, \_\_write\_only image2d\_t output, \_\_read\_only image2d\_t Lvvv\_image)} - kernel wyznaczający punkty, w~których znaleziono krawędzie. Obrazami wejściowymi są wartości wyznaczone za pomocą warunków opisanych w~równaniu \eqref{eq:edgeDetection}. Do obrazu wyjściowego są zapisywane wartości 255 w~punktach, które zostały uznane za krawędzie zgodnie z~warunkami.
 
 \item 
-\texttt{\_\_kernel void  ridge\_max(\_\_read\_only image2d\_t L1\_image, \_\_write\_only image2d\_t output, \_\_read\_only image2d\_t L2\_image)} - kernel wyznaczający punkty, w~których znaleziono granie. Obrazami wejściowymi są wartości wyznaczone za pomocą warunków opisanych w~równaniu \ref{eq:ridgeDetection}. Do obrazu wyjściowego są zapisywane wartości 255 w~punktach, które zostały uznane za granie zgodnie z~warunkami.
+\texttt{\_\_kernel void  ridge\_max(\_\_read\_only image2d\_t L1\_image, \_\_write\_only image2d\_t output, \_\_read\_only image2d\_t L2\_image)} - kernel wyznaczający punkty, w~których znaleziono granie. Obrazami wejściowymi są wartości wyznaczone za pomocą warunków opisanych w~równaniu \eqref{eq:ridgeDetection}. Do obrazu wyjściowego są zapisywane wartości 255 w~punktach, które zostały uznane za granie zgodnie z~warunkami.
 
 \item 
 \texttt{\_\_kernel void  intToFloat8bit(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel zamieniający obraz wejściowy typu całkowitoliczbowego o~rozmiarze jednego bajta na obraz wyjściowy typu zmiennoprzecikowego pojedynczej precyzji.
@@ -23,16 +23,16 @@ W~trakcie realizacji praca stworzono poniżej przedstawione kernele. Wszystkie k
 \texttt{\_\_kernel void  floatToUInt8ThreeChannels(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel zamieniający obraz wejściowy typu zmiennoprzecikowego pojedynczej precyzji na obraz wyjściowy typu całkowitoliczbowego o~rozmiarze jednego bajta .
 
 \item 
-\texttt{\_\_kernel void  edge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_Lvv, \_\_write\_only image2d\_t out\_Lvvv)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania krawędzi i~są przedstawione na~równaniu \ref{eq:edgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
+\texttt{\_\_kernel void  edge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_Lvv, \_\_write\_only image2d\_t out\_Lvvv)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania krawędzi i~są przedstawione na~równaniu \eqref{eq:edgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
 
 \item 
-\texttt{\_\_kernel void  corner\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania narożików i~jest przedstawiony na równaniu \ref{eq:cornerDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściwoym jest zapisana wartość pikseli wyznaczona z~równania.
+\texttt{\_\_kernel void  corner\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania narożików i~jest przedstawiony na równaniu \eqref{eq:cornerDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściwoym jest zapisana wartość pikseli wyznaczona z~równania.
 
 \item 
 \texttt{\_\_kernel void  blob\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania plam i~jest przedstawiony na rys. \ref{fig:laplacian_kernel}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściwoym jest zapisana wartość pikseli wyznaczona zgodnie z~algorytmem.
 
 \item 
-\texttt{\_\_kernel void  ridge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_L1, \_\_write\_only image2d\_t out\_L2)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania grani i~są przedstawione na~równaniu \ref{eq:ridgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
+\texttt{\_\_kernel void  ridge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_L1, \_\_write\_only image2d\_t out\_L2)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania grani i~są przedstawione na~równaniu \eqref{eq:ridgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
 
 \item 
 \texttt{\_\_kernel void  convolution(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output, \_\_global float * gaussian, \_\_private \_\_read\_only uint size)} - kernel liczący reprezentację skali. Obrazem wejściowym jest obraz w~skali szarości. Filtr gaussa jest zapisany jako tablica jednowymiarowa w~celu przyśpieszczenia obliczeń.
