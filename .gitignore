@@ -40,6 +40,7 @@
 *.png
 *.ini
 TestyPoprawnosci/*.txt
+TestySzybkosci/*/*.txt
 Operation/*.txt
 *.csv
 wynik
