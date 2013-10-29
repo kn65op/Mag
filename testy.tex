@@ -4,3 +4,32 @@
 W niniejszym rozdziale przedstawiono proces testowania zaimplementowanych algorytmów oraz wyniki. Obszarem zainteresowań jest poprawność zaimplementowanego algorytmu oraz porównanie szybkości działania z~innymi implementacjami.
 
 Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z użyciem biblioteki OpenCV: jedna przeprowadza obliczenia na procesorze (CPU), druga przeprowadza obliczenia na karcie graficznej (GPU) z~wykorzystaniem pakietu CUDA.
+
+\section{Środowisko testowe}
+\label{sec:srodowiskoTesty}
+
+Do testów użyto dwóch kart graficznych.
+
+\begin{enumerate}
+\item GeForce GT 555M \cite{GT555M} o następujących parametrach:
+\begin{itemize}
+\item libcza rdzeni: 144,
+\item zegar układu graficznego: 675 MHz,
+%\item zegar procesora: 1350 MHz,
+\item częstotliwość danych pamięci: 1800 MHz,
+\item interfejs pamięci: 128-bitowy,
+\item szerokość pasma pamięci: 28,80GB/s,
+\item dostępna pamięć: 4095 MB.
+\end{itemize}
+
+\item GeForce GTX 670 \cite{GT555M} o następujących parametrach:
+\begin{itemize}
+\item libcza rdzeni: 1344,
+\item zegar układu graficznego: 980 MHz,
+%\item zegar procesora: 1350 MHz,
+\item częstotliwość danych pamięci: 6008 MHz,
+\item interfejs pamięci: 256-bitowy,
+\item szerokość pasma pamięci: 192.26 GB/s,
+\item dostępna pamięć: 4096 MB.
+\end{itemize}
+\end{enumerate}
