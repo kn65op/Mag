@@ -31,6 +31,20 @@ Na wykresie \ref{fig:pureSzybkoscMoje} przedstawiono porównanie wyników dla po
 
 Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają prawie identczne wyniki. Dodatkowo można zauważyć że czas wykonywania obliczeń dla tych implementacji od trzeciej skali rośnie bardzo wolno wrast ze wzrostem skali.
 
-Na wykresie \ref{fig:pureSzybkoscAGH} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GTX 670.
+Dla implementacji zrealizowanej w~OpenCL można zauważyć, że czas potrzebny do wykonania obliczeń rośnie wraz ze~wrostem skali. Wrost jest tym większy im większa jest skala.
 
+Na wykresie \ref{fig:pureSzybkoscAGH} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GTX 670. Można zauważyć, że dla wszystkich skal poza pierwszą implementacja wykonana w~OpenCL jest wyraźnie szybsza.
 
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają porównywalne wyniki. Zawsze szybsza jest implementacja wykonywna na procesorze graficznym GPU. Można zauważyć wyraźny wzrost czasu trwania wykonywania pomiędzy drugą i~trzecią skalą. Dla większych skal wzrost jest mniejszy. 
+
+Dla implmenentacji zrealizowanej w~OpenCL czas potrzebny na wykonanie obliczeń rośnie wraz ze wzrostem skali. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\textwidth]{TestySzybkosci/PureOpenCL.png}
+\end{center}
+\caption{Wykres szybkości działania z~użyciem karty graficznej GeForce GTX 670}
+\label{fig:pureOpenCL}
+\end{figure}
+
+Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania implementacji wykonanej za pomocą biblioteki OpenCL dla obu kart graficznych. Można zauważyć znaczne różnice szybkości dla obu kart. Są one spowodowane wydajnością obu kart. Karta GeForce 555M jest kartą stworzoną dla laptopów (co , stworzoną kilka lat temu. Karta GeForce 670 jest kartą nowszej generacji, ma lepsze parametry. To powoduje znacznie szybsze wykonanie algorytmu na karcie GTX 670. Parametrem mocno wpływającym na szybkość wykonania algorytmu, zwłaszcza dla większych skal, jest wielkość pamięci wewnętrznej dla poszczególnych jednostek obliczneniowych karty graficznej. W~przypadku gdy fragment przetwarzanego obrazu jest mniejszy niż aktualnie przetwarzana skali znacznie zwiększa się czas przetwarzania.
