@@ -9,11 +9,11 @@ Mierzeniu podlagał czas trwania następujących czynności:
 \item czas wkrywania cech na obrazach (wraz z~wcześniejszym wyznaczeniem reprezentacji Scale Space) - osobno dla każdej cechy.
 \end{itemize}
 
-Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych.
+Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych. Do testów użyto dwudziestu obrazów pobranych z~kamery. Wykonano pomiary dla każdej z~implementacji dla wyznaczania reprezentacji skali i~detekcji każdej z~cech. Obliczenia zrealizowano dla dziesięciu skal z~krokiem 4. Wyniki pomiarów dla wyznaczania reprezentacji skali przedstawiono na diagramach.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestySzybkosci/PureMoje.png}
+\includegraphics[width=\textwidth]{TestySzybkosci/PureMoje.png}
 \end{center}
 \caption{Wykres szybkości działania z~użyciem karty graficznej GeForce GT 555M}
 \label{fig:pureSzybkoscMoje}
@@ -21,9 +21,16 @@ Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznyc
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestySzybkosci/PureAGH.png}
+\includegraphics[width=\textwidth]{TestySzybkosci/PureAGH.png}
 \end{center}
 \caption{Wykres szybkości działania z~użyciem karty graficznej GeForce GTX 670}
 \label{fig:pureSzybkoscAGH}
 \end{figure}
+
+Na wykresie \ref{fig:pureSzybkoscMoje} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GT 555M. Można zauważyć, że dla skal jeden, dwa oraz sześć szybkość obu implementacje jest prawie taka sama. Dla skal od trzeciej do piątej implementacja zrealizowana w~OpenCL jest wyraźnie szybsza. Dla skal większych od sześciu implmentacje zrealizowane w~OpenCV są szybsze.
+
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają prawie identczne wyniki. Dodatkowo można zauważyć że czas wykonywania obliczeń dla tych implementacji od trzeciej skali rośnie bardzo wolno wrast ze wzrostem skali.
+
+Na wykresie \ref{fig:pureSzybkoscAGH} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GTX 670.
+
 
