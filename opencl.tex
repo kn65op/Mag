@@ -120,8 +120,8 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 
 W~ramach stworzonej biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
-\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left}
-\begin{lstlisting}
+\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\footnotesize}
+\begin{lstlisting}[float]
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
 
 __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\_t out_Lvv, __write_only image2d\_t out_Lvvv)
@@ -182,8 +182,8 @@ W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość
 
 Na końcu w liniach 42~i~43 obliczone wartości są zapisywane do obrazów wyjściowych.
 
-\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,numbers=left}
-\begin{lstlisting}
+\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,basicstyle=\footnotesize}
+\begin{lstlisting}[float]
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP | CLK_FILTER_NEAREST;
 
 __kernel void  edge_max(__read_only image2d\_t Lvv_image, __write_only image2d\_t output, __read_only image2d\_t Lvvv_image)
