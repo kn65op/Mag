@@ -54,9 +54,7 @@ Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają 
 \label{fig:blobResult}
 \end{figure}
 
-
-
-Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Ciemne punkty oznaczają wartości bliskie zera. Im jaśniejszy piksel tym większa wartość. Za punkty środkowe plam (aproksymowane jako koła) są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu rozpoznawania plam.
+Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większa wartość. Za punkty środkowe plam (aproksymowane jako koła) są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu rozpoznawania plam. Ciemne piksele oznaczają środek rozpoznanych plam.
 
 \section{Rozpoznawanie krawędzi}
 \label{sec:dzialanieEdge}
@@ -80,13 +78,13 @@ Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:lapla
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.4\textwidth]{Operation/edge01Intermediate.png}
+\includegraphics[width=0.4\textwidth]{Operation/edgeResult.png}
 \end{center}
 \caption{Przykładowy wynik rozpoznawania krawędzi}
 \label{fig:edgeResult}
 \end{figure}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na przedstaionych rysunkach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~mniejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemene. Wynik działania algorytmu rozpoznawania krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}.
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na tych obrazach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~mniejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemene. Wynik działania algorytmu rozpoznawania krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}. Ciemne piksele występują w~miejscach, gdzie wykryto krawędź.
 
 Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego warunku, aby wyszukiwać miejsca, gdzie pierwszy znak zmienia znak zamiast wartości zerowych.
 
@@ -109,7 +107,7 @@ Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego war
 \label{fig:cornerResult}
 \end{figure}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego na równaniu \eqref{eq:cornerDetection}. Otrzymane wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{fig:cornerIntermediate}. Ciemne punkty oznaczają wartości bliskie zera. Im jaśniejszy piksel tym większą ma wartość. Wyszukiwane są lokalne maksima, które są przedstawione na rys \ref{fig:cornerResult}. Jest to wynik algorytmu rozpoznawania krawędzi.
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego na równaniu \eqref{eq:cornerDetection}. Otrzymane wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{fig:cornerIntermediate}. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większą ma wartość. Wyszukiwane są lokalne maksima, które są przedstawione na rys \ref{fig:cornerResult}. Jest to wynik algorytmu rozpoznawania krawędzi. Ciemne piksele oznaczają miejsca, gdzie wykryto narożniki.
 
 \section{Rozpoznawanie grani}
 \label{sec:dzialanieRidge}
@@ -138,4 +136,4 @@ Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współc
 \label{fig:ridgeResult}
 \end{figure}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:ridgeDetection}. Wartości wyznaczone za pomocą przedstawionych wyżej warunków są przedstawione na rys. \ref{fig:ridgeIntermediate1}~i~\ref{fig:ridgeIntermediate1}. Piksele szare oznaczają wartości bliskie zera. Ciemniejsze punkty to wartości ujemne, a jaśniejsze przedstawiają wartości dodatnie. Wynik rozpoznawania grani są przedstawione na rys. \ref{fig:ridgeResult}.
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:ridgeDetection}. Wartości wyznaczone za pomocą przedstawionych wyżej warunków są przedstawione na rys. \ref{fig:ridgeIntermediate1}~i~\ref{fig:ridgeIntermediate1}. Piksele szare oznaczają wartości bliskie zera. Ciemniejsze punkty to wartości ujemne, a jaśniejsze przedstawiają wartości dodatnie. Wynik rozpoznawania grani są przedstawione na rys. \ref{fig:ridgeResult}. Ciemne piksele znajdują się w~miejscach, gdzie wykryto granie.
