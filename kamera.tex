@@ -32,3 +32,5 @@ Zaimplementowana klasa realizuje podstawowe operacje z~poniższego zbioru.
 \item Zamknięcie kamery - zwalnia zasoby kamery i~umożliwia innym programom dostęp. W~celu ponownej rejestracji obrazów należy otworzyć kamerę ponownie.
 \end{itemize}
 Operacje zakończenia akwizycji obrazów i~zamknięcie kamery są realizowane również w~destruktorze, co pozwala na automatyczne zwalnianie zasobów kiedy nie są już potrzebne.
+
+Pobieranie obrazu jest realizowane asynchronicznie. Uruchamiany jest wątek, który jest wybudzany w~momencie gdy kamera przesyła obraz do komputera. W~tym wątku obraz z~kamery jest zapisywany do kolejki obrazów. Użytkownik może pobierać obrazy niezależnie. Jest to niemożliwe jedynie podaczas dodawanie nowego obrazu do kolejki. Aby zapobiec błędom związanymi z~przetwarzaniem wielowątkowym wykorzystano algorytm wzajemnego wykluczenia dostępny w~biliotece standradowej C++ \cite{mutexCpp}.
