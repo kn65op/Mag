@@ -1,32 +1,38 @@
 \subsection{Prezentacja różnic w~obrazach wyjściowych}
 \label{subsec:prezentacjaObrazowRoznicowych}
 
-Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa wybrane obrazy wejściowe wybrane spośród pięciu, dla każdej rozpoznawanej cechy oraz dla reprezentacji skali. Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności.
+Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa wybrane obrazy wejściowe wybrane spośród pięciu, dla każdej rozpoznawanej cechy oraz dla reprezentacji skali. Na każdym zestawie obrazów znajdują się:
+\begin{itemize}
+\item obraz wejciowy,
+\item wynik obliczeń dla implementacji OpenCL,
+\item trzy obrazy różnicowe porównujące wszystkie implementacje.
+\end{itemize}
+
+Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności.
 
 \subsubsection{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSkaliRysunki}
 
-Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPure03}.
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_pure_02.png}
-\end{center}
-\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
-\label{fig:valPure02}
-\end{figure}
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_pure_03.png}
-\end{center}
-\caption{Drugi obraz wejściowy dla reprezentacji skali}
-\label{fig:valPure03}
-\end{figure}
+Obrazy wejściowe przedstawione są na rys. \ref{fig:valPure02} i \ref{fig:valPure03}. 
 
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. 
 
 \begin{figure}[h]
+
+\begin{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_02.png}
+\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\label{fig:valPure02}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_result_02_09.png}
+\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\label{fig:valPureResult02}
+\end{subfigure}
+\end{center}
+
 \begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
@@ -59,6 +65,22 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPu
 \end{figure}
 
 \begin{figure}[h]
+\begin{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_03.png}
+\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\label{fig:valPure02}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_result_03_09.png}
+\end{center}
+\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\label{fig:valPure02}
+\end{subfigure}
+\end{center}
+
 \begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
@@ -99,25 +121,25 @@ Implementacje wykonane w~OpenCV dla liczenia reprezentacji skali dają identyczn
 
 Obrazy wejściowe przedstawione są na rys. \ref{fig:valBlob01} i \ref{fig:valBlob02}.
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_blob_01.png}
-\end{center}
-\caption{Pierwszy obraz wejściowy dla rozpoznawania plam}
-\label{fig:valBlob01}
-\end{figure}
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_blob_02.png}
-\end{center}
-\caption{Drugi obraz wejściowy dla rozpoznawania plam}
-\label{fig:valBlob02}
-\end{figure}
-
 Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob2}. 
 
 \begin{figure}[h]
+
+\begin{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_01.png}
+\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\label{fig:valBlob02}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_result_01_09.png}
+\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\label{fig:valBlobResult02}
+\end{subfigure}
+\end{center}
+
+
 \begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
@@ -150,6 +172,21 @@ Obrazy różnicowe są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBl
 \end{figure}
 
 \begin{figure}[h]
+\begin{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_02.png}
+\caption{Drugi obraz wejściowy dla rozpoznawania plam}
+\label{fig:valBlob02}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_result_02_09.png}
+\caption{Drugi obraz wyjściowy dla reprezentacji skali}
+\label{fig:valBlobResult02}
+\end{subfigure}
+\end{center}
+
+
 \begin{subfigure}[t]{0.3\textwidth}
 	\centering
 	\setlength\fboxsep{0pt}
@@ -193,7 +230,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEd
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_edge_00.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_00.png}
 \end{center}
 \caption{Pierwszy obraz wejściowy dla rozpoznawania krawędzi}
 \label{fig:valEdge00}
@@ -201,7 +238,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valEdge00} i \ref{fig:valEd
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_edge_02.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_02.png}
 \end{center}
 \caption{Drugi obraz wejściowy dla rozpoznawania krawędzi}
 \label{fig:valEdge02}
@@ -282,7 +319,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valCorner01} i \ref{fig:val
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_corner_01.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_01.png}
 \end{center}
 \caption{Pierwszy obraz wejściowy dla rozpoznawania narożników}
 \label{fig:valCorner01}
@@ -290,7 +327,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valCorner01} i \ref{fig:val
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_corner_02.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_02.png}
 \end{center}
 \caption{Drugi obraz wejściowy dla rozpoznawania narożników}
 \label{fig:valCorner02}
@@ -393,7 +430,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valR
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_ridge_01.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_01.png}
 \end{center}
 \caption{Pierwszy obraz wejściowy dla rozpoznawania grani}
 \label{fig:valRidge01}
@@ -401,7 +438,7 @@ Obrazy wejściowe przedstawione są na rys. \ref{fig:valRidge01} i~\ref{fig:valR
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{TestyPoprawnosci/in_ridge_04.png}
+\includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_04.png}
 \end{center}
 \caption{Drugi obraz wejściowy dla rozpoznawania grani}
 \label{fig:valRidge04}
