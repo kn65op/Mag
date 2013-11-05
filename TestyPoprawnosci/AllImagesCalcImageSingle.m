@@ -16,7 +16,7 @@ for j=0:N
     for i=0:S
         [RidgeImages(i + 1,1) RidgeImages(i + 1,2) RidgeImages(i + 1,3)] = DiffImageSingle('ridge', j, i);
     end
-    csvwrite(strcat('CSV/ImagePureImages', int2str(j), '.csv'), RidgeImages);
+    csvwrite(strcat('CSV/ImageRidgeImages', int2str(j), '.csv'), RidgeImages);
 end
 
 
@@ -26,7 +26,7 @@ for j=0:N
     for i=0:S
         [PureImages(i + 1,1) PureImages(i + 1,2) PureImages(i + 1,3)] = DiffImageSingle('pure', j, i);
     end
-    csvwrite(strcat('CSV/ImageRidgeImages', int2str(j), '.csv'), PureImages);
+    csvwrite(strcat('CSV/ImagePureImages', int2str(j), '.csv'), PureImages);
 end
 
 

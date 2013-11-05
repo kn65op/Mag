@@ -1,4 +1,4 @@
-\subsection{Porównanie wszystkich obrazów}
+\subsection{Numeryczne porównanie obrazów}
 \label{subsec:porownanieNumerycznePoprawnosc}
 
 W~poniższych akapitach przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione na równaniach \eqref{eq:procentZlychPikseli}~i~\eqref{eq:sredniaOdchylenia}.
@@ -12,86 +12,96 @@ Z przedstawionych danych wynika, że implementacje wykonane z~użyciem bibliotek
 \begin{center}
 \begin{table}
 \centering
-\caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na skale}
+\caption{Wartości współczynnika $ p_{XY} $ dlareprezentacji skali dla obrazu \ref{fig:valPure2} podzielone na skale}
 \label{tab:imageScaleRep}
 \begin{tabular}{|c|r|r|r|}
  \hline
-Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,14778\% & 0,14778\% & 0\% \\ \hline
-2 & 0,25987\% & 0,25987\% & 0\% \\ \hline
-3 & 0,37288\% & 0,37288\% & 0\% \\ \hline
-4 & 0,49627\% & 0,49627\% & 0\% \\ \hline
-5 & 0,62658\% & 0,62658\% & 0\% \\ \hline
-6 & 0,7716\% & 0,7716\% & 0\% \\ \hline
-7 & 0,92989\% & 0,92989\% & 0\% \\ \hline
-8 & 1,0854\% & 1,0854\% & 0\% \\ \hline
-9 & 1,2398\% & 1,2398\% & 0\% \\ \hline
-10 & 1,4086\% & 1,4086\% & 0\% \\ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.05     & 0.05     & 0.00        \\ \hline
+2        & 0.08     & 0.08     & 0.00        \\ \hline
+3        & 0.11     & 0.11     & 0.00        \\ \hline
+4        & 0.14     & 0.14     & 0.00        \\ \hline
+5        & 0.17     & 0.17     & 0.00        \\ \hline
+6        & 0.20     & 0.20     & 0.00        \\ \hline
+7        & 0.23     & 0.23     & 0.00        \\ \hline
+8        & 0.26     & 0.26     & 0.00        \\ \hline
+9        & 0.28     & 0.28     & 0.00        \\ \hline
+10       & 0.31     & 0.31     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartości współczynnika $ p_{XY} $ dlareprezentacji skali dla obrazu \ref{fig:valPure3} podzielone na skale}
+\label{tab:imageScaleRep}
+\begin{tabular}{|c|r|r|r|}
+ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.02     & 0.02     & 0.00        \\ \hline
+2        & 0.04     & 0.04     & 0.00        \\ \hline
+3        & 0.05     & 0.05     & 0.00        \\ \hline
+4        & 0.07     & 0.07     & 0.00        \\ \hline
+5        & 0.10     & 0.10     & 0.00        \\ \hline
+6        & 0.12     & 0.12     & 0.00        \\ \hline
+7        & 0.15     & 0.15     & 0.00        \\ \hline
+8        & 0.18     & 0.18     & 0.00        \\ \hline
+9        & 0.22     & 0.22     & 0.00        \\ \hline
+10       & 0.25     & 0.25     & 0.00        \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:imageScaleRep} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas twozenia reprezentacji skali podzieloną na skale. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli, które są poza obrazem. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
 
-\begin{center}
-\begin{table}
-\centering
-\caption{Wyniki porównań obrazów dla reprezentacji skali podzielone na obrazy}
-\label{tab:imageImageRep}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 1,7374\% & 1,7374\% & 0\% \\ \hline
-2 & 0,31958\% & 0,31958\% & 0\% \\ \hline
-3 & 0,18205\% & 0,18205\% & 0\% \\ \hline
-4 & 0,12112\% & 0,12112\% & 0\% \\ \hline
-5 & 1,3092\% & 1,3092\% & 0\% \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
-
 W~tabeli \ref{tab:imageImageRep} przedstawiono liczbę różnych pikseli dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na obrazy. Duże różnice pomiędzy obrazami są spowodowane ich wielkością. Im większy obraz, tym mniejszy jest stosunek liczby pikseli brzegowych w~stounku do ogólnej liczby pikseli. Niska wartość obliczona dla obrazu czwartego wynika z~tego, że na tym obrazie obszary bliskie krawędzi są jednorodne.
 
 \begin{center}
 \begin{table}
 \centering
-\caption{Średni błąd pikseli dla reprezentacji skali podzielony na skale}
+\caption{Wartość współczynnika $ v_{XY} $ dla reprezentacji skali dla obrazu \ref{fig:valPure2} podzielone na skale}
 \label{tab:devScaleRep}
 \begin{tabular}{|c|r|r|r|}
 \hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 1,4498 & 1,4498 & 0 \\ \hline
-2 & 1,5611 & 1,5611 & 0 \\ \hline
-3 & 1,6277 & 1,6277 & 0 \\ \hline
-4 & 1,6815 & 1,6815 & 0 \\ \hline
-5 & 1,7246 & 1,7246 & 0 \\ \hline
-6 & 1,7619 & 1,7619 & 0 \\ \hline
-7 & 1,7901 & 1,7901 & 0 \\ \hline
-8 & 1,8191 & 1,8191 & 0 \\ \hline
-9 & 1,8468 & 1,8468 & 0 \\ \hline
-10 & 1,8715 & 1,8715 & 0 \\ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 1.12     & 1.12     & 0.00        \\ \hline
+2        & 1.16     & 1.16     & 0.00        \\ \hline
+3        & 1.18     & 1.18     & 0.00        \\ \hline
+4        & 1.20     & 1.20     & 0.00        \\ \hline
+5        & 1.23     & 1.23     & 0.00        \\ \hline
+6        & 1.26     & 1.26     & 0.00        \\ \hline
+7        & 1.28     & 1.28     & 0.00        \\ \hline
+8        & 1.31     & 1.31     & 0.00        \\ \hline
+9        & 1.33     & 1.33     & 0.00        \\ \hline
+10       & 1.36     & 1.36     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartość współczynnika $ v_{XY} $ dla reprezentacji skali dla obrazu \ref{fig:valPure3} podzielone na skale}
+\label{tab:devScaleRep}
+\begin{tabular}{|c|r|r|r|}
+\hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 1.00     & 1.00     & 0.00        \\ \hline
+2        & 1.00     & 1.00     & 0.00        \\ \hline
+3        & 1.00     & 1.00     & 0.00        \\ \hline
+4        & 1.00     & 1.00     & 0.00        \\ \hline
+5        & 1.00     & 1.00     & 0.00        \\ \hline
+6        & 1.00     & 1.00     & 0.00        \\ \hline
+7        & 1.00     & 1.00     & 0.00        \\ \hline
+8        & 1.00     & 1.00     & 0.00        \\ \hline
+9        & 1.00     & 1.00     & 0.00        \\ \hline
+10       & 1.00     & 1.00     & 0.00        \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:devScaleRep} przedstawiono średnią różnicę pomiędzy pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na skale. Duże różnice pomiędzy obrazami są spowodowane ich wielkością. Im większa skala, tym wartość średniej różnicy jest większa. Jest to spowodowane nieco odminnym traktowaniem pikseli brzegowych. 
-
-\begin{center}
-\begin{table}
-\centering
-\caption{Średni błąd pikseli dla reprezentacji skali podzielony na obrazy}
-\label{tab:devImageRep}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 1,7115 & 1,7115 & 0 \\ \hline
-2 & 1,6422 & 1,6422 & 0 \\ \hline
-3 & 1,2433 & 1,2433 & 0 \\ \hline
-4 & 1 & 1 & 0 \\ \hline
-5 & 2,9701 & 2,9701 & 0 \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
 
 W~tabeli \ref{tab:devImageRep} przedstawiono średnią różnicę pomiędzy pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na obrazy. Różnice pomiędzy obrazami są zależne głównie od charakterystyki obrazu na brzegach. Im bardziej złożone struktury są obecne na brzegach obrazu tym większy powstaje błąd. Obraz numer cztery jest obrazem przedstawionym na rys. \ref{fig:valPure03}. Można zauważyć, że tło na tym obrazie, do któreg należą wszystkie piksele brzegowe, jest wolnozmienne, co zmniejsza błąd. Pozostałe obrazy posiadają bardziej złożone struktury przy brzegach. Dotyczy to zwłaszcza obrazy piątego.
 
@@ -101,43 +111,48 @@ W~tabeli \ref{tab:devImageRep} przedstawiono średnią różnicę pomiędzy piks
 \begin{center}
 \begin{table}
 \centering
-\caption{Wyniki porównań obrazów dla rozpoznawania plam podzielone na skale}
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania plam dla obrazu \ref{fig:valBlob1} podzielone na skale}
 \label{tab:imageScaleBlob}
 \begin{tabular}{|c|r|r|r|}
  \hline
-Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,27897\% & 0,27812\% & 4,4179 \textperiodcentered 10 \textsuperscript{-3}\% \\ \hline
-2 & 0,3062\% & 0,3046\% & 4,1661 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-3 & 0,2602\% & 0,2684\% & 0,011341\% \\ \hline
-4 & 0,22778\% & 0,23323\% & 7,9742 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-5 & 0,2077\% & 0,21068\% & 4,9272 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-6 & 0,23807\% & 0,23871\% & 5,4858 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-7 & 0,20579\% & 0,20779\% & 6,3091 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-8 & 0,19524\% & 0,19555\% & 5,4328 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-9 & 0,22939\% & 0,22904\% & 5,1616 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-10 & 0,23304\% & 0,2334\% & 6,8522 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.70     & 0.70     & 0.00        \\ \hline
+2        & 0.84     & 0.84     & 0.00       \\ \hline
+3        & 0.68     & 0.68     & 0.00       \\ \hline
+4        & 0.55     & 0.55     & 0.00        \\ \hline
+5        & 0.48     & 0.48     & 0.00        \\ \hline
+6        & 0.61     & 0.61     & 0.00        \\ \hline
+7        & 0.41     & 0.41     & 0.00        \\ \hline
+8        & 0.32     & 0.32     & 0.00        \\ \hline
+9        & 0.45     & 0.45     & 0.00        \\ \hline
+10       & 0.34     & 0.34     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania plam dla obrazu \ref{fig:valBlob2} podzielone na skale}
+\label{tab:imageScaleBlob}
+\begin{tabular}{|c|r|r|r|}
+\hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.14     & 0.14     & 0.00       \\ \hline
+2        & 0.15     & 0.15     & 0.00        \\ \hline
+3        & 0.15     & 0.15     & 0.00       \\ \hline
+4        & 0.13     & 0.14     & 0.00       \\ \hline
+5        & 0.13     & 0.13     & 0.00       \\ \hline
+6        & 0.13     & 0.13     & 0.00       \\ \hline
+7        & 0.13     & 0.13     & 0.00       \\ \hline
+8        & 0.13     & 0.13     & 0.00       \\ \hline
+9        & 0.13     & 0.13     & 0.00       \\ \hline
+10       & 0.14     & 0.14     & 0.00       \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:imageScaleBlob} przedstawiono liczbę różnych pikseli dla porównań implementacji rozpoznawania plam podzieloną na skale. Można zauważyć, że największe rozbieżności powstają dla niskich skal. Jest to spowodowane dużą liczbą wykrywanych plam w~niższych skalach. Dla skal większych liczbę różnych pikseli jest podobna. 
-
-\begin{center}
-\begin{table}
-\centering
-\caption{Wyniki porównań obrazów dla rozpoznawania plam podzielone na obrazy}
-\label{tab:imageImageBlob}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,25688\% & 0,25704\% & 2,7605 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-2 & 0,53819\% & 0,53794\% & 7,5377 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-3 & 0,1373\% & 0,13692\% & 9,154 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-4 & 0,076471\% & 0,08541\% & 0,023269\% \\ \hline
-5 & 0,18235\% & 0,18247\% & 3,3491 \textperiodcentered 10 \textsuperscript{-3} \% \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
 
 W~tabeli \ref{tab:imageImageBlob} przedstawiono liczbę różnych pikseli dla porównań implemetacji podczas rozpoznawania plam podzieloną na obrazy. Duże różnice pomiędzy obrazami są spowodowane ich wielkością oraz obiektami obecnymi na obrazach. Obraz numer dwa jest przedstawiony na rys \ref{fig:valBlob01}. Ten obraz ma niewielki rozmiar oraz specyficzną zawartość, dlatego uzyskano większy procent odmiennych pikseli, niż dla innych obrazów. Pozostałe obrazy różnią się wielkośćią i~specyfiką prezentaowanych struktur. Niezgodności pomiędzy implementacjami są ponad dwa razy mniejsze niż dla obrazu drugiego. Większość różnic znajduje się na brzegach obrazów.
 
@@ -147,43 +162,49 @@ W~tabeli \ref{tab:imageImageBlob} przedstawiono liczbę różnych pikseli dla po
 \begin{center}
 \begin{table}
 \centering
-\caption{Wyniki porównań obrazów dla rozpoznawania krawędzi podzielone na skale}
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania krawędzi dla obrazu \ref{fig:valEdge0} podzielone na skale}
 \label{tab:imageScaleEdge}
 \begin{tabular}{|c|r|r|r|}
  \hline
-Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,49906\% & 0,49899\% & 7,303 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-2 & 0,64573\% & 0,64573\% & 2,9178 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-3 & 0,6305\% & 0,6303\% & 1,9249 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-4 & 0,53505\% & 0,5351\% & 3,8498 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 0,45999\% & 0,45995\% & 4,1416 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-6 & 0,38358\% & 0,38358\% & 8,7535 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-7 & 0,33234\% & 0,33234\% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-8 & 0,31114\% & 0,31114\% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-9 & 0,28536\% & 0,28536\% & 0\% \\ \hline
-10 & 0,28143\% & 0,28143\% & 0\% \\ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.06     & 0.06     & 0.000       \\ \hline
+2        & 0.03     & 0.03     & 0.00        \\ \hline
+3        & 0.02     & 0.02     & 0.00        \\ \hline
+4        & 0.01     & 0.01     & 0.00        \\ \hline
+5        & 0.01     & 0.01     & 0.00        \\ \hline
+6        & 0.00     & 0.00     & 0.00        \\ \hline
+7        & 0.00     & 0.00     & 0.00        \\ \hline
+8        & 0.00     & 0.00     & 0.00        \\ \hline
+9        & 0.00     & 0.00     & 0.00        \\ \hline
+10       & 0.00     & 0.00     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania krawędzi dla obrazu \ref{fig:valEdge2} podzielone na skale}
+\label{tab:imageScaleEdge}
+\begin{tabular}{|c|r|r|r|}
+ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.01     & 0.01     & 0.00        \\ \hline
+2        & 0.01     & 0.01     & 0.00        \\ \hline
+3        & 0.01     & 0.01     & 0.00        \\ \hline
+4        & 0.00     & 0.00     & 0.00        \\ \hline
+5        & 0.00     & 0.00     & 0.00        \\ \hline
+6        & 0.00     & 0.00     & 0.00        \\ \hline
+7        & 0.00     & 0.00     & 0.00        \\ \hline
+8        & 0.00     & 0.00     & 0.00        \\ \hline
+9        & 0.00     & 0.00     & 0.00        \\ \hline
+10       & 0.00     & 0.00     & 0.00        \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:imageScaleEdge} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania krawędzi podzieloną na skale. Można zauważyć, że stosunek rozbieżnych pikseli do wszystkich pikseli na obrazie maleje wraz ze wzrostem skali. Wyjątkiem jest tutaj różnica pomiędzy pierwszą a~drugą skali, kiedy obserwowany jest wzrost. Zmniejszanie się podanego stosunku wraz ze wzrostem skali jest spowodowany mniejszą liczbą wykrytych krawędzi na obrazach w~kolejnych skalach.
 
-\begin{center}
-\begin{table}
-\centering
-\caption{Wyniki porównań obrazów dla rozpoznawania krawędzi podzielone na obrazy}
-\label{tab:imageImageEdge}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,12932\% & 0,12906\% & 2,5431 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-2 & 1,7384\% & 1,7384\% & 0\% \\ \hline
-3 & 4,2717 \textperiodcentered 10 \textsuperscript{-3} \% & 4,2717 \textperiodcentered 10 \textsuperscript{-3} \% & 1,4589 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-4 & 0,10846\% & 0,1084\% & 5,7747 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 0,31775\% & 0,31775\% & 0\% \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
 
 W~tabeli \ref{tab:imageImageEdge} przedstawiono liczbę różnych pikseli dla porównań implemetacji podczas rozpoznawania krawędzi podzielona na obrazy. Można zauważyć duże różnice wartości współczynnika dla różnych obrazów. Ma na to wpływ ich wielkość oraz rodzaj struktur obecnych na ich brzegach. Obraz numer dwa jest najmniejszym obrazem z~analizowanych, natomiast obraz numer pięć ma obecne krawędzie w~dużej ilości przy brzegach obrazów.
 
@@ -195,43 +216,50 @@ W~tabeli \ref{tab:imageImageEdge} przedstawiono liczbę różnych pikseli dla po
 \begin{table}
 \centering
 \centering
-\caption{Wyniki porównań obrazów dla rozpoznawania narożników podzielone na skale}
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania narożników dla obrazu \ref{fig:valCorner1} podzielone na skale}
 \label{tab:imageScaleCorner}
 \begin{tabular}{|c|r|r|r|}
  \hline
-Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,061282\% & 0,061282\% & 0\% \\ \hline
-2 & 0,061043\% & 0,0611\% & 6,2534 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-3 & 0,037336\% & 0,03735\% & 1,3931 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-4 & 0,024146\% & 0,024137\% & 2,6261 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 0,1417\% & 0,14165\% & 1,5355 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-6 & 0,108\% & 0,10851\% & 5,0863 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-7 & 7,8875 \textperiodcentered 10 \textsuperscript{-3} \% & 7,8817 \textperiodcentered 10 \textsuperscript{-3} \% & 5,8357 \textperiodcentered 10 \textsuperscript{-6} \% \\ \hline
-8 & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 5,9628 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
-9 & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3435 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
-10 & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 3,4789 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.03     & 0.03     & 0.00        \\ \hline
+2        & 0.01     & 0.01     & 0.00        \\ \hline
+3        & 0.01     & 0.01     & 0.00        \\ \hline
+4        & 0.00     & 0.00     & 0.00        \\ \hline
+5        & 0.00     & 0.01     & 0.00        \\ \hline
+6        & 0.00     & 0.00     & 0.00        \\ \hline
+7        & 0.00     & 0.00     & 0.00        \\ \hline
+8        & 0.00     & 0.00     & 0.00        \\ \hline
+9        & 0.00     & 0.00     & 0.00        \\ \hline
+10       & 0.00     & 0.00     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}
+\centering
+\centering
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania narożników dla obrazu \ref{fig:valCorner2} podzielone na skale}
+\label{tab:imageScaleCorner}
+\begin{tabular}{|c|r|r|r|}
+ \hline
+Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
+1        & 0.02     & 0.02     & 0.00        \\ \hline
+2        & 0.00     & 0.00     & 0.00        \\ \hline
+3        & 0.00     & 0.00     & 0.00        \\ \hline
+4        & 0.00     & 0.00     & 0.00        \\ \hline
+5        & 0.00     & 0.00     & 0.00        \\ \hline
+6        & 0.00     & 0.00     & 0.00        \\ \hline
+7        & 0.00     & 0.00     & 0.00        \\ \hline
+8        & 0.00     & 0.00     & 0.00        \\ \hline
+9        & 0.00     & 0.00     & 0.00        \\ \hline
+10       & 0.00     & 0.00     & 0.00        \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:imageScaleCorner} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania narożników podzieloną na skale. Można zauważyć, że wartości współczynników są niskie i~maleją wraz ze zwiększaniem skali. Ogólna niska wartość współczynników wynika z~niewielkiej liczby wykrywanych obiektów oraz dobrej jakości detektora narożników. Zmniejszanie się liczby rozbieżności jest związane z~malejącą liczbą wykrywanych obiektów.
 
-\begin{center}
-\begin{table}
-\centering
-\caption{Wyniki porównań obrazów dla rozpoznawania narożników podzielone na obrazy}
-\label{tab:imageImageCorner}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 9,3842 \textperiodcentered 10 \textsuperscript{-3} \% & 9,4096 \textperiodcentered 10 \textsuperscript{-3} \% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-2 & 7,4219 \textperiodcentered 10 \textsuperscript{-3} \% & 7,5195 \textperiodcentered 10 \textsuperscript{-3} \% & 9,7656 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-3 & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3569 \textperiodcentered 10 \textsuperscript{-3} \% & 0\% \\ \hline
-4 & 0,091095\% & 0,091095\% & 0\% \\ \hline
-5 & 3,3905 \textperiodcentered 10 \textsuperscript{-3} \% & 3,3949 \textperiodcentered 10 \textsuperscript{-3} \% & 4,5226 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
 
 W~tabeli \ref{tab:imageImageCorner} przedstawiono liczbę różnych pikseli dla porównań implemetacji podczas rozpoznawania narożników podzielona na obrazy. Współczynniki wyznaczone dla czterech obrazów są bardzo niskie. Obraz numer cztery ma większy stosunek liczby pikseli różniących się do wszystkich pikseli, ponieważ posiada artefakty na brzegu obrazu, które powodują różnic.
 
@@ -242,43 +270,49 @@ W~tabeli \ref{tab:imageImageCorner} przedstawiono liczbę różnych pikseli dla 
 \begin{center}
 \begin{table}
 \centering
-\caption{Wyniki porównań obrazów dla rozpoznawania grani podzielone na skale}
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania grani dla obrazu \ref{fig:valRidge1} podzielone na skale}
 \label{tab:imageScaleRidge}
 \begin{tabular}{|c|r|r|r|}
  \hline
-Nr. skali & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,068543\% & 0,068543\% & 0\% \\ \hline
-2 & 0,17888\% & 0,17888\% & 0\% \\ \hline
-3 & 0,30359\% & 0,30361\% & 1,3755 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-4 & 0,42218\% & 0,42226\% & 7,9365 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 0,50509\% & 0,5051\% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-6 & 0,6207\% & 0,62022\% & 1,5377 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-7 & 0,7188\% & 0,71903\% & 3,0505 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-8 & 0,77971\% & 0,77972\% & 6,3149 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-9 & 0,73463\% & 0,7346\% & 3,7718 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-10 & 0,59316\% & 0,59314\% & 2,5431 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
+Nr skali & CL-CVCPU & CL-CVGPU & CVCPU-CVGPU \\ \hline
+1        & 0.10     & 0.10     & 0.00        \\ \hline
+2        & 0.35     & 0.35     & 0.00        \\ \hline
+3        & 0.63     & 0.63     & 0.00        \\ \hline
+4        & 0.75     & 0.75     & 0.00        \\ \hline
+5        & 0.89     & 0.89     & 0.00        \\ \hline
+6        & 1.12     & 1.12     & 0.00        \\ \hline
+7        & 1.29     & 1.30     & 0.00        \\ \hline
+8        & 1.56     & 1.55     & 0.00        \\ \hline
+9        & 1.75     & 1.75     & 0.00        \\ \hline
+10       & 1.83     & 1.83     & 0.00        \\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartości współczynnika $ p_{XY} $ dlarozpoznawania grani dla obrazu \ref{fig:valRidge4} podzielone na skale}
+\label{tab:imageScaleRidge}
+\begin{tabular}{|c|r|r|r|}
+ \hline
+Nr skali & CL-CVCPU & CL-CVGPU & CVCPU-CVGPU \\ \hline
+1        & 0.09     & 0.09     & 0.00        \\ \hline
+2        & 0.30     & 0.30     & 0.00        \\ \hline
+3        & 0.58     & 0.58     & 0.00        \\ \hline
+4        & 0.95     & 0.95     & 0.00        \\ \hline
+5        & 1.17     & 1.17     & 0.00        \\ \hline
+6        & 1.52     & 1.52     & 0.00        \\ \hline
+7        & 1.91     & 1.91     & 0.00        \\ \hline
+8        & 2.08     & 2.08     & 0.00        \\ \hline
+9        & 1.76     & 1.76     & 0.00        \\ \hline
+10       & 1.04     & 1.04     & 0.00        \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
 
 W~tabeli \ref{tab:imageScaleRidge} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania grani podzieloną na skale. Można zauważyć, że wartości współczynnika są największa dla skali numer osiem. Dla skal mniejszych, liczba różnic rośnie wraz ze zwrostem skali, a~dla większych maleje wraz ze wzrostem skali. Wynika to z~faktu, że granie są najlepiej wykrywane dla skal większych. Uśrednione wyniki dla kilku obrazów pozwalają ocenić, że najlepszymi skalami dla tych obrazów są skale od siódmej do dziewiątej.
-
-\begin{center}
-\begin{table}
-\centering
-\caption{Wyniki porównań obrazów dla rozpoznawania grani podzielone na obrazy}
-\label{tab:imageImageRidge}
-\begin{tabular}{|c|r|r|r|}
-\hline
-Nr. obrazu & CL - CVCPU & CL - CVGPU & CVCPU - CVGPU \\ \hline
-1 & 0,031446\% & 0,03137\% & 7,6294 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-2 & 1,0263\% & 1,0263\% & 7,5436 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-3 & 0,1531\% & 0,1532\% & 9,3985 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-4 & 0,11112\% & 0,11119\% & 7,44 \textperiodcentered 10 \textsuperscript{-5} \% \\ \hline
-5 & 1,1404\% & 1,1405\% & 1,1905 \textperiodcentered 10 \textsuperscript{-4} \% \\ \hline
-\end{tabular}
-\end{table}
-\end{center}
 
 W~tabeli \ref{tab:imageImageRidge} przedstawiono liczbę różnych pikseli dla porównań implemetacji podczas rozpoznawania grani podzielona na obrazy. Można zauważyć dużą dysproporcje pomiędzy obrazami. Największy stosunek liczby różnych pikseli do wszystkich pikseli mają obrazy numer dwa i pięć. Powodem tego jest obecność złożonych struktur na brzegach obrazów. W pozostałych brzegi są bardziej jednorodne i~generują znacznie mniej różnic, które powstają pomiędzy implementacjami.
 
