@@ -52,7 +52,7 @@ Kod kernela może być podany w~jednej z~dwóch postaci: jako zmienna typu std::
 
 Funkcjonalność ta ułatwia użytkownikowi proces kompilacji oraz wykonywania kerneli wraz z~przekazywaniem argumentów oraz pobieraniem wyników. Ten fragment biblioteki składa się z~wielu klas, których schemat jest przedstawiony na rys. \ref{fig:openclalgorithms}. Duża liczba klas jest spowodowana potrzebą umożliwienia zastosowania biblioteki do wielu rodzajów kerneli. Prace nad biblioteką były skupione na realizacji algorytmów operujących na obrazach. Konieczność wprowadzenia dużego rozróżnienia wynika z dużej liczby struktur wykorzystywanych w~standardzie do przekazywania parametrów wejściowych i wyjściowych oraz chęcią uściślenia zastosowania danego algorytmu.
 
-Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliwia, w~optymalnych przypadkach, na minimalne zaangażowanie użytkownika biblioteki w~tworzenie kodu kontrolera i~skupienie się na konstrukcji kodu kernela. Koniecznymi do podania informacjami są: format obrazu danych wejściowych i~wyjściowych oraz kod kernela (zawarty w~pliku lub w~łańcuchu znakowym). Dla bardziej zaawansowanych algorytmów, do działania których potrzebnych jest więcej argumentów wejściowych lub danych rezultatów konieczne jest więcej pracy włożonej w~napisanie kodu kontrolera. Dla takich przypadków zrealizowano funkcje pomocnicze. Aby stworzyć właną klasę odpowiedzialną za realizację danego kernela należy dziedziczyć po odpowiednio wybranej klasie. Wybór klasy jest zależny od danych jakie kernel przyjmuje i~jakie zwraca.
+Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliwia, w~optymalnych przypadkach, na minimalne zaangażowanie użytkownika biblioteki w~tworzenie kodu kontrolera i~skupienie się na konstrukcji kodu kernela. Koniecznymi do podania informacjami są: format obrazu danych wejściowych i~wyjściowych oraz kod kernela (zawarty w~pliku lub w~łańcuchu znakowym). Dla bardziej zaawansowanych algorytmów, do działania których potrzebnych jest więcej argumentów wejściowych lub danych rezultatów konieczne jest więcej pracy włożonej w~napisanie kodu kontrolera. Dla takich przypadków zrealizowano funkcje pomocnicze. Aby stworzyć własną klasę odpowiedzialną za realizację danego kernela należy dziedziczyć po odpowiednio wybranej klasie. Wybór klasy jest zależny od danych jakie kernel przyjmuje i~jakie zwraca.
 
 \subsection{Tworzenie potoków kerneli}
 \label{subsec:potokikerneli}
@@ -77,7 +77,7 @@ W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku u�
 \label{fig:openCLAlgorithmsStream}
 \end{figure}
 
-Za samą realizację potoku jest odpowiedzialna klasa przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodwania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu porpzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić strumień podając skąd pobierać i~gdzie zapisywać dane. Jeden strumień może być uruchamiany dowolną liczbę razy.
+Za samą realizację potoku jest odpowiedzialna klasa przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodawania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu poprzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić strumień podając skąd pobierać i~gdzie zapisywać dane. Jeden strumień może być uruchamiany dowolną liczbę razy.
 
 \subsection{Reguły dotyczące kerneli}
 \label{subsec:regulykerneli}
@@ -88,7 +88,7 @@ Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać 
 \item obraz 2D - \texttt{image2d\_t},
 \item obraz 3D (tylko jako argument wejściowy) - \texttt{image3d\_t}.
 \end{itemize}
-Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub wksaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
+Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub wskaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
 
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
@@ -170,13 +170,13 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 
 Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 
-W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podaczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
 
 W linii 3, następuje zaczyna się definicja kernela. Posiada on trzy parametry, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
 
 W~liniach 5~i~6 pobierane są współrzędne przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 
-W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do  obliczenia warunków rozpozawania krawędzi.
+W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do  obliczenia warunków rozpoznawania krawędzi.
 
 W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
 
@@ -210,6 +210,6 @@ W~pierwszej linii, analogicznie do poprzedniego kernela, pojawia się definicja 
 
 W~linii 3 rozpoczyna się definicja kernela. Ma on trzy parametry, które są typu obraz 2D. Pierwsze dwa są wartościami pikseli wyliczonymi za pomocą poprzedniego kernela i~są tylko do odczytu. Ostatni argument jest obrazem, do jest zapisywana informacja o~tym, czy znaleziono w~danym miejscu krawędź.
 
-W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wrości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
+W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wartości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
 
 W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela. Wszystkie piksele obrazu wyjściowego przed wywołaniem kernela mają wartość zero.

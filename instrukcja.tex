@@ -1,20 +1,20 @@
 \chapter{Instrukcja używania programu}
 \label{cha:instrukcja}
 
-Krótka instrukcja użytkownia stworzonego programu.
+Krótka instrukcja użytkowania stworzonego programu.
 
-Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświelić używają parametru -h lub --help). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
+Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświetlić używają parametru -h lub --help). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
 
 Program przyjmuje następujące parametry, które zostały opisane w~poniższym spisie. Każdy parametr może być podany w formie krótkiej lub długiej.
 
 \begin{itemize}
 \item \texttt{-i,--in} - obraz jest odczytywany z pliku podanego jako argument.
-\item \texttt{-I,--in-prefix} - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefix\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: bmp, jpg lub png.
-\item \texttt{-o,--out} - określa prefiks nazwy plików wujściowych. Pliki wyjściowe są zapisywane w formacie: A\_B\_XX\_YY.bmp, gdzie:
+\item \texttt{-I,--in-prefix} - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefiks\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: bmp, jpg lub png.
+\item \texttt{-o,--out} - określa prefiks nazwy plików wyjściowych. Pliki wyjściowe są zapisywane w formacie: A\_B\_XX\_YY.bmp, gdzie:
 	\begin{itemize}
 		\item A - podany prefiks,
 		\item B - nazwa implementacji, która była wykorzystana,
-		\item XX - numer przetwarzanego obrazu (zawsze dwucyforwy),
+		\item XX - numer przetwarzanego obrazu (zawsze dwucyfrowy),
 		\item YY - numer przetwarzanej skali (zawsze dwucyfrowy).
 	\end{itemize}
 \item \texttt{-m,--mode} - wybór detekcji cech. Dozwolone wartości:

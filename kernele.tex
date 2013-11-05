@@ -23,18 +23,18 @@ W~trakcie realizacji praca stworzono poniżej przedstawione kernele. Wszystkie k
 \texttt{\_\_kernel void  floatToUInt8ThreeChannels(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel zamieniający obraz wejściowy typu zmiennoprzecikowego pojedynczej precyzji na obraz wyjściowy typu całkowitoliczbowego o~rozmiarze jednego bajta .
 
 \item 
-\texttt{\_\_kernel void  edge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_Lvv, \_\_write\_only image2d\_t out\_Lvvv)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania krawędzi i~są przedstawione na~równaniu \eqref{eq:edgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
+\texttt{\_\_kernel void  edge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_Lvv, \_\_write\_only image2d\_t out\_Lvvv)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania krawędzi i~są przedstawione na~równaniu \eqref{eq:edgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściowych są zapisane wartości pikseli wyznaczone z~równania.
 
 \item 
-\texttt{\_\_kernel void  corner\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania narożików i~jest przedstawiony na równaniu \eqref{eq:cornerDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściwoym jest zapisana wartość pikseli wyznaczona z~równania.
+\texttt{\_\_kernel void  corner\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania narożników i~jest przedstawiony na równaniu \eqref{eq:cornerDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściowym jest zapisana wartość pikseli wyznaczona z~równania.
 
 \item 
-\texttt{\_\_kernel void  blob\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania plam i~jest przedstawiony na rys. \ref{fig:laplacian_kernel}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściwoym jest zapisana wartość pikseli wyznaczona zgodnie z~algorytmem.
+\texttt{\_\_kernel void  blob\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output)} - kernel wyznaczający wartości współczynnika, który jest używany do wyznaczania plam i~jest przedstawiony na rys. \ref{fig:laplacian_kernel}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazie wyjściowym jest zapisana wartość pikseli wyznaczona zgodnie z~algorytmem.
 
 \item 
-\texttt{\_\_kernel void  ridge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_L1, \_\_write\_only image2d\_t out\_L2)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania grani i~są przedstawione na~równaniu \eqref{eq:ridgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściwoych są zapisane wartości pikseli wyznaczone z~równania.
+\texttt{\_\_kernel void  ridge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_L1, \_\_write\_only image2d\_t out\_L2)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania grani i~są przedstawione na~równaniu \eqref{eq:ridgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściowych są zapisane wartości pikseli wyznaczone z~równania.
 
 \item 
-\texttt{\_\_kernel void  convolution(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output, \_\_global float * gaussian, \_\_private \_\_read\_only uint size)} - kernel liczący reprezentację skali. Obrazem wejściowym jest obraz w~skali szarości. Filtr gaussa jest zapisany jako tablica jednowymiarowa w~celu przyśpieszczenia obliczeń.
+\texttt{\_\_kernel void  convolution(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output, \_\_global float * gaussian, \_\_private \_\_read\_only uint size)} - kernel liczący reprezentację skali. Obrazem wejściowym jest obraz w~skali szarości. Filtr Gaussa jest zapisany jako tablica jednowymiarowa w~celu przyspieszenia obliczeń.
 
 \end{itemize}

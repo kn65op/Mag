@@ -6,7 +6,7 @@ W niniejszym rozdziale przedstawiono szczegóły techniczne wykorzystanej kamery
 \section{Specyfikacja techniczna kamery kolorowej}
 \label{sec:specyfikacjaKamery}
 
-Do testów została wykorzystano przemysłową kamerę wysokiej rozdzielczości: JAI BB-500GE. Jej maksymalna rozdzielczość to 2456 na 2058 pikseli, przy której można pobrać 15 klatek na sekundę. Możliwe jest pobranie pikseli o rodzielczości wielkości 8, 10, 12 lub 16 bitów. Dane są pobierane za pomocą standardu Gigabit Ethernet. 
+Do testów została wykorzystano przemysłową kamerę wysokiej rozdzielczości: JAI BB-500GE. Jej maksymalna rozdzielczość to 2456 na 2058 pikseli, przy której można pobrać 15 klatek na sekundę. Możliwe jest pobranie pikseli o rozdzielczości wielkości 8, 10, 12 lub 16 bitów. Dane są pobierane za pomocą standardu Gigabit Ethernet. 
 
 Obraz pobierany za pomocą kamery jest w formacie metody Bayera. Jest to sposób reprezentacji obrazu, który jest używany w~kamerach lub aparatach cyfrowych. Z~tego powodu konieczne było zastosowanie interpolacji obrazu barwnego. Do realizacji tego celu użyto implementacji stworzonej w \cite{BFIOCL}.
 
@@ -15,7 +15,7 @@ Obraz pobierany za pomocą kamery jest w formacie metody Bayera. Jest to sposób
 
 Obsługa kamery została zrealizowana z użyciem dostarczonej przez producenta biblioteki JAI SDK \cite{JAISDK}. Ponieważ jest ona zrealizowane w~języku C, stworzono klasę odpowiedzialną za obsługę kamery. Klasa automatycznie zarządza zasobami, ustawieniami oraz dostępem do kamery, dzięki temu korzystanie z~niej jest łatwe.
 
-Biblioteka JAI SDK ma duże możliwości. Poza umożliwieniem połączenia się z~kamerą i~pobraniu zarejestrowanego obrazu udostępnia wiele algorytmów. Między innymi zaimpllementowana jest interpolacja obrazu barwnego i~redukcja zniekształceń pochodzących z~obiektywu.
+Biblioteka JAI SDK ma duże możliwości. Poza umożliwieniem połączenia się z~kamerą i~pobraniu zarejestrowanego obrazu udostępnia wiele algorytmów. Między innymi zaimplementowana jest interpolacja obrazu barwnego i~redukcja zniekształceń pochodzących z~obiektywu.
 
 Do celów tej pracy nie była potrzebna żadna zaawansowana możliwość kamery i~dostarczonej do niej biblioteki poza możliwością połączenia się z~kamerą oraz pobrania obrazu. Dlatego stworzona klasa korzysta tylko z~podstawowych możliwości kamery oraz dostarczonej do niej biblioteki.
 
@@ -25,7 +25,7 @@ Do celów tej pracy nie była potrzebna żadna zaawansowana możliwość kamery 
 Zaimplementowana klasa realizuje podstawowe operacje z~poniższego zbioru. 
 \begin{itemize}
 \item Wyszukiwanie kamer - pierwszą zaimplementowaną czynnością jest wyszukiwanie kamer w~systemie, do których możliwy jest dostęp z~użyciem biblioteki JAI SDK. Jest to pierwsza czynność, którą należy wykonać, aby móc pobierać obrazy z~kamery. Po procesie wyszukiwania zwracana jest lista dostępnych kamer.
-\item Otwarcie kamery - po wybraniu danej kamery należy ją otworzyć. Dopiero po otwarciu kamery można wykonywanać na niej operacje. Na tym etapie można ustawić parametry kamery. Dostępnym parametrem do ustawienia jest ustalenie rozdzielczości bitowej piksela (8, 10, 12 lub 16 bitów).
+\item Otwarcie kamery - po wybraniu danej kamery należy ją otworzyć. Dopiero po otwarciu kamery można wykonywać na niej operacje. Na tym etapie można ustawić parametry kamery. Dostępnym parametrem do ustawienia jest ustalenie rozdzielczości bitowej piksela (8, 10, 12 lub 16 bitów).
 \item Rozpoczęcie akwizycji obrazów - w~tym momencie następuje akwizycja obrazów. Obrazy są zapisywane w~kolejce o~określonym rozmiarze. W~przypadku przepełnienia się bufora kolejne rejestrowane obrazy będą odrzucane do momentu, aż jakiś obraz zostanie pobrany z kolejki.
 \item Pobranie kolejnego obrazu - po rozpoczęciu akwizycji można w~dowolnym momencie pobrać ostatni obraz z~kolejki. Jeśli jest ona pusta, zostanie to zgłoszone użytkownikowi.
 \item Zakończenie akwizycji obrazów - zatrzymuje zapisywanie obrazów z~kamery w~kolejce. Nie jest ona kasowana, więc już zarejestrowane obrazy są dostępne dla użytkownika. W~dowolnym momencie można rozpocząć rejestrację ponownie.
@@ -33,4 +33,4 @@ Zaimplementowana klasa realizuje podstawowe operacje z~poniższego zbioru.
 \end{itemize}
 Operacje zakończenia akwizycji obrazów i~zamknięcie kamery są realizowane również w~destruktorze, co pozwala na automatyczne zwalnianie zasobów kiedy nie są już potrzebne.
 
-Pobieranie obrazu jest realizowane asynchronicznie. Uruchamiany jest wątek, który jest wybudzany w~momencie gdy kamera przesyła obraz do komputera. W~tym wątku obraz z~kamery jest zapisywany do kolejki obrazów. Użytkownik może pobierać obrazy niezależnie. Jest to niemożliwe jedynie podaczas dodawanie nowego obrazu do kolejki. Aby zapobiec błędom związanymi z~przetwarzaniem wielowątkowym wykorzystano algorytm wzajemnego wykluczenia dostępny w~biliotece standradowej C++ \cite{mutexCpp}.
+Pobieranie obrazu jest realizowane asynchronicznie. Uruchamiany jest wątek, który jest wybudzany w~momencie gdy kamera przesyła obraz do komputera. W~tym wątku obraz z~kamery jest zapisywany do kolejki obrazów. Użytkownik może pobierać obrazy niezależnie. Jest to niemożliwe jedynie podczas dodawanie nowego obrazu do kolejki. Aby zapobiec błędom związanymi z~przetwarzaniem wielowątkowym wykorzystano algorytm wzajemnego wykluczenia dostępny w~bibliotece standardowej C++ \cite{mutexCpp}.

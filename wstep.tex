@@ -36,7 +36,7 @@ Kolejnym ważnym warunkiem przy wyznaczaniu reprezentacji skali jest niezwiększ
 
 \end{enumerate}
 
-Sygnał w reprezentacji skali może być przedstawiany w przestrzeni ciągłej lub dyskretnej. Dodatkowo, parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) oraz stosowany będzie dyskrety parametr skali.
+Sygnał w reprezentacji skali może być przedstawiany w przestrzeni ciągłej lub dyskretnej. Dodatkowo, parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) oraz stosowany będzie dyskretny parametr skali.
 
 Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przyjąć pewne założenia~\cite{SSFDS}:
 \begin{itemize}
@@ -124,12 +124,12 @@ Do wyznaczenia całej reprezentacji konieczne będzie wykonanie
 %$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
 $ I \cdot P \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
 
-Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jedokrotnego obliczenia współczynników maski i~zachowania ich w~pamięci dla wielu obrazów, to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników maski i~zachowania ich w~pamięci dla wielu obrazów, to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
 
 \subsection{Rozpoznawanie cech}
 \label{subsec:rozpoznawanie}
 
-Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematycze w~celu detekcji pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
+Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematyczne w~celu detekcji pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
 
 W~opisie wszystkich procesów rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
 
@@ -175,13 +175,13 @@ L_x^3L_{xxx} + 3L_x^2L_yL_{xxy} + 3L_xL_y^2L_{xyy} + L_y^3L_{yyy} < 0
 
 W~celu znalezienia krawędzi na obrazie, dla każdej skali wyznaczane są obrazy odpowiadające warunkom \eqref{eq:edgeDetection}. Następnie, dla każdego punktu wszystkich obrazów reprezentacji skali sprawdzane są warunki \eqref{eq:edgeDetection}. Jeśli są one spełnione to dany punkt jest uznawany za fragment krawędzi.
 
-Podane warunki mogą być bez żadnych zmian zastosowane do sygnałów ciągłych. W~przypadku obrazów dyskretnych konieczna jest modyfikacja pierwszego z~podanych warunków. Jest to spodowane tym, że miejsca, gdzie pierwszy warunek jest spełniony znajdują się pomiędzy pikselami. Dlatego, aby odnaleźć te punkty należy zbadać, czy pomiędzy dwoma pikselami wartość wynikająca z pierwszego warunku zmienia znak. Jeśli tak, oznacza to, że pomiędzy danymi pikselami występuje wartość zero, więc pierwszy warunek jest spełniony. Dla analizowanego piksela sprawdzane są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. Dzięki temu każda krawędź jest wykrywana tylko dla jednego piksela.
+Podane warunki mogą być bez żadnych zmian zastosowane do sygnałów ciągłych. W~przypadku obrazów dyskretnych konieczna jest modyfikacja pierwszego z~podanych warunków. Jest to spowodowane tym, że miejsca, gdzie pierwszy warunek jest spełniony znajdują się pomiędzy pikselami. Dlatego, aby odnaleźć te punkty należy zbadać, czy pomiędzy dwoma pikselami wartość wynikająca z pierwszego warunku zmienia znak. Jeśli tak, oznacza to, że pomiędzy danymi pikselami występuje wartość zero, więc pierwszy warunek jest spełniony. Dla analizowanego piksela sprawdzane są jedynie trzy sąsiednie piksele oznaczone na rys. \ref{fig:comparePixels}. Dzięki temu każda krawędź jest wykrywana tylko dla jednego piksela.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=3cm]{neighbours.pdf}
 \end{center}
-\caption{Analizowani sąsiedzi dla rozpoznawania krawędzi. P - oznacza analizowany pikel, x - analizowani sąsiedzi}
+\caption{Analizowani sąsiedzi dla rozpoznawania krawędzi. P - oznacza analizowany piksel, x - analizowani sąsiedzi}
 \label{fig:comparePixels}
 \end{figure}
 
@@ -191,7 +191,7 @@ Drugim problemem są błędy obliczeń spowodowane dyskretyzacją sygnałów i~o
 \subsubsection{Rozpoznawanie grani}
 \label{subsubsec:rozpoznawanieGrani}
 
-Warunk istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \eqref{eq:ridgeDetection}.
+Warunki istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \eqref{eq:ridgeDetection}.
 
 \begin{equation}
 \label{eq:ridgeDetection}
@@ -209,7 +209,7 @@ W~tym przypadku nie konieczne jest sprawdzanie zmiany znaku pomiędzy pikselami,
 \subsubsection{Rozpoznawanie narożników}
 \label{subsubsec:rozpoznawanieNaroznikow}
 
-Do wyznacznia narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \eqref{eq:cornerDetection}.
+Do wyznaczania narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \eqref{eq:cornerDetection}.
 
 \begin{equation}
 \label{eq:cornerDetection}

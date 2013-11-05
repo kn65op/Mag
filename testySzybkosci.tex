@@ -3,10 +3,10 @@
 
 Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space. Liczony był czas działania algorytmu. Im krótszy czas tym lepsza implementacja algorytmu Scale Space.
 
-Mierzeniu podlagał czas trwania następujących czynności:
+Mierzeniu podlegał czas trwania następujących czynności:
 \begin{itemize}
 \item czas wyzaczania reprezentacji Scale Space,
-\item czas wkrywania cech na obrazach (wraz z~wcześniejszym wyznaczeniem reprezentacji Scale Space) - osobno dla każdej cechy.
+\item czas wykrywania cech na obrazach (wraz z~wcześniejszym wyznaczeniem reprezentacji Scale Space) - osobno dla każdej cechy.
 \end{itemize}
 
 Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych. Do testów użyto dwudziestu obrazów pobranych z~kamery o~wymiarach 2456 na~2056 pikseli. Wykonano pomiary dla każdej z~implementacji dla wyznaczania reprezentacji skali i~detekcji każdej z~cech. Obliczenia zrealizowano dla dziesięciu skal z~krokiem 4. Wyniki pomiarów dla wyznaczania reprezentacji skali przedstawiono na diagramach.
@@ -29,13 +29,13 @@ Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznyc
 
 Na wykresie \ref{fig:pureSzybkoscMoje} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GT 555M. Można zauważyć, że dla skal jeden, dwa oraz sześć szybkość obu implementacje jest prawie taka sama. Dla skal od trzeciej do piątej implementacja zrealizowana w~OpenCL jest wyraźnie szybsza. Dla skal większych od sześciu implmentacje zrealizowane w~OpenCV są szybsze.
 
-Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają prawie identczne wyniki. Dodatkowo można zauważyć że czas wykonywania obliczeń dla tych implementacji od trzeciej skali rośnie bardzo wolno wrast ze wzrostem skali.
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają prawie identyczne wyniki. Dodatkowo można zauważyć że czas wykonywania obliczeń dla tych implementacji od trzeciej skali rośnie bardzo wolno wrasta ze wzrostem skali.
 
-Dla implementacji zrealizowanej w~OpenCL można zauważyć, że czas potrzebny do wykonania obliczeń rośnie wraz ze~wrostem skali. Wrost jest tym większy im większa jest skala.
+Dla implementacji zrealizowanej w~OpenCL można zauważyć, że czas potrzebny do wykonania obliczeń rośnie wraz ze~wrostem skali. Wzrost jest tym większy im większa jest skala.
 
 Na wykresie \ref{fig:pureSzybkoscAGH} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych na kracie graficznej GeForce GTX 670. Można zauważyć, że dla wszystkich skal poza pierwszą implementacja wykonana w~OpenCL jest wyraźnie szybsza.
 
-Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają porównywalne wyniki. Zawsze szybsza jest implementacja wykonywna na procesorze graficznym GPU. Można zauważyć wyraźny wzrost czasu trwania wykonywania pomiędzy drugą i~trzecią skalą. Dla większych skal wzrost jest mniejszy. 
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają porównywalne wyniki. Zawsze szybsza jest implementacja wykonywana na procesorze graficznym GPU. Można zauważyć wyraźny wzrost czasu trwania wykonywania pomiędzy drugą i~trzecią skalą. Dla większych skal wzrost jest mniejszy. 
 
 Dla implmenentacji zrealizowanej w~OpenCL czas potrzebny na wykonanie obliczeń rośnie wraz ze wzrostem skali. 
 
@@ -47,4 +47,4 @@ Dla implmenentacji zrealizowanej w~OpenCL czas potrzebny na wykonanie obliczeń 
 \label{fig:pureOpenCL}
 \end{figure}
 
-Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania implementacji wykonanej za pomocą biblioteki OpenCL dla obu kart graficznych. Można zauważyć znaczne różnice szybkości dla obu kart. Są one spowodowane wydajnością obu kart. Karta GeForce GT 555M jest kartą stworzoną dla laptopów kilka lat temu. Karta GeForce GTX 670 jest kartą nowszej generacji i~ma lepsze parametry. To powoduje znacznie szybsze wykonanie algorytmu na karcie GTX 670. Parametrem mocno wpływającym na szybkość wykonania algorytmu, zwłaszcza dla większych skal, jest wielkość pamięci wewnętrznej dla grup roboczych jednostek obliczeniowych karty graficznej. W~przypadku gdy fragment przetwarzanego obrazu jest mniejszy niż aktualnie przetwarzana skali znacznie zwiększa się czas przetwarzania, ponieważ bieżąca jednostka obliczeniowa musi pobierać dodatkowe dane z~pamięci globalnej karty graficznej. Ponadto częstotliości pracy oraz liczba jednostek obliczeniowych karty GT 555M są znacznie mniejsznie niż karty GTX 670, co jest przedstawione w~sekcji \ref{sec:srodowiskoTesty}.
+Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania implementacji wykonanej za pomocą biblioteki OpenCL dla obu kart graficznych. Można zauważyć znaczne różnice szybkości dla obu kart. Są one spowodowane wydajnością obu kart. Karta GeForce GT 555M jest kartą stworzoną dla laptopów kilka lat temu. Karta GeForce GTX 670 jest kartą nowszej generacji i~ma lepsze parametry. To powoduje znacznie szybsze wykonanie algorytmu na karcie GTX 670. Parametrem mocno wpływającym na szybkość wykonania algorytmu, zwłaszcza dla większych skal, jest wielkość pamięci wewnętrznej dla grup roboczych jednostek obliczeniowych karty graficznej. W~przypadku gdy fragment przetwarzanego obrazu jest mniejszy niż aktualnie przetwarzana skali znacznie zwiększa się czas przetwarzania, ponieważ bieżąca jednostka obliczeniowa musi pobierać dodatkowe dane z~pamięci globalnej karty graficznej. Ponadto częstotliwości pracy oraz liczba jednostek obliczeniowych karty GT 555M są znacznie mniejsze niż karty GTX 670, co jest przedstawione w~sekcji \ref{sec:srodowiskoTesty}.

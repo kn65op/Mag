@@ -1,4 +1,4 @@
-\chapter{Przdstawienie działania programu i~algorytmu}
+\chapter{Przedstawienie działania programu i~algorytmu}
 \label{cha:dzialanie}
 
 \begin{figure}[h]
@@ -9,7 +9,7 @@
 \label{fig:input}
 \end{figure}
 
-W~niniejszym rodziale przedsawiono przykład działania algorytmu. Do stworzenia przykładu użyto napisaną implementację z~zastosowaniem biblioteki OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery}, który jest przedstawiony na rys \ref{fig:input}. Obraz jest zapisany z~zastosowaniem filtru Bayera, co można łatwo zauważyć.
+W~niniejszym rodziale przedstawiono przykład działania algorytmu. Do stworzenia przykładu użyto napisaną implementację z~zastosowaniem biblioteki OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery}, który jest przedstawiony na rys \ref{fig:input}. Obraz jest zapisany z~zastosowaniem filtru Bayera, co można łatwo zauważyć.
 
 \begin{figure}[h]
 \begin{center}
@@ -54,7 +54,7 @@ Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają 
 \label{fig:blobResult}
 \end{figure}
 
-Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większa wartość. Za punkty środkowe plam (aproksymowane jako koła) są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu rozpoznawania plam. Ciemne piksele oznaczają środek rozpoznanych plam.
+Do rozpoznawania plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większa wartość. Za punkty środkowe plam (aproksymowane jako koła) są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu rozpoznawania plam. Ciemne piksele oznaczają środek rozpoznanych plam.
 
 \section{Rozpoznawanie krawędzi}
 \label{sec:dzialanieEdge}
@@ -84,7 +84,7 @@ Do rozpoznawnia plam używany jest operator przedstawiony na rys. \ref{fig:lapla
 \label{fig:edgeResult}
 \end{figure}
 
-Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na tych obrazach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~mniejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemene. Wynik działania algorytmu rozpoznawania krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}. Ciemne piksele występują w~miejscach, gdzie wykryto krawędź.
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na tych obrazach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~miejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemne. Wynik działania algorytmu rozpoznawania krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}. Ciemne piksele występują w~miejscach, gdzie wykryto krawędź.
 
 Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego warunku, aby wyszukiwać miejsca, gdzie pierwszy znak zmienia znak zamiast wartości zerowych.
 
