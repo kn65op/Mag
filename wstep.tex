@@ -9,14 +9,14 @@ W~tym rozdziale przedstawiono cel pracy oraz podstawę teoretyczną realizacji. 
 Celem niniejszej pracy była realizacja algorytmu Scale Space, który służy do reprezentacji sygnałów (w~szczególności obrazów) w~wielu skalach w celu późniejszej ich analizy.
 Wiele algorytmów operujących na obrazach jest złożonych obliczeniowo i~ich realizacja zajmuje dużo czasu, zwłaszcza dla dużych porcji danych. Dlatego zdecydowano się na realizację tego algorytmu w~postaci równoległej z~użyciem kart graficznych.
 
-Implementacja algorytmu została zrealizowana w~środowisku OpenCL \cite{OpenCL}, wieloplatformowym standardzie do zrównoleglania obliczeń. Wybrano ten standard, ponieważ umożliwia wykorzystanie procesorów graficznych do obliczeń ogólnego przeznaczenia oraz jest wspierany przez największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
+Implementacja algorytmu została zrealizowana w~wieloplatformowym środowisku OpenCL \cite{OpenCL} służącym do zrównoleglania obliczeń. Wybrano ten standard, ponieważ umożliwia wykorzystanie procesorów graficznych do obliczeń ogólnego przeznaczenia oraz jest wspierany przez największych producentów sprzętu komputerowego (m. in. Intel\textsuperscript{\textregistered}, NVIDIA\textsuperscript{\texttrademark}, AMD).
 
 \section{Algorytm Scale Space}
 \label{sec:algorytm}
 Scale Space jest algorytmem służącym do przekształcenia sygnałów do reprezentacji skali \cite{SSFramework}. Reprezentacja skali jest to rodzina sygnałów reprezentująca oryginalny sygnał w~różnych stopniach skali.
 Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach szczegółowości.
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
-W~tej pracy przetwarzanymi sygnałami będą obrazy.
+W~niniejszej pracy przetwarzanymi sygnałami będą obrazy.
 
 Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesującej skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie plam, narożników, grani lub brzegów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej liczby skal, w~szczególności we wszystkich skalach.
 
@@ -36,20 +36,20 @@ Kolejnym ważnym warunkiem przy wyznaczaniu reprezentacji skali jest niezwiększ
 
 \end{enumerate}
 
-Sygnał w reprezentacji skali może być przedstawiany w przestrzeni ciągłej lub dyskretnej. Dodatkowo, parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy) oraz stosowany będzie dyskretny parametr skali.
+Sygnał w reprezentacji skali może być przedstawiany w przestrzeni ciągłej lub dyskretnej. Dodatkowo, parametr skali może być ciągły lub dyskretny. W tej pracy przetwarzane będą sygnały dyskretne (obrazy cyfrowe) oraz stosowany będzie dyskretny parametr skali.
 
 Dla sygnałów dyskretnych przy użyciu dyskretnego parametru skali należy przyjąć pewne założenia~\cite{SSFDS}:
 \begin{itemize}
-\item Cała reprezentacja skali jest stworzona z~obrazu źródłowego za pomocą jednej rodziny filtrów.
-\item Wraz ze zwiększaniem parametru skali $ t $ otrzymywane sygnały odpowiadają większym skalom. Przy $ t = 0 $ otrzymanym obrazem jest obraz źródłowy.
-\item Wszystkie sygnały są funkcjami: $ Z \rightarrow R $ zdefiniowane na tym samym skończonym zbiorze.
+\item cała reprezentacja skali jest stworzona z~obrazu źródłowego za pomocą jednej rodziny filtrów,
+\item wraz ze zwiększaniem parametru skali $ t $ otrzymywane sygnały odpowiadają większym skalom. Przy $ t = 0 $ otrzymanym obrazem jest obraz źródłowy,
+\item wszystkie sygnały są funkcjami: $ Z \rightarrow R $ zdefiniowane na tym samym skończonym zbiorze.
 \end{itemize}
 
 Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów. Liczba szczegółów może być określona za pomocą liczby lokalnych ekstremów. Z tego powodu istotne jest to, aby liczba lokalnych ekstremów nie zwiększała się wraz ze wzrostem parametru skali.
 
-\subsection{Filtracja Gaussa}
+\subsection{Filtracja dolnoprzepustowa}
 \label{subsec:filtracjaGaussa}
-Filtry Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry dolnoprzepustowe, rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest ich zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
+Filtry dolnoprzepustowa ze współczynnikami Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
 
 Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \eqref{eq:gaussian}:
 \begin{equation}
