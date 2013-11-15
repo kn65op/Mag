@@ -77,12 +77,12 @@ W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku u�
 \label{fig:openCLAlgorithmsStream}
 \end{figure}
 
-Za samą realizację potoku jest odpowiedzialna klasa przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodawania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu poprzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić strumień podając skąd pobierać i~gdzie zapisywać dane. Jeden strumień może być uruchamiany dowolną liczbę razy.
+Za samą realizację potoku jest odpowiedzialna klasa \texttt{OpenCLAlgorithmsStream} przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodawania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu poprzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić potok podając skąd pobierać i~gdzie zapisywać dane. Jeden potok może być uruchamiany dowolną liczbę razy.
 
 \subsection{Reguły dotyczące kerneli}
 \label{subsec:regulykerneli}
 
-Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać klika warunków. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowe a drugim struktura, do której są zapisywane wyniki. Obecnie wspierane są następujące typy argumentów:
+Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać klika warunków. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowe a drugim wskaźnik do bufora, w~którym są zapisywane wyniki. Obecnie wspierane są następujące typy argumentów:
 \begin{itemize}
 \item wektor - \texttt{float\*} lub \texttt{int\*},
 \item obraz 2D - \texttt{image2d\_t},
@@ -118,7 +118,7 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 \label{fig:diagramWszystko}
 \end{figure}
 
-W~ramach stworzonej biblioteki zaimplementowano algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
 \lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\footnotesize}
 \begin{lstlisting}[float]
@@ -170,11 +170,11 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 
 Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 
-W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podczas analizy pikseli brzegowych używane pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podczas analizy pikseli brzegowych, pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
 
-W linii 3, następuje zaczyna się definicja kernela. Posiada on trzy parametry, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
+W linii 3 zaczyna się definicja kernela. Posiada on trzy argumenty, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
 
-W~liniach 5~i~6 pobierane są współrzędne przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
+W~liniach 5~i~6 pobierane są współrzędne aktualnie przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są później wielokrotnie. Jeśli podczas każdego odwołania się do nich pobieranoby wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 
 W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do  obliczenia warunków rozpoznawania krawędzi.
 
