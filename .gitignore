@@ -45,3 +45,5 @@ Operation/*.txt
 *.csv
 wynik
 bledy
+
+*.zip
