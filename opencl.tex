@@ -61,13 +61,13 @@ Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliw
 \begin{center}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLStream.png}
 \end{center}
-\caption{Klasa algorytmów używane w potokach}
+\caption{Klasy algorytmów używane w potokach}
 \label{fig:diagrampotok}
 \end{figure}
 
-Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele z~tych mniejszych operacji jest używana w~większej liczbie algorytmów, dlatego pożądane jest, aby umożliwić wielokrotne użycie raz napisanego kernela.
+Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele z~tych mniejszych operacji jest używana w~większej liczbie algorytmów, dlatego pożądana jest możliwość wielokrotnego użycia raz napisanego kernela.
 
-W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem. Wadą użycia potoku jest utrudniona możliwość zwrócenia dodatkowych danych przez kernele, które nie są ostatnimi w~potoku. Znacznie utrudnione jest też pobranie wyników pośrednich.
+W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem.
 
 \begin{figure}
 \begin{center}
