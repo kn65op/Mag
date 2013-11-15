@@ -18,7 +18,7 @@ Ta reprezentacja pozwala na analizę oryginalnego sygnału w~różnych stopniach
 Pomysł na stworzenie takiego algorytmu wynika z~wieloskalowej struktury świata. Taka struktura powoduje, że obiekty mogą być różnie postrzegane w~zależności od skali obserwacji \cite{Enc09}.
 W~niniejszej pracy przetwarzanymi sygnałami będą obrazy.
 
-Tworząc system automatycznego rozpoznawania obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym rozpoznawaniem najbardziej interesującej skali. Po stworzeniu reprezentacji skali można zrealizować rozpoznawanie plam, narożników, grani lub brzegów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej liczby skal, w~szczególności we wszystkich skalach.
+Tworząc system automatycznego detekcji obrazów nieznanych scen nie ma możliwości określenie z~góry w~jakiej skali będą przedstawiane obiekty, które będą interesujące dla użytkownika systemu. Dlatego w~takim systemie można użyć algorytmu Scale Space wraz z~automatycznym wyznaczaniem najbardziej interesującej skali. Po stworzeniu reprezentacji skali można zrealizować detekcja plam, narożników, grani lub brzegów. Te operacje mogą być przeprowadzane tylko w~jednej skali lub dla większej liczby skal, w~szczególności we wszystkich skalach.
 
 \subsection{Aksjomaty Scale Space}
 \label{subsec:aksjomaty}
@@ -74,13 +74,15 @@ gdzie:
 
 $ x, y$ - współrzędne obrazu,
 
-$ \alpha $ - współczynnik skalujący w celu normalizacji ($ \sum_x \sum_y g(x,y,N,\sigma) = 1 $),
+$ \alpha $ - współczynnik skalujący w celu spełnienia warunku normalizacji ($ \sum_x \sum_y g(x,y,N,\sigma) = 1 $),
 
 $ N $ - rozmiar filtru,
 
 $ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot 0,5 - 1) + 0,8$.
 
 W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki filtra, z~użyciem którego będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
+
+W dalszej części pracy będzie używane pojęcia rozmiaru skali oraz kroku. Rozmiarem skali jest promień filtru Gaussa. Krok jest to różnica pomiędzy promieniami filtrów Gaussa dwóch kolejnych skal. Wartość kroku jest używana podczas tworzenia reprezentacji skali.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -103,7 +105,7 @@ $ \sigma $ - wariancja (parametr skali).
 
 Oznacza to, że w celu uzyskania reprezentacji skali obraz poddawany jest filtracji Gaussa, dla różnych, rosnących wartości $ \sigma $.
 
-W~ten sposób można otrzymać wiele wynikowych obrazów, z~których każdy przedstawia początkową w scenę w innej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorytmu Scale Space.
+W~ten sposób można otrzymać wiele wynikowych obrazów, z~których każdy przedstawia początkową scenę w~innej skali. Dzięki temu można analizować obraz w~różnym stopniu szczegółowości, co jest jedną z głównych zalet algorytmu Scale Space.
 
 Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że liczba ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomaty Scale Space są spełnione \cite{SSFDS}.
 
@@ -114,24 +116,24 @@ Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości
 \begin{itemize}
 \item $ P $ - liczba pikseli obrazu,
 \item $ I $ - rozmiar reprezentacji skal (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
-\item $ M_i $ - rozmiar maski, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
-\item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika maski.
+\item $ M_i $ - rozmiar kontekstu, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
+\item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika kontekstu.
 \end{itemize}
 
-Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~maską określoną za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar maski. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki maski są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
+Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~współczynnikami określonymi za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar kontekstu. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki filtra są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie, koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
 
 Do wyznaczenia całej reprezentacji konieczne będzie wykonanie 
 %$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
-$ I \cdot P \cdot (2M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników maski. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru maski i~wynosi $ A \cdot M_i $.
+$ P \cdot \sum_{i=1}^I(2 M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników filtra. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru filtra i~wynosi $ A \cdot M_i $.
 
-Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot (2M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników maski i~zachowania ich w~pamięci dla wielu obrazów, to można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot \sum_{i=1}^I(2 M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników filtra i~zachowania ich w~pamięci dla wielu obrazów, można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
 
-\subsection{Rozpoznawanie cech}
-\label{subsec:rozpoznawanie}
+\subsection{Detekcja cech}
+\label{subsec:detekcja}
 
 Wykorzystując wyznaczoną reprezentację skali można zastosować określone operacje matematyczne w~celu detekcji pewnych struktur na obrazie. Dzięki przetwarzaniu obrazu w~wielu skalach można wykryć dane struktury na wielu poziomach szczegółowości.
 
-W~opisie wszystkich procesów rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
+W~opisie wszystkich procesów detekcji cech przyjęto oznaczenia ($ a$,$ b$,$ c $ może oznaczać współrzędną $ x $ lub $ y $):
 
 \begin{itemize}
 \item $ L_a $ - pierwsza pochodna obrazu w~danej skali po współrzędnej $ a $.
@@ -139,10 +141,10 @@ W~opisie wszystkich procesów rozpoznawania cech przyjęto oznaczenia ($ a$,$ b$
 \item $ L_{abc} $ - trzecia pochodna obrazu w~danej skali po współrzędnych $ a $,~$b$~i~$c$.
 \end{itemize}
 
-\subsubsection{Rozpoznawanie plam}
-\label{subsubsec:rozpoznawaniePlam}
+\subsubsection{Detekcja plam}
+\label{subsubsec:detekcjaPlam}
 
-Do rozpoznawania plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnej zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \eqref{eq:blobRadius}.
+Do detekcji plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnejdla kontekstu 3x3 zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \eqref{eq:blobRadius}.
 
 \begin{figure}
 \begin{center}
@@ -160,8 +162,8 @@ gdzie:
 
 $ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaussa dla danej skali.
 
-\subsubsection{Rozpoznawanie krawędzi}
-\label{subsubsec:rozpoznawanieKrawedzi}
+\subsubsection{Detekcja krawędzi}
+\label{subsubsec:detekcjaKrawedzi}
 
 Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniu \eqref{eq:edgeDetection}.
 
@@ -181,15 +183,15 @@ Podane warunki mogą być bez żadnych zmian zastosowane do sygnałów ciągłyc
 \begin{center}
 \includegraphics[width=3cm]{neighbours.pdf}
 \end{center}
-\caption{Analizowani sąsiedzi dla rozpoznawania krawędzi. P - oznacza analizowany piksel, x - analizowani sąsiedzi}
+\caption{Analizowani sąsiedzi dla detekcji krawędzi. P - oznacza analizowany piksel, x - analizowani sąsiedzi}
 \label{fig:comparePixels}
 \end{figure}
 
 Drugim problemem są błędy obliczeń spowodowane dyskretyzacją sygnałów i~ograniczoną możliwością reprezentacji liczb w~komputerach. Z~tego powodu piksele, które powinny mieć wartość równą zeru przyjmują wartości bliskie zeru. Dodatkowo mogą być różnych znaków, co może powodować błędy podczas wykrywania punktów, w~których pierwszy warunek przyjmuje wartość zerową. Z~tego powodu zdecydowano, że otrzymane liczby bliskie zeru (wartość bezwzględna poniżej $ 10^{-5} $) będą miały przypisywaną wartość zero.
 
 
-\subsubsection{Rozpoznawanie grani}
-\label{subsubsec:rozpoznawanieGrani}
+\subsubsection{Detekcja grani}
+\label{subsubsec:detekcjaGrani}
 
 Warunki istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \eqref{eq:ridgeDetection}.
 
@@ -206,8 +208,8 @@ Potem są obliczane wyniki działań odpowiadające warunkom \eqref{eq:ridgeDete
 
 W~tym przypadku nie konieczne jest sprawdzanie zmiany znaku pomiędzy pikselami, ponieważ wartości zerowe dla pierwszego warunku są osiągane dokładnie tam, gdzie są piksele. 
 
-\subsubsection{Rozpoznawanie narożników}
-\label{subsubsec:rozpoznawanieNaroznikow}
+\subsubsection{Detekcja narożników}
+\label{subsubsec:detekcjaNaroznikow}
 
 Do wyznaczania narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \eqref{eq:cornerDetection}.
 
