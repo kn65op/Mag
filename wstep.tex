@@ -160,12 +160,12 @@ r = \sigma \cdot \sqrt{2}
 \end{equation}
 gdzie:
 
-$ \sigma $ - wariancja (parametr skali) wyznaczony podczas tworzenia filtru Gaussa dla danej skali.
+$ \sigma $ - wariancja (parametr skali) ustalony podczas tworzenia filtru Gaussa dla danej skali.
 
 \subsubsection{Detekcja krawędzi}
 \label{subsubsec:detekcjaKrawedzi}
 
-Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniu \eqref{eq:edgeDetection}.
+Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniach \eqref{eq:edgeDetection}.
 
 \begin{equation}
 \label{eq:edgeDetection}
@@ -193,7 +193,7 @@ Drugim problemem są błędy obliczeń spowodowane dyskretyzacją sygnałów i~o
 \subsubsection{Detekcja grani}
 \label{subsubsec:detekcjaGrani}
 
-Warunki istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniu \eqref{eq:ridgeDetection}.
+Warunki istnienia grani w~danym punkcie obrazu dla sygnału ciągłego są określone na równaniach \eqref{eq:ridgeDetection}.
 
 \begin{equation}
 \label{eq:ridgeDetection}
@@ -206,7 +206,7 @@ L_xL_y(L_{xx}-L_{yy}) - (L_x^2 - L_y^2)L_{xy} = 0 \\
 Sposób postępowania jest analogiczny jak dla wykrywania krawędzi. Liczone są odpowiednie pochodne obrazu
 Potem są obliczane wyniki działań odpowiadające warunkom \eqref{eq:ridgeDetection} a~następnie są one sprawdzane.
 
-W~tym przypadku nie konieczne jest sprawdzanie zmiany znaku pomiędzy pikselami, ponieważ wartości zerowe dla pierwszego warunku są osiągane dokładnie tam, gdzie są piksele. 
+W~tym przypadku nie jest konieczne sprawdzanie zmiany znaku pomiędzy pikselami, ponieważ wartości zerowe dla pierwszego warunku są osiągane dokładnie tam, gdzie są piksele. 
 
 \subsubsection{Detekcja narożników}
 \label{subsubsec:detekcjaNaroznikow}
