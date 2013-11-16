@@ -180,7 +180,7 @@ W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne
 
 W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
 
-Na końcu w liniach 42~i~43 obliczone wartości są zapisywane do obrazów wyjściowych.
+Na końcu, w~liniach 42~i~43, obliczone wartości są zapisywane do obrazów wyjściowych.
 
 \lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,basicstyle=\footnotesize}
 \begin{lstlisting}[float]
@@ -212,4 +212,4 @@ W~linii 3 rozpoczyna się definicja kernela. Ma on trzy parametry, które są ty
 
 W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wartości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
 
-W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela. Wszystkie piksele obrazu wyjściowego przed wywołaniem kernela mają wartość zero.
+W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela. Wszystkie piksele obrazu wyjściowego przed wywołaniem kernela mają przypisaną wartość zero.
