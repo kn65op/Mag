@@ -61,7 +61,7 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_03.png}
-\caption{Obraz II, rozdzielczość 3246x2176}
+\caption{Obraz II, rozdzielczość 1181x886}
 \label{fig:valPure03}
 \end{subfigure}
 ~
@@ -100,7 +100,7 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
 	\label{fig:valPure3CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Zestaw obrazów dla reprezentacji skali dla obrazu II, \tiny{źródło~własne}}
+\caption{Zestaw obrazów dla reprezentacji skali dla obrazu II, \tiny{źródło http://www.ptext.de/sites/default/files/1201/Optimierte\_Herstellungsprozesse\_bei\_Gaussspiegeln-127292.jpg}}
 
 \label{fig:valPure3}
 \end{figure}
@@ -215,7 +215,7 @@ Zestawy obrazów są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob
 
 Z~przedstawionych obrazów wynika, że podczas detekcji plam, najwięcej różnic powstaje w~okolicach krawędzi. Jest to dobrze widoczne na obrazach \ref{fig:valBlob2CLCVCPU} i~\ref{fig:valBlob2CLCVGPU}. Porównując do wyników testów dla reprezentacji skali można wywnioskować że te różnice są spowodowane rozbieżnościami powstałymi podczas filtracji Gaussa.
 
-Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnice te są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Liczba różnych pikseli nie jest duża, lecz większa niż w~przypadku innych rozpoznawanych cech.
+Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnice te są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Liczba różnych pikseli nie jest duża, lecz większa niż w~przypadku innych wyznaczanych cech.
 
 
 \begin{figure}[h]
@@ -315,9 +315,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 \subsubsection{Krawędzie}
 \label{subsubsec:krawedzieRysunki}
 
-Zestawy obrazów są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. 
-
-Na obrazach różnicowych powstałych poczas detekcji krawędzi można zauważyć, że licza różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
+Zestawy obrazów są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. Na obrazach różnicowych powstałych poczas detekcji krawędzi można zauważyć, że liczba różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
 
 \begin{figure}[h]
 
@@ -416,11 +414,9 @@ Na obrazach różnicowych powstałych poczas detekcji krawędzi można zauważy�
 \subsubsection{Narożniki}
 \label{subsubsec:naroznikiRysunki}
 
-Zestawy obrazów są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. 
+Zestawy obrazów są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. Na obrazach różnicowych można zauważyć pojedyncze różnice. Jest to też efektem tego, że liczba wykrywanych narożników na przedstawionych obrazach w~wybranej skali nie jest duża. Mniejsza liczba wykrytych obiektów powoduje, że liczba błędów jest mała.
 
-Na obrazach różnicowych można zauważyć pojedyncze różnice. Jest to też efektem tego, że liczba wykrywanych narożników na przedstawionych obrazach w~wybranej skali nie jest duża. Mniejsza liczba wykrytych obiektów powoduje, że liczba błędów jest mniejsza.
-
-Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
+Na rys. \ref{fig:valCorner2} nie występują żadne różnice.
 
 \begin{figure}[h]
 
@@ -519,6 +515,4 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 \subsubsection{Granie}
 \label{subsubsec:granieRysunki}
 
-Zestawy obrazów są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. 
-
-Na obrazach różnicowych można zauważyć, że na krawędziach powstało bardzo dużo różnic. Są one pochodną rozbieżności powstałych na etapie tworzenia reprezentacji skali. W~środku obrazu widać tylko pojedyncze różnice. 
+Zestawy obrazów są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. Na obrazach różnicowych można zauważyć, że na krawędziach powstało bardzo dużo różnic. Są one pochodną rozbieżności powstałych na etapie tworzenia reprezentacji skali. W~środku obrazu widać tylko pojedyncze różnice. 
