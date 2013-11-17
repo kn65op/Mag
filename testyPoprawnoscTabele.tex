@@ -1,14 +1,11 @@
-\subsection{Numeryczne porównanie obrazów}
+\subsection{Numeryczna analiza obrazów wynikowych}
 \label{subsec:porownanieNumerycznePoprawnosc}
 
 W~poniższych akapitach przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione na równaniach \eqref{eq:procentZlychPikseli}~i~\eqref{eq:sredniaOdchylenia}.
 
-Do stworzenia zestawień wykorzystano wcześniej pokazane obrazy, po dwa dla każdej cechy i~dla reprezentacji skali. Przeprowadzono analizę ilości różniących się pikseli oraz dla reprezentacji skali średnią różnicę dla dziesięciu skal. 
+Do sporządzenia zestawień wykorzystano wcześniej pokazane obrazy, po dwa dla każdej cechy i~dla reprezentacji skali. Przeprowadzono analizę ilości różniących się pikseli oraz dla reprezentacji skali średnią różnicę dla dziesięciu skal. 
 
-Z przedstawionych danych wynika, że implementacje wykonane z~użyciem biblioteki OpenCV są prawie identyczne. Z~tego powodu główna uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL a~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
-
-\subsubsection{Reprezentacja skali}
-\label{subsubsec:reprezentacjaSakliTabele}
+Z przedstawionych danych wynika, że implementacje CVCPU i~CVGPU są prawie identyczne. Z~tego powodu uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL z~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
 
 \begin{center}
 \begin{table}
@@ -53,6 +50,9 @@ Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
+
+\subsubsection{Reprezentacja skali}
+\label{subsubsec:reprezentacjaSakliTabele}
 
 W~tabelach \ref{tab:imageScaleRep2} i~\ref{tab:imageScaleRep3} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas tworzenia reprezentacji skali podzieloną na skale dla wybranych obrazów. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli, które są poza obrazem. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
 
@@ -106,8 +106,6 @@ W~tabelach \ref{tab:devScaleRep2} i~\ref{tab:devScaleRep3} przedstawiono średni
 
 Można zauważyć, że dla obrazu \ref{fig:valPure3} wartość współczynnika $ v $ jest równa jeden niezależnie od skali.
 
-\subsubsection{Plamy}
-\label{subsubsec:plamyTabele}
 
 \begin{center}
 \begin{table}
@@ -153,14 +151,14 @@ Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
 \end{table}
 \end{center}
 
+\subsubsection{Plamy}
+\label{subsubsec:plamyTabele}
+
 liczba różnych pikseli maleje wraz ze wzrostem skali dla skal większych od dwóch. Wartość współczynnika dla skali pierwszej jest mniejsza niż dla skali drugiej. 
 
 W~tabelach \ref{tab:imageScaleBlob1} i~\ref{tab:imageScaleBlob2} przedstawiono liczbę różnych pikseli dla porównań implementacji rozpoznawania plam podzieloną na skale dla wybranych obrazów. Można zauważyć, że największa wartość współczynnika $ p $ jest osiągana dla skali drugiej. Ogólny trend zmniejszania się liczby różnic jest spowodowany dużą liczbą wykrywanych plam w~niższych skalach. Większa liczba wykrywanych obiektów generuje więcej różnic. Wpływ zwiększania się liczby pikseli mających w~swoim otoczeniu piksele brzegowe na liczbę różnic jest ograniczony. Jest to spowodowane tym, że liczba wykrywanych plam maleje szybciej niż wzrasta liczba rozbieżności spowodowanych różnicami powstałymi na etapie tworzenia reprezentacji skali.
 
 Wartości współczynnika $ p $ dla obrazu \ref{fig:valBlob1} są największymi wyznaczonymi wartościami dla rozpoznawania plam. Ten obraz, jest najmniejszym z~analizowanych obrazów. Można zauważyć, że zdecydowana większość różnic powstała przy brzegach obrazu, co wraz z~małym rozmiarem powoduje, wysoką wartość współczynnika $ p $. Dla tego obrazu widać również, że wartości współczynnika $ p $, pomimo trendu malejącego wraz ze wzrostem skali nie maleją przy każdej kolejnej skali. Wynika to z~rosnącej liczby różnic pojawiąjących się podczas tworzenia reprezentacji skali.
-
-\subsubsection{Krawędzie}
-\label{subsubsec:krawedzieTabele}
 
 \begin{center}
 \begin{table}
@@ -206,10 +204,11 @@ Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
 \end{table}
 \end{center}
 
+\subsubsection{Krawędzie}
+\label{subsubsec:krawedzieTabele}
+
 W~tabelach \ref{tab:imageScaleEdge0} i~\ref{tab:imageScaleEdge2} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania krawędzi podzieloną na skale dla wybranych obrazów. Można zauważyć, że stosunek rozbieżnych pikseli do wszystkich pikseli na obrazie maleje wraz ze wzrostem skali. Zmniejszanie się podanego stosunku wraz ze wzrostem skali jest spowodowany mniejszą liczbą wykrytych krawędzi na obrazach w~kolejnych skalach. Efekt zwiększania się liczby pikseli, które mają w~swoim otoczeniu piksele brzegowe nie jest w~tym przypadku zauważalny. Jest to spowodowane również znacznym zmniejszeniem liczby pikseli, które są uznawane za piksele krawędzi oraz tym, że krawędzie są w~niewielkim stopniu wykrywane na brzegach obrazów.
 
-\subsubsection{Narożniki}
-\label{subsubsec:naroznikiTabele}
 
 \begin{center}
 \begin{table}
@@ -257,13 +256,13 @@ Nr skali & CL-CVCPU (\%) & CL-CVGPU (\%) & CVCPU-CVGPU (\%) \\ \hline
 \end{table}
 \end{center}
 
+\subsubsection{Narożniki}
+\label{subsubsec:naroznikiTabele}
+
 W~tabelach \ref{tab:imageScaleCorner1} i~\ref{tab:imageScaleCorner2} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania narożników podzieloną na skale dla wybranych obrazów. Można zauważyć, że wartości współczynników są niskie i~maleją wraz ze zwiększaniem skali. W wyniku analizy wszystkich obrazów zauważono, że maksymalne wartości współczynnika $ p $ dla detekcji narożników nie przekracza $ 0,3 \% $. Ogólna niska wartość współczynników wynika z~niewielkiej liczby wykrywanych obiektów oraz dobrej jakości detektora narożników. Zmniejszanie się liczby rozbieżności jest związane z~malejącą liczbą wykrywanych obiektów.
 
 W~tym przypadku również nie jest zauważalny wpływ zwiększającej się liczby pikseli mający w~swoim otoczeniu piksele brzegowe na większą liczbę błędów. Jest to spowodowane analogicznymi powodami jak w~przypadku detekcji krawędzi.
 
-
-\subsubsection{Granie}
-\label{subsubsec:granieTabele}
 
 \begin{center}
 \begin{table}
@@ -309,5 +308,8 @@ Nr skali & CL-CVCPU & CL-CVGPU & CVCPU-CVGPU \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
+
+\subsubsection{Granie}
+\label{subsubsec:granieTabele}
 
 W~tabelach \ref{tab:imageScaleRidge1} i~\ref{tab:imageScaleRidge4} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas rozpoznawania grani podzieloną na skale dla wybranych obrazów. Można zauważyć, że wartości współczynnika $ p $ rosną wraz ze wzrostem skali. Jest to spowodowane przez różnice wprowadzone podczas tworzenia reprezentacji skali oraz przez słabą jakość detektora grani. Detektor grani daje gorsze wyniki, niż pozostałe detektory. Dodatkowym czynnikiem wpływającym na większą liczbę różnic dla większych skal jest większa ilość pikseli, które zostały zakwalifikowane jako piksele grani podczas przetwarzania.
