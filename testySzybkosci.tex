@@ -3,13 +3,13 @@
 
 Testowanie szybkości działania oparto na porównaniu szybkości działania wszystkich implementacji algorytmu Scale Space. Liczony był czas działania algorytmu. Im krótszy czas tym lepsza implementacja algorytmu Scale Space.
 
-Mierzeniu podlegał czas trwania następujących czynności:
+Mierzeniu podlegał czas trwania następujących operacji:
 \begin{itemize}
-\item czas wyzaczania reprezentacji Scale Space,
-\item czas wykrywania cech na obrazach (wraz z~wcześniejszym wyznaczeniem reprezentacji Scale Space) - osobno dla każdej cechy.
+\item czas wyzaczania reprezentacji Scale Space wraz z~interpolacją obrazu barwnego, zamianą na obraz w skali szarości oraz niezbędnych konwersji,
+\item czas wykrywania cech na obrazach (wraz z~wcześniejszym wykonaniem operacji wymienionych powyżej) - osobno dla każdej cechy.
 \end{itemize}
 
-Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych. Do testów użyto dwudziestu obrazów pobranych z~kamery o~wymiarach 2456 na~2056 pikseli. Wykonano pomiary dla każdej z~implementacji dla wyznaczania reprezentacji skali i~detekcji każdej z~cech. Obliczenia zrealizowano dla dziesięciu skal z~krokiem 4. Wyniki pomiarów dla wyznaczania reprezentacji skali przedstawiono na diagramach.
+Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych. Do testów użyto dwudziestu obrazów pobranych z~kamery o~wymiarach 2456 na~2056 pikseli. Przedstawione dane są wartościami uśrednionymi dla tych obrzów. Ponieważ podczas przetwarzania pierwszego obrazu może występować spowolnienie spowodowane inicjalizacją środowiska (karty graficznej oraz użytych bibliotek) dodano przetwarzanie jednego obrazu, którego czas nie jest wliczany do przedstawionych w~ninijeszej sekcji danych. Wykonano pomiary dla każdej z~implementacji dla wyznaczania reprezentacji skali i~detekcji każdej z~cech. Obliczenia zrealizowano dla dziesięciu skal z~krokiem 4. Wyniki pomiarów dla wyznaczania reprezentacji skali przedstawiono na diagramach.
 
 \begin{figure}[h]
 \begin{center}
