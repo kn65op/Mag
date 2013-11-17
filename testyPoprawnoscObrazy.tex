@@ -1,14 +1,14 @@
-\subsection{Prezentacja różnic w~obrazach wyjściowych}
+\subsection{Omówienie różnic w~obrazach wynikowych}
 \label{subsec:prezentacjaObrazowRoznicowych}
 
-Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Przedstawione są tutaj jedynie dwa wybrane obrazy wejściowe wybrane spośród pięciu, dla każdej rozpoznawanej cechy oraz dla reprezentacji skali. Na każdym zestawie obrazów znajdują się:
+Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Wykorzystano po dwa obrazy wejściowe dla każdej rozpoznawanej cechy oraz dla reprezentacji skali. Na każdym zestawie wyników znajdują się:
 \begin{itemize}
 \item obraz wejściowy,
 \item wynik obliczeń dla implementacji OpenCL,
-\item trzy obrazy różnicowe porównujące wszystkie implementacje.
+\item trzy obrazy różnicowe pozwalające porównać wszystkie implementacje.
 \end{itemize}
 
-Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności.
+Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy zostały oznaczone liczbami rzymskimi określającymi kolejność pojawiania się ich w~pracy. Wyniki reprezentacji skali są przedstaione dla obrazów I~i~II, wynik detekcji plam dla obrazów III~i~IV, wynik detekcji krawędzi dla obrazów V~i~VI, wynik detekcji narożników dla obrazów VII~i~VIII, wynik detekcji grani dla obrazów IX~i~X.
 
 \subsubsection{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSkaliRysunki}
@@ -108,11 +108,9 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności.
 \label{fig:valPure3}
 \end{figure}
 
-Zestawy obrazów są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. 
+Zestawy obrazów są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami są niewielkie i~występują głównie na krawędziach. Maksymalna wartość odchylenia nie przekracza $ 0,7\% $ maksymalnej wartości piksela. Rozbieżności pomiędzy implementacjami są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Istotne obiekty, które mają być analizowane znajdują się zazwyczaj w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są bardzo istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,7\% $ maksymalnej wartości piksela, co si przekłada na zmianę wartości piksela o~2). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVGPU}. Można też zauważyć, że różnice występują pojedynczo, nie są zgrupowane.
 
-Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami występują głównie na krawędziach. Poza tym różnice są niewielkie. Maksymalna wartość odchylenia nie przekracza $ 0,3\% $ maksymalnej wartości piksela. Rozbieżności pomiędzy implementacjami są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Istotne obiekty, które mają być rozpoznane znajdują się w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,3\% $ maksymalnej wartości piksela). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVCPU}. Można też zauważyć, że różnice występują pojedynczo, nie są zgrupowane.
-
-Implementacje wykonane w~OpenCV dla liczenia reprezentacji skali dają identyczne wyniki, co można zauważyć na obrazach \ref{fig:valPure2CVCPUCVGPU} i~\ref{fig:valPure3CVCPUCVGPU}.
+Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne wyniki, co można zauważyć na obrazach \ref{fig:valPure2CVCPUCVGPU} i~\ref{fig:valPure3CVCPUCVGPU}.
 
 \subsubsection{Plamy}
 \label{subsubsec:plamyRysunki}
