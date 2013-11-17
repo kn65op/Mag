@@ -10,21 +10,18 @@ Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomoc
 
 Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy zostały oznaczone liczbami rzymskimi określającymi kolejność pojawiania się ich w~pracy. Wyniki reprezentacji skali są przedstaione dla obrazów I~i~II, wynik detekcji plam dla obrazów III~i~IV, wynik detekcji krawędzi dla obrazów V~i~VI, wynik detekcji narożników dla obrazów VII~i~VIII, wynik detekcji grani dla obrazów IX~i~X.
 
-\subsubsection{Reprezentacja skali}
-\label{subsubsec:reprezentacjaSkaliRysunki}
-
 \begin{figure}[h]
 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_02.png}
-\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\caption{Obraz I, rodzielczość 3264x2176}
 \label{fig:valPure02}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_result_02_09.png}
-\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\caption{Fragmet reprezentacji skali (rozmiar skali 41)}
 \label{fig:valPureResult02}
 \end{subfigure}
 \end{center}
@@ -55,7 +52,7 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
 	\label{fig:valPure2CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe reprezentacji skali dla pierwszego pliku wejściowego, \tiny{źródło~własne}}
+\caption{Zestaw obrazów dla reprezentacji skali dla obrazu I, \tiny{źródło~własne}}
 
 \label{fig:valPure2}
 \end{figure}
@@ -64,7 +61,7 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_03.png}
-\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\caption{Obraz II, rozdzielczość 3246x2176}
 \label{fig:valPure03}
 \end{subfigure}
 ~
@@ -72,7 +69,7 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 \begin{center}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_pure_result_03_09.png}
 \end{center}
-\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\caption{Fragment reprezentacji skali (rozmiar skali 41)}
 \label{fig:valPure03}
 \end{subfigure}
 \end{center}
@@ -103,30 +100,31 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 	\caption{Porównanie implementacji CVCPU i CVGPU dla reprezentacji skali}
 	\label{fig:valPure3CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe reprezentacji skali dla drugiego pliku wejściowego, \tiny{źródło~własne}}
+\caption{Zestaw obrazów dla reprezentacji skali dla obrazu II, \tiny{źródło~własne}}
 
 \label{fig:valPure3}
 \end{figure}
 
+\subsubsection{Reprezentacja skali}
+\label{subsubsec:reprezentacjaSkaliRysunki}
+
+
 Zestawy obrazów są przedstawione na rys. \ref{fig:valPure2} i~\ref{fig:valPure3}. Na podstawie obrazów różnicowych można stwierdzić, że główne rozbieżności pomiędzy implementacjami są niewielkie i~występują głównie na krawędziach. Maksymalna wartość odchylenia nie przekracza $ 0,7\% $ maksymalnej wartości piksela. Rozbieżności pomiędzy implementacjami są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Istotne obiekty, które mają być analizowane znajdują się zazwyczaj w~środku obrazu, nie w~bezpośrednim sąsiedztwie krawędzi, dlatego różnice na brzegu obrazu nie są bardzo istotne dla dalszego przetwarzania. W centrum obrazu widać także niewielkie różne, lecz są one niewielkie (podobnie, nie przekraczają $ 0,7\% $ maksymalnej wartości piksela, co si przekłada na zmianę wartości piksela o~2). Widać je zwłaszcza na obrazach \ref{fig:valPure3CLCVCPU} i~\ref{fig:valPure3CLCVGPU}. Można też zauważyć, że różnice występują pojedynczo, nie są zgrupowane.
 
 Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne wyniki, co można zauważyć na obrazach \ref{fig:valPure2CVCPUCVGPU} i~\ref{fig:valPure3CVCPUCVGPU}.
-
-\subsubsection{Plamy}
-\label{subsubsec:plamyRysunki}
 
 \begin{figure}[h]
 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_01.png}
-\caption{Pierwszy obraz wejściowy dla reprezentacji skali}
+\caption{Obraz III, rozdzielczość 199x200}
 \label{fig:valBlob01}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_result_01_09.png}
-\caption{Pierwszy obraz wyjściowy dla reprezentacji skali}
+\caption{Obraz wyjściowy dla detekcji plam (rozmiar skali 41)}
 \label{fig:valBlobResult01}
 \end{subfigure}
 \end{center}
@@ -137,7 +135,7 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVCPU_01_09.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji plam}
 	\label{fig:valBlob2CLCVCPU}
 \end{subfigure}
 ~
@@ -146,7 +144,7 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVGPU_01_09.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji plam}
 	\label{fig:valBlob2CLCVGPU}
 \end{subfigure}
 ~
@@ -155,10 +153,10 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_01_09.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji plam}
 	\label{fig:valblob2CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania plam dla pierwszego pliku wejściowego, \tiny{źródło~własne}}
+\caption{Zestaw obrazów dla detekcji plam dla obrazu III, \tiny{źródło~własne}}
 
 \label{fig:valBlob1}
 \end{figure}
@@ -167,13 +165,13 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_02.png}
-\caption{Drugi obraz wejściowy dla rozpoznawania plam}
+\caption{Obraz IV, rozdzielczość 750x562}
 \label{fig:valBlob02}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_blob_result_02_09.png}
-\caption{Drugi obraz wyjściowy dla reprezentacji skali}
+\caption{Obraz wyjściowy dla detekcji plam (rozmiar skali 41)}
 \label{fig:valBlobResult02}
 \end{subfigure}
 \end{center}
@@ -184,7 +182,7 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVCPU_02_09.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji plam}
 	\label{fig:valBlob3CLCVCPU}
 \end{subfigure}
 ~
@@ -193,7 +191,7 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CL-CVGPU_02_09.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji plam}
 	\label{fig:valBlob3CLCVGPU}
 \end{subfigure}
 ~
@@ -202,36 +200,36 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_blob_CVCPU-CVCPU_02_09.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania plam}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji plam}
 	\label{fig:valBlob3CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania plam dla drugiego pliku wejściowego, \tiny{źródło~\texttt{http://www.free-picture.net/albums/flowers/sunflower/beautiful-flowers-ws.jpg}}}
+\caption{Zestaw obrazów dla detekcji plam dla obrazu IV, \tiny{źródło~\texttt{http://www.free-picture.net/albums/flowers/sunflower/beautiful-flowers-ws.jpg}}}
 
 \label{fig:valBlob2}
 \end{figure}
 
+\subsubsection{Plamy}
+\label{subsubsec:plamyRysunki}
+
 Zestawy obrazów są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob2}. 
 
-Z~przedstawionych obrazów wynika, że podczas rozpoznawania plam, najwięcej różnic powstaje w~okolicach krawędzi. Jest to dobrze widoczne na obrazach \ref{fig:valBlob2CLCVCPU} i~\ref{fig:valBlob2CLCVGPU}. Porównując do wyników testów dla reprezentacji skali można wywnioskować że te różnice są spowodowane rozbieżnościami powstałymi podczas filtracji Gaussa.
+Z~przedstawionych obrazów wynika, że podczas detekcji plam, najwięcej różnic powstaje w~okolicach krawędzi. Jest to dobrze widoczne na obrazach \ref{fig:valBlob2CLCVCPU} i~\ref{fig:valBlob2CLCVGPU}. Porównując do wyników testów dla reprezentacji skali można wywnioskować że te różnice są spowodowane rozbieżnościami powstałymi podczas filtracji Gaussa.
 
 Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnice te są spowodowane błędami związanymi z~ograniczaniemi systemów obliczeniowych (m. in. błąd zaokrąglenia). Liczba różnych pikseli nie jest duża, lecz większa niż w~przypadku innych rozpoznawanych cech.
 
-
-\subsubsection{Krawędzie}
-\label{subsubsec:krawedzieRysunki}
 
 \begin{figure}[h]
 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_00.png}
-\caption{Pierwszy obraz wejściowy dla rozpoznawania krawędzi}
+\caption{Obraz V, rozdzielczość 1024x768}
 \label{fig:valEdge00}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_result_00_00.png}
-\caption{Pierwszy obraz wyjściowy dla rozpoznawania krawędzi}
+\caption{Obraz wyjściowy dla detekcji krawędzi (rozmiar skali~5)}
 \label{fig:valEdgeResult00}
 \end{subfigure}
 \end{center}
@@ -241,7 +239,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVCPU_00_00.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji krawędzi}
 	\label{fig:valEdge0CLCVCPU}
 \end{subfigure}
 ~
@@ -250,7 +248,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVGPU_00_00.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji krawędzi}
 	\label{fig:valEdge0CLCVGPU}
 \end{subfigure}
 ~
@@ -259,10 +257,10 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_00_00.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji krawędzi}
 	\label{fig:valEdge0CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania krawędzi dla pierwszego pliku wejściowego, \tiny{źródło~obrazu \texttt{http://www.cs.princeton.edu/~cdecoro/edgedetection/csbldg.jpg}}}
+\caption{Zestaw obrazó dla detekcji krawędzi dla obrazu V, \tiny{źródło~obrazu \texttt{http://www.cs.princeton.edu/~cdecoro/edgedetection/csbldg.jpg}}}
 
 \label{fig:valEdge0}
 \end{figure}
@@ -272,13 +270,13 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_02.png}
-\caption{Drugi obraz wejściowy dla rozpoznawania krawędzi}
+\caption{Obraz VI, rozdzielczość 3200x2142}
 \label{fig:valEdge02}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_edge_result_02_03.png}
-\caption{Drugi obraz wyjściowy dla rozpoznawania krawędzi}
+\caption{Obraz wyjściowy dla detekcji krawędzi (rozmiar skali 17)}
 \label{fig:valEdgeResult02}
 \end{subfigure}
 \end{center}
@@ -288,7 +286,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVCPU_02_03.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji krawędzi}
 	\label{fig:valEdge2CLCVCPU}
 \end{subfigure}
 ~
@@ -297,7 +295,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CL-CVGPU_02_03.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji krawędzi}
 	\label{fig:valEdge2CLCVGPU}
 \end{subfigure}
 ~
@@ -306,33 +304,33 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_edge_CVCPU-CVCPU_02_03.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania krawędzi}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji krawędzi}
 	\label{fig:valEdge2CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania krawędzi dla drugiego pliku wejściowego, \tiny{źródło~obrazu \texttt{http://stockarch.com/files/imagecache/Preview/12/04/basketball\_court\_from\_above.jpg}}}
+\caption{Zestaw obrazów dla detekcji krawędzi dla obrazu VI, \tiny{źródło~obrazu \texttt{http://stockarch.com/files/imagecache/Preview/12/04/basketball\_court\_from\_above.jpg}}}
 
 \label{fig:valEdge2}
 \end{figure}
 
+\subsubsection{Krawędzie}
+\label{subsubsec:krawedzieRysunki}
+
 Zestawy obrazów są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. 
 
-Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauważyć, że licza różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
-
-\subsubsection{Narożniki}
-\label{subsubsec:naroznikiRysunki}
+Na obrazach różnicowych powstałych poczas detekcji krawędzi można zauważyć, że licza różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
 
 \begin{figure}[h]
 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_01.png}
-\caption{Pierwszy obraz wejściowy dla rozpoznawania narożników}
+\caption{Obraz VII, rozdzielczość 640x480}
 \label{fig:valCorner01}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_result_01_07.png}
-\caption{Pierwszy obraz wyjściowy dla rozpoznawania narożników}
+\caption{Obraz wyjściowy dla detekcji narożników (rozmiar skali 33}
 \label{fig:valCornerResult01}
 \end{subfigure}
 \end{center}
@@ -342,7 +340,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVCPU_01_07.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji narożników}
 	\label{fig:valCorner1CLCVCPU}
 \end{subfigure}
 ~
@@ -351,7 +349,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_01_07.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji narożników}
 	\label{fig:valCorner1CLCVGPU}
 \end{subfigure}
 ~
@@ -360,10 +358,10 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_01_07.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji narożników}
 	\label{fig:valCorner1CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania narożników dla pierwszego pliku wejściowego, \tiny{źródło~\texttt{http://www.alanchard.com/cork/images/IMG\_3404.JPG}}}
+\caption{Zestaw obrazów dla detekcji narożników dla obrazu VII, \tiny{źródło~\texttt{http://www.alanchard.com/cork/images/IMG\_3404.JPG}}}
 
 \label{fig:valCorner1}
 \end{figure}
@@ -373,13 +371,13 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_02.png}
-\caption{Drugi obraz wejściowy dla rozpoznawania narożników}
+\caption{Obraz VIII, rozdzielczość 256x256}
 \label{fig:valCorner02}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_corner_result_02_06.png}
-\caption{Drugi obraz wyjściowy dla rozpoznawania narożników}
+\caption{Obraz wyjściowy dla detekcji narożników (rozmiar skali 29)}
 \label{fig:valCornerResult02}
 \end{subfigure}
 \end{center}
@@ -390,7 +388,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_02_06.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji narożników}
 	\label{fig:valCorner2CLCVGPU}
 \end{subfigure}
 ~
@@ -399,7 +397,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_02_06.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji narożników}
 	\label{fig:valCorner2CLCVGPU}
 \end{subfigure}
 \end{center}
@@ -409,7 +407,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVCPU_02_06.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji narożników}
 	\label{fig:valCorner2CLCVCPU}
 \end{subfigure}
 ~
@@ -418,7 +416,7 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CL-CVGPU_02_06.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji narożników}
 	\label{fig:valCorner2CLCVGPU}
 \end{subfigure}
 ~
@@ -427,13 +425,16 @@ Na obrazach różnicowych powstałych poczas rozpoznawania krawędzi można zauw
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_corner_CVCPU-CVCPU_02_06.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania narożników}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji narożników}
 	\label{fig:valCorner2CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania narożników dla drugiego pliku wejściowego, \tiny{źródło~\texttt{http://www.multimedia-computing.de/mediawiki//images/c/c4/J.jpg}}}
+\caption{Zestaw obrazów dla detekcji narożników dla obrazu VIII, \tiny{źródło~\texttt{http://www.multimedia-computing.de/mediawiki//images/c/c4/J.jpg}}}
 
 \label{fig:valCorner2}
 \end{figure}
+
+\subsubsection{Narożniki}
+\label{subsubsec:naroznikiRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. 
 
@@ -441,21 +442,18 @@ Na obrazach różnicowych można zauważyć pojedyncze różnice. Jest to też e
 
 Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 
-\subsubsection{Granie}
-\label{subsubsec:granieRysunki}
-
 \begin{figure}[h]
 
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_01.png}
-\caption{Pierwszy obraz wejściowy dla rozpoznawania grani}
+\caption{Obraz IX, rozdzielczość 750x707}
 \label{fig:valRidge01}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_result_01_01.png}
-\caption{Pierwszy obraz wyjściowy dla rozpoznawania grani}
+\caption{Obraz wyjściowy dla detekcji grani (rozmiar skali 9)}
 \label{fig:valRidgeResult01}
 \end{subfigure}
 \end{center}
@@ -465,7 +463,7 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVCPU_01_01.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji grani}
 	\label{fig:valRidge1CLCVCPU}
 \end{subfigure}
 ~
@@ -474,7 +472,7 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVGPU_01_01.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji grani}
 	\label{fig:valRidge1CLCVGPU}
 \end{subfigure}
 ~
@@ -483,10 +481,10 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_01_01.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji grani}
 	\label{fig:valRidge1CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania grani dla pierwszego pliku wejściowego, \tiny{źródło~\texttt{http://wvs.topleftpixel.com/photos/newyork\_from\_above\_01b.jpg}}}
+\caption{Zestaw obrazów dla detekcji grani dla obrazu IX, \tiny{źródło~\texttt{http://wvs.topleftpixel.com/photos/newyork\_from\_above\_01b.jpg}}}
 
 \label{fig:valRidge1}
 \end{figure}
@@ -496,13 +494,13 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_04.png}
-\caption{Drugi obraz wejściowy dla rozpoznawania grani}
+\caption{Obraz X, rozdzielczość 560x450}
 \label{fig:valRidge04}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{TestyPoprawnosci/in_ridge_result_04_04.png}
-\caption{Drugi obraz wyjściowy dla rozpoznawania grani}
+\caption{Obraz wyjściowy dla detekcji grani (rozmiar skali 21)}
 \label{fig:valRidgeResult04}
 \end{subfigure}
 \end{center}
@@ -512,7 +510,7 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVCPU_04_04.png}}
-	\caption{Porównanie implementacji CL i CVCPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CL i CVCPU dla detekcji grani}
 	\label{fig:valRidge4CLCVCPU}
 \end{subfigure}
 ~
@@ -521,7 +519,7 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CL-CVGPU_04_04.png}}
-	\caption{Porównanie implementacji CL i CVGPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CL i CVGPU dla detekcji grani}
 	\label{fig:valRidge4CLCVGPU}
 \end{subfigure}
 ~
@@ -530,13 +528,16 @@ Na rys. \ref{fig:valCorner2} nie widać żadnych różnic.
 	\setlength\fboxsep{0pt}
 	\setlength\fboxrule{0.5pt}
 	\fbox{\includegraphics[width=\textwidth]{TestyPoprawnosci/diff_ridge_CVCPU-CVCPU_04_04.png}}
-	\caption{Porównanie implementacji CVCPU i CVGPU dla rozpoznawania grani}
+	\caption{Porównanie implementacji CVCPU i CVGPU dla detekcji grani}
 	\label{fig:valRidge4CVCPUCVGPU}                 
 \end{subfigure}
-\caption{Obrazy różnicowe rozpoznawania grani dla drugiego pliku wejściowego, \tiny{źródło~\texttt{https://wesfiles.wesleyan.edu/courses/astr103/Lectures/triple.jpg}}}
+\caption{Zestaw obrazów dla detekcji grani dla obrazu X, \tiny{źródło~\texttt{https://wesfiles.wesleyan.edu/courses/astr103/Lectures/triple.jpg}}}
 
 \label{fig:valRidge4}
 \end{figure}
+
+\subsubsection{Granie}
+\label{subsubsec:granieRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. 
 
