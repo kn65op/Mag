@@ -82,7 +82,7 @@ $ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot
 
 W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki filtra, z~użyciem którego będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
 
-W dalszej części pracy będzie używane pojęcia rozmiaru skali oraz kroku. Rozmiarem skali jest wielkość filtru Gaussa. Krok jest to różnica pomiędzy promieniami filtrów Gaussa dwóch kolejnych skal. Wartość kroku jest używana podczas tworzenia reprezentacji skali.
+W dalszej części pracy będzie używane pojęcia rozmiaru skali oraz kroku. Rozmiarem skali jest wielkość filtru Gaussa ($N$). Krok jest to różnica pomiędzy promieniami filtrów Gaussa dwóch kolejnych skal. Wartość kroku jest używana podczas tworzenia reprezentacji skali.
 
 \subsection{Reprezentacja skali}
 \label{subsec:reprezentacjaskali}
@@ -115,7 +115,7 @@ Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwaran
 Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacowanie ich liczby. Przyjęto następujące oznaczenia:
 \begin{itemize}
 \item $ P $ - liczba pikseli obrazu,
-\item $ I $ - rozmiar reprezentacji skal (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
+\item $ I $ - rozmiar reprezentacji skali (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
 \item $ M_i $ - rozmiar kontekstu, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
 \item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika kontekstu.
 \end{itemize}
