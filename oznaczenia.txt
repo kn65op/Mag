@@ -1,0 +1,9 @@
+g - gaussian
+\sigma - sigma
+x,y - piksle
+\alpha - wspó³czynnika skaluj¹cy
+N - rozmiar filtru
+L - reprezentacja skali
+f - sygna³
+P - liczba pikseli obrazu
+I - rozmiar reprezentacji skali
