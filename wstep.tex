@@ -109,25 +109,6 @@ W~ten sposób można otrzymać wiele wynikowych obrazów, z~których każdy prze
 
 Ponieważ filtry Gaussa spełniają aksjomaty Scale Space, to ich użycie gwarantuje nam, że liczba ekstremów lokalnych nie zwiększy się. Również wartości ekstremów nie zostaną zwiększone. Oznacza to, że wartość pikseli w~maksimach lokalnych nie będzie rosła, a~wartość pikseli w minimach lokalnych nie będzie malała. Także w~przestrzeni dyskretnej aksjomaty Scale Space są spełnione \cite{SSFDS}.
 
-\subsection{Złożoność obliczeniowa algorytmu Scale Space}
-\label{subsec:zlozonosc_obliczeniowa}
-
-Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacowanie ich liczby. Przyjęto następujące oznaczenia:
-\begin{itemize}
-\item $ P $ - liczba pikseli obrazu,
-\item $ I $ - rozmiar reprezentacji skali (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
-\item $ M_i $ - rozmiar kontekstu, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
-\item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika kontekstu.
-\end{itemize}
-
-Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~współczynnikami określonymi za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar kontekstu. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki filtra są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie, koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
-
-Do wyznaczenia całej reprezentacji konieczne będzie wykonanie 
-%$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
-$ P \cdot \sum_{i=1}^I(2 M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników filtra. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru filtra i~wynosi $ A \cdot M_i $.
-
-Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot \sum_{i=1}^I(2 M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników filtra i~zachowania ich w~pamięci dla wielu obrazów, można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową $ O(I \cdot P \cdot M_I) $.
-
 \subsection{Detekcja cech}
 \label{subsec:detekcja}
 
@@ -220,6 +201,37 @@ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}|
 
 Współczynnik krzywizny jest obliczany dla każdego piksela w każdej skali. Następnie wśród trójwymiarowej struktury są wyszukiwane lokalne maksima. W punktach występowania lokalnych maksimów znajdują się wykryte narożniki.
 
+\subsection{Złożoność obliczeniowa algorytmu Scale Space}
+\label{subsec:zlozonosc_obliczeniowa}
+
+Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości obliczeń. Poniżej przedstawione jest oszacowanie ich liczby. Przyjęto następujące oznaczenia:
+\begin{itemize}
+\item $ P $ - liczba pikseli obrazu,
+\item $ I $ - rozmiar reprezentacji skali (liczba skal, w~których zostanie przedstawiony obraz wejściowy),
+\item $ M_i $ - rozmiar kontekstu, za pomocą której zostanie wyznaczony obraz w $ i-tej $ skali,
+\item $ A $ - liczba działań konieczna do wyznaczenia jednego współczynnika kontekstu,
+\item $ B $ - liczba działań konieczna do wyznaczenia wartości warunków \eqref{eq:edgeDetection}.
+\end{itemize}
+
+Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~współczynnikami określonymi za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar kontekstu. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki filtra są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie, koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
+
+Do wyznaczenia całej reprezentacji konieczne będzie wykonanie 
+%$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
+$ P \cdot \sum_{i=1}^I(2 M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników filtra. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru filtra i~wynosi $ A \cdot M_i $.
+
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot \sum_{i=1}^I(2 M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników filtra i~zachowania ich w~pamięci dla wielu obrazów, można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową przedstawioną na równaniu \eqref{eq:zlozonoscReprezentacjaSkali}. 
+
+\begin{equation}
+\label{eq:zlozonoscReprezentacjaSkali}
+O(I \cdot P \cdot M_I)
+\end{equation}
+
+Złożoność detekcji cech jest zależna od cechy. Omówiony zostanie tylko algorytm wykrywania krawędzi. Dla pozostałych cech można przeprowadzić analogiczne rozważania. Dla detekcji krawędzi należy wyznaczyć wartości pochodnych dla każdego piksela a~następnie sprawdzić czy zachodzi warunek \eqref{eq:edgeDetection}. Do wykonania tych operacji koniecznych jest przeprowanie $ B \approx 130 $ operacji. Do sprawdzenia warunków dla wszystkich pikseli dla jednej skali wykonywanych jest $ P \cdot B $ operacji. Wartość B jest niezależna od wielkości obrazu i~ilości skal. Zakładając, że $ B << P $, więc złożoność obliczeniowa detekcji krawędzi wynosi $ O(P) $. Dla wszystkich skal złożoność wynosi $ O (P \cdot I) $. Sumaryczna złożoność całego algorytmu jest przedstawiona na równaniu \eqref{eq:zlozonosc}.
+
+\begin{equation}
+\label{eq:zlozonosc}
+O(I \cdot P \cdot M_I)
+\end{equation}
 
 \section{Standard OpenCL}
 \label{sec:OpenCL}
