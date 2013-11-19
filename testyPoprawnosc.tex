@@ -15,13 +15,13 @@ W~celu porównania numerycznego stworzono dwa współczynniki przedstawione we w
 
 \begin{equation}
 \label{eq:procentZlychPikseli}
-e_{AB} = \frac{\sum_{i}^{P}|sgn(A_{ij}-B_{ij})	|}{P}
+e_{CD} = \frac{\sum_{i}^{P}|sgn(C_{ij}-D_{ij})	|}{P}
 \end{equation}
 gdzie:
 
-$ e_{AB} $ - współczynnik liczby różnych pikseli,
+$ e_{CD} $ - współczynnik liczby różnych pikseli,
 
-$ A, B $ - obrazy, dla których wyznaczany jest współczynnik,
+$ C, D $ - obrazy, dla których wyznaczany jest współczynnik,
 
 $ P $ - liczba pikseli w~obrazie,
 
@@ -29,10 +29,10 @@ $ sgn $ - funkcja signum \cite{Signum}.
 
 \begin{equation}
 \label{eq:sredniaOdchylenia}
-v_{AB} = \frac{\sum_{i}^{P}|A_{ij}-B_{ij}|}{\sum_{i}^{P}|sgn(A_{ij}-B_{ij})|}
+v_{CD} = \frac{\sum_{i}^{P}|C_{ij}-D_{ij}|}{\sum_{i}^{P}|sgn(C_{ij}-D_{ij})|}
 \end{equation}
 gdzie:
 
-$ v_{AB} $ - współczynnik wielkości średniego odchylenia wartości piksela,
+$ v_{CD} $ - współczynnik wielkości średniego odchylenia wartości piksela,
 
 Współczynnik liczby różnych pikseli pokazuje ile różnych pikseli, w~stosunku do całego obrazu, jest obecnych dla dwóch różnych implementacji. Współczynnik wielkości średniego odchylenia jest wykorzystywany tylko dla obrazów reprezentacji skali, ponieważ obrazy wyjściowe dla wyznaczania cech są binarne. Współczynnik są wyliczane dla jednego obrazu w~jednej skali dla wszystkich trzech implementacji (porównywany jest wynik każdej implementacji z~każdą).
