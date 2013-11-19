@@ -143,7 +143,7 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 	float Ly =  0.5 * (dl + 2.0 * d + dr - ul - 2.0 * u - ur);
 	float Lxx =  ul / 12.0 - u / 6.0 + ur / 12.0 +
                 5.0 * l / 6.0 - 5.0 * c / 3.0 + 5.0 * r / 6.0 +
-				dl / 12.0 - d / 6.0 + dr / 12.0;//*/
+				dl / 12.0 - d / 6.0 + dr / 12.0;
 	float Lxy =  ul / 4.0 - ur / 4.0 +
 				-dl / 4.0 + dr / 4.0;
 	float Lyy =  ul / 12.0 + 5.0 * u / 6.0 + ur / 12.0 -
