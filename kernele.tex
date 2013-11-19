@@ -1,7 +1,7 @@
 \chapter{Zaimplementowane kernele}
 \label{cha:kernele}
 
-W~trakcie realizacji praca stworzono poniżej przedstawione kernele. Wszystkie kernele używają zmiennoprzecikowego typu danych chyba, że napisano inaczej.
+W~trakcie realizacji pracy opracowano poniżej przedstawione kernele. Wszystkie kernele używają zmiennoprzecikowego typu danych chyba, że zaznaczono inaczej.
 
 \begin{itemize}
 \item 
@@ -35,6 +35,6 @@ W~trakcie realizacji praca stworzono poniżej przedstawione kernele. Wszystkie k
 \texttt{\_\_kernel void  ridge\_detector(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t out\_L1, \_\_write\_only image2d\_t out\_L2)} - kernel wyznaczający wartości współczynników, które są używane do wyznaczania grani i~są przedstawione na~równaniu \eqref{eq:ridgeDetection}. Obrazem wejściowym jest obraz reprezentacji skali, a~w~obrazach wyjściowych są zapisane wartości pikseli wyznaczone z~równania.
 
 \item 
-\texttt{\_\_kernel void  convolution(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output, \_\_global float * gaussian, \_\_private \_\_read\_only uint size)} - kernel liczący reprezentację skali. Obrazem wejściowym jest obraz w~skali szarości. Filtr Gaussa jest zapisany jako tablica jednowymiarowa w~celu przyspieszenia obliczeń.
+\texttt{\_\_kernel void  convolution(\_\_read\_only image2d\_t input, \_\_write\_only image2d\_t output, \_\_global float * gaussian, \_\_private \_\_read\_only uint size)} - kernel liczący reprezentację skali. Obrazem wejściowym jest obraz w~skali szarości. Współczynniki filtra Gaussa są zapisane jako tablica jednowymiarowa w~celu przyspieszenia obliczeń.
 
 \end{itemize}

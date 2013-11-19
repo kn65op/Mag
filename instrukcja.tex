@@ -1,15 +1,13 @@
 \chapter{Instrukcja używania programu}
 \label{cha:instrukcja}
 
-Krótka instrukcja użytkowania stworzonego programu.
+Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświetlić używają parametru \texttt{-h} lub \texttt{--help}). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
 
-Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświetlić używają parametru -h lub --help). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
-
-Program przyjmuje następujące parametry, które zostały opisane w~poniższym spisie. Każdy parametr może być podany w formie krótkiej lub długiej.
+Program przyjmuje następujące parametry, które zostały opisane w~poniższym spisie. Każdy parametr może być podany w formie krótkiej lub długiej. Jeśli nie określono pliku lub plików wejściowy pobierany będzie obraz z~kamery.
 
 \begin{itemize}
 \item \texttt{-i,--in} - obraz jest odczytywany z pliku podanego jako argument.
-\item \texttt{-I,--in-prefix} - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefiks\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: bmp, jpg lub png.
+\item \texttt{-I,--in-prefix} - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefiks\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: BMP, JPG lub PNG.
 \item \texttt{-o,--out} - określa prefiks nazwy plików wyjściowych. Pliki wyjściowe są zapisywane w formacie: A\_B\_XX\_YY.bmp, gdzie:
 	\begin{itemize}
 		\item A - podany prefiks,
@@ -25,16 +23,16 @@ Program przyjmuje następujące parametry, które zostały opisane w~poniższym 
 		\item corner - narożniki.
 	\end{itemize}
 	Jeśli parametr nie jest ustalony, to wyznaczana jest tylko reprezentacja skali.
-\item \texttt{-t,--type} - format pliku wejściowego. Dostępne wartości to: bayer - oznaczający odczytywanie pliku zapisanego za pomocą filtru Bayera lub gray - oznaczający odczytywanie pliku nie zapisanego za pomocą filtru Bayera.
+\item \texttt{-t,--type} - format pliku wejściowego. Dostępne wartości to: bayer - oznaczający odczytywanie pliku zapisanego w~formacie Bayera lub gray - oznaczający odczytywanie pliku monochromatycznego.
 \item \texttt{-p,--processor} - wybór implementacji. Dozwolone wartości:
 	\begin{itemize}
 		\item cl, opencl - implementacja z~użyciem OpenCL,
         \item cv, opencv, cpu - implementacja z~użyciem OpenCV wykonywana na procesorze,
         \item cv\_gpu, opencv\_gpu, gpu - implementacja z~użyciem OpenCV wykonywana na karcie graficznej.
 	\end{itemize}
-\item \texttt{-s,--scale} - określenie ilości skal oraz kroku. Konieczne jest podanie dwóch parametrów w~podanej kolejności: kroku i~liczby skal.
+\item \texttt{-s,--scale} - określenie liczby skal oraz kroku. Konieczne jest podanie dwóch parametrów w~podanej kolejności: kroku i~liczby skal.
 \item \texttt{--no-show} - ustalenie, że żadne obrazy wyjściowe nie będą zapisane na dysku. Ta opcja jest przydatna w~przypadku przeprowadzania testów szybkościowych.
 \item \texttt{-d,--debug} - dodatkowe zapisywanie obrazów pośrednich na dysku.
-\item \texttt{-q,--quiet} - nie jest wyświetlane nic w~konsoli, jeśli nie ma błędów.
+\item \texttt{-q,--quiet} - wyświetlane są tylko informacje o~błędach.
 \item \texttt{--no-first-image} - pozwala na rozpoczęcie mierzenia czasu po przetworzeniu pierwszego obrazu. Ta opcja jest przydatna w~przypadku przeprowadzania testów szybkościowych.
 \end{itemize}
