@@ -25,13 +25,23 @@ Poniżej są przedstawione możliwości oraz szczegóły techniczne dotyczące p
 \subsection{Kompilacja kerneli oraz obsługa urządzeń obliczeniowych}
 \label{subsec:kompilacjakerneli}
 
-\begin{figure}
+\begin{figure}[h]
+
 \begin{center}
-%v[width=3cm]
-\includegraphics[width=0.2\textwidth]{Diagrams/OpenCLDevice.png}
-\end{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Diagrams/OpenCLDevice.png}
 \caption{Klasa OpenCL Device}
 \label{fig:opencldevice}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithmsStream.png}
+\caption{Klasa odpowiedzialna za obsługę potoku}
+\label{fig:openCLAlgorithmsStream}
+\end{subfigure}
+\end{center}
+
+\label{fig:opencldeviceIopenCLAglorithmsStream}
 \end{figure}
 
 Funkcjonalność ta jest realizowana przez klasę \texttt{OpenCLDevice} przedstawioną na rysunku \ref{fig:opencldevice}. Jest ona odpowiedzialna za pobieranie litsy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniach, tworzenie i~udostępnianie kontekstu oraz kolejki komend (opisanych w~standardzie OpenCL) oraz za kompilację kerneli na konkretne urządzenie. Kontekst oraz kolejka komend są obiektami z API OpenCL za pomocą, których przeprowadzane jest wykonanie kodu na urządzeniu OpenCL.
@@ -69,14 +79,6 @@ Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów
 
 W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.2\textwidth]{Diagrams/OpenCLAlgorithmsStream.png}
-\end{center}
-\caption{Klasa odpowiedzialna za obsługę potoku}
-\label{fig:openCLAlgorithmsStream}
-\end{figure}
-
 Za samą realizację potoku jest odpowiedzialna klasa \texttt{OpenCLAlgorithmsStream} przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodawania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu poprzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić potok podając skąd pobierać i~gdzie zapisywać dane. Jeden potok może być uruchamiany dowolną liczbę razy.
 
 \subsection{Reguły dotyczące kerneli}
@@ -108,17 +110,20 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 \subsection{Zaimplementowane kernele}
 \label{subsec:kernele}
 
+W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
+\afterpage{
+\begin{landscape}
 \begin{figure}
 \begin{center}
 %v[width=3cm]
-\includegraphics[width=\textwidth]{Diagrams/AllAlgorithms.png}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/AllAlgorithms.png}
 \end{center}
 \caption{Diagram wszystkich klas algorytmów}
 \label{fig:diagramWszystko}
 \end{figure}
-
-W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+\end{landscape}
+}
 
 \lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\footnotesize}
 \begin{lstlisting}[float]
@@ -201,6 +206,10 @@ __kernel void  edge_max(__read_only image2d\_t Lvv_image, __write_only image2d\_
 	{
 		write_imageui(output, (int2)(i, j), 255);
 	}
+	else
+	{
+		write_imageui(output, (int2)(i, j), 0);
+	}
 }
 \end{lstlisting}
 
@@ -212,4 +221,4 @@ W~linii 3 rozpoczyna się definicja kernela. Ma on trzy parametry, które są ty
 
 W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wartości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
 
-W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela. Wszystkie piksele obrazu wyjściowego przed wywołaniem kernela mają przypisaną wartość zero.
+W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela, co oznacza że wykryto krawędź. W~przeciwnym wypadku ustawiana jest wartość 0.
