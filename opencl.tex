@@ -181,7 +181,7 @@ W linii 3 zaczyna się definicja kernela. Posiada on trzy argumenty, które są 
 
 W~liniach 5~i~6 pobierane są współrzędne aktualnie przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są później wielokrotnie. Jeśli podczas każdego odwołania się do nich pobieranoby wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 
-W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do  obliczenia warunków rozpoznawania krawędzi.
+W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do obliczenia warunków detekcji krawędzi.
 
 W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
 

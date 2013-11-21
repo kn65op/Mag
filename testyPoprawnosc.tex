@@ -4,12 +4,12 @@
 Celem tej części testów było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Testy przeprowadzono na karcie graficznej GeForce GT 555M. Proces testowania był następujący:
 
 \begin{enumerate}
-\item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej rozpoznawanej cechy.
+\item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej wykrywanej cechy.
 \item Zestawienie obrazów wynikowych z~podziałem na cechy oraz skalę. Dla każdej cechy i~skali otrzymano trzy obrazy, po jednym dla każdej implementacji.
 \item Porównanie wyników. Pożądanym wynikiem byłoby otrzymanie trzech identycznych obrazów. W praktyce jest to mało prawdopodobne, z~uwagi na zaokrąleń.
 \end{enumerate}
 
-Dla każdej rozpoznawanej cechy oraz dla samego wyznaczania reprezentacji skali wybrano pięć obrazów. Obliczenia przeprowadzono dla dziesięciu skal przy kroku cztery. Spośród otrzymanych obrazów wybrano dwa najbardziej interesujące (osobno dla każdej cechy i~dla reprezentacji skali) i~zaprezentowano w~części \ref{subsec:prezentacjaObrazowRoznicowych}.
+Dla każdej wykrywanej cechy oraz dla samego wyznaczania reprezentacji skali wybrano pięć obrazów. Obliczenia przeprowadzono dla dziesięciu skal przy kroku cztery. Spośród otrzymanych obrazów wybrano dwa najbardziej interesujące (osobno dla każdej cechy i~dla reprezentacji skali) i~zaprezentowano w~części \ref{subsec:prezentacjaObrazowRoznicowych}.
 
 W~celu porównania numerycznego stworzono dwa współczynniki przedstawione we wzorach: \eqref{eq:procentZlychPikseli} i~\eqref{eq:sredniaOdchylenia}. W~części \ref{subsec:porownanieNumerycznePoprawnosc} zaprezentowano wartości podanych współczynników dla wybranych wcześniej dwóch obrazów.
 
