@@ -125,7 +125,7 @@ W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzysty
 \end{landscape}
 }
 
-\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\footnotesize}
+\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\scriptsize\ttfamily}
 \begin{lstlisting}[float]
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
 
@@ -144,30 +144,22 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 	float d = read_imagef(input, sampler, (int2)(i, j + 1)).x;
 	float dr = read_imagef(input, sampler, (int2)(i + 1, j + 1)).x;
 
-	float Lx =  0.5 * (ur + 2.0 * r + dr - ul - 2.0 * l - dl);
-	float Ly =  0.5 * (dl + 2.0 * d + dr - ul - 2.0 * u - ur);
-	float Lxx =  ul / 12.0 - u / 6.0 + ur / 12.0 +
-                5.0 * l / 6.0 - 5.0 * c / 3.0 + 5.0 * r / 6.0 +
-				dl / 12.0 - d / 6.0 + dr / 12.0;
-	float Lxy =  ul / 4.0 - ur / 4.0 +
-				-dl / 4.0 + dr / 4.0;
-	float Lyy =  ul / 12.0 + 5.0 * u / 6.0 + ur / 12.0 -
-                l / 6.0 - 5.0 * c / 3.0 - r / 6.0 +
-				dl / 12.0 +  5.0 * d / 6.0 + dr / 12.0;
-	float Lxxx =  0.5 * (ul + dl - ur - dr) + l - r;
-	float Lxxy =  - ul / 8.0 + u / 4.0 - ur / 8.0
-					+ dl / 8.0 - d / 4.0 + dr / 8.0;
-	float Lxyy =  ul / 8.0 - ur / 8.0
-					- l / 4.0 + r / 4.0
-					+ dl / 8.0 - dr / 8.0;
-	float Lyyy =  0.5 * (ul + ur - dr - dl) + u - d;
+	float Lx = 0.5*(ur+2.0*r+dr-ul-2.0*l-dl);
+	float Ly = 0.5*(dl+2.0*d+dr-ul-2.0*u-ur);
+	float Lxx = ul/12.0-u/6.0+ur/12.0+5.0*l/6.0-5.0*c/3.0+5.0*r/6.0+dl/12.0-d/6.0+dr/12.0;
+	float Lxy = ul/4.0-ur/4.0+-dl/4.0+dr/4.0;
+	float Lyy = ul/12.0+5.0*u/6.0+ur/12.0-l/6.0-5.0*c/3.0-r/6.0+dl/12.0+5.0*d/6.0+dr/12.0;
+	float Lxxx = 0.5*(ul+dl-ur-dr)+l-r;
+	float Lxxy = -ul/8.0+u/4.0-ur/8.0+dl/8.0-d/4.0+dr/8.0;
+	float Lxyy = ul/8.0-ur/8.0-l/4.0+r/4.0+dl/8.0-dr/8.0;
+	float Lyyy = 0.5*(ul+ur-dr-dl)+u-d;
 	
-	float Lvv = Lx * Lx * Lxx + 2.0 * Lx * Ly * Lxy + Ly * Ly * Lyy;
+	float Lvv = Lx*Lx*Lxx+2.0*Lx*Ly*Lxy+Ly*Ly*Lyy;
 	if (fabs(Lvv) < 1e-5)
 	{
 		Lvv = 0;
 	}
-	float Lvvv = (Lx * Lx * Lx * Lxxx + 3.0 * Lx * Lx * Ly * Lxxy + 3.0 * Lx * Ly * Ly * Lxyy + Ly * Ly * Ly * Lyyy);
+	float Lvvv = (Lx*Lx*Lx*Lxxx+3.0*Lx*Lx*Ly*Lxxy+3.0*Lx*Ly*Ly*Lxyy+Ly*Ly*Ly*Lyyy);
 	write_imagef(out_Lvv, (int2)(i, j), Lvv);
 	write_imagef(out_Lvvv, (int2)(i, j), Lvvv);
 }
@@ -187,7 +179,7 @@ W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość
 
 Na końcu, w~liniach 42~i~43, obliczone wartości są zapisywane do obrazów wyjściowych.
 
-\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,basicstyle=\footnotesize}
+\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,basicstyle=\scriptsize\ttfamily}
 \begin{lstlisting}[float]
 const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP | CLK_FILTER_NEAREST;
 
