@@ -60,3 +60,8 @@ Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania
 \end{figure}
 
 Na wykresie \ref{fig:AllAGH} przedstawiono porównanie czasu obliczeń dla wszystkich cech. Przedstawione dane pochodzą z~testów wykonany na karcie graficznej GeforceGTX670. Biorąc pod uwagę czas potrzebny do wykonania obliczeń można zauważyć, że realizowane działania można podzielić na dwie grupy. Wyznaczanie reprezentacji skali, detekcja plam oraz detekcja narożników trwa tak samo długo a rozbieżności pomiędzy wykrywaniem grani i~krawędzi są niewielkie. Jest to spowodowane tym, że do detekcji grani i~krawędzi wymagane jest wyznaczenie dwóch obrazów pośrednich. Różnica pomiędzy tym grupami jest niezależna od skali. Detektory mają stały rozmiar używanego kontekstu. Z~tego powodu czas trwania obliczeń dla detektorów jest niezależny od użytej skali.
+
+\section{Działanie~w czasie rzeczywistym}
+\label{dzialanieRT}
+
+Przeprowadzono próby pozwalające określić dla jakich danych obliczenia mogą być wykonywane w~czasie rzeczywistym. Utrudnieniem podczas analizy jest zapis obrazów na dysk, który może spowolnić działanie programu. Uzyskano zadowalający efekt dla obrazów o~rozdzielczości 512x512 pikseli dla czterech skal dla detekcji krawędzi.  Dla takich warunków uzyskano przetwarzanie około 30 obrazów na sekundę. Test przeprowadzono dla karty GT 555M, która okazała się słabsza. Dla karty GTX 670 jest możliwość działania programu w~czasie rzeczywistym dla większych obrazów lub większej liczby skal.
