@@ -3,6 +3,43 @@
 
 W~niniejszym rozdziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną w ramach pracy dyplomowej bibliotekę służącą ograniczeniu liczby błędów oraz przyśpieszeniu pracy poprzez uniknięcie powtarzania kodu. Autor zdecydował się na realizację danej biblioteki z~uwagi na to, że w~części programu, która kontroluje wykonanie kodu na karcie graficznej (nazywanego kernelami) wiele czynności jest powtarzanych przy implementacji każdego algorytmu. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera bez ograniczania możliwości oferowanych przez standard OpenCL oraz umożliwienie łatwego rozszerzania dostępnych funkcji. Biblioteka była tworzona oraz testowana dla wersji 1.1 standardu OpenCL. Przedstawiono i~omówiono również część z~zaimplementowanych kerneli.
 
+\section{Architektura OpenCL}
+\label{sec:architekturaOpenCL}
+
+W~poniższych akapitach przedstawiono architekturę standardu OpenCL\cite{OpenCLspecification}. Standard określa składnię używaną do pisania kerneli oraz definiuje sposób kompilacji oraz wykonywania kerneli. Standard określa następujące modele:
+\begin{itemize}
+\item model platformy,
+\item model wykonania,
+\item model pamięci,
+\item model programowania.
+\end{itemize}
+
+\subsection{Model platformy}
+\label{platformModel}
+
+Programy napisane z~wykorzystaniem standardu OpenCL są uruchamiane na procesorze CPU (gospodarz) zgodnie z~architekturą danego procesora. Do gospodarza jest podłączone urządzenie, na którym będą wykonywane kernel. Urządzenie jest podzielone na jednostki obliczeniowe, które są podzielone na elementy przetwarzające. Obliczenia są wykonywane w~elementach przetwarzających. Obliczenia przeprowadzane są zgodnie z~architekturą SIMD (Single Instruction Multiple Data) co oznacza, że jeden kernel jest wykonywany dla wielu danych równocześnie.
+
+\subsection{Model wykonania}
+\label{executionModel}
+
+Program wykonywany na procesorze zarządza wykonywaniem kerneli na urządzeniu. Kiedy kernel jest uruchamiany przez gospodarza tworzony jest przestrzeń indeksów określonej wielkości (zgodnej ze strukturą danych wejściowych). Dla każdego ideksu w~przestrzeni indeksu wykonywany jest kernel. Instancja kernela jest nazywana jednostką roboczą i~jest określona poprzez indeks, dla którego jest wykonywana. Jednostki robocze są zorganizowane w~grupy robocze. Wykonanie kernela może być zrealizowane synchronicznie lub asynchronicznie.
+
+\subsection{Model pamięci}
+\label{memoryModel}
+
+Pamięć urządzenia jest podzielona na cztery regiony. Różnią się one uprawnieniami oraz czasem dostępu.
+\begin{itemize}
+\item Pamięc globalna - jest dostępna do odczytu i~zapisu dla każdej jednostki roboczej. Jest używana do komunikacji pomiędzy gospodarzem oraz urządzeniem, na którym wykonywane są kernele.
+\item Pamięć stała - jest dostępna tylko do odczytu dla każdej jednostki roboczej. Nie zmienia się podczas wykonywania kernela. Gospodarz może zapisać dane do tego fragmentu pamięci. Dostęp do tego regionu pamięci jest szybszy, niż dostęp do pamięci globalnej.
+\item Pamięć lokalna - jest dostępna do zapisu i~odczytu dla każdej jednostki roboczej w~obrębie grupy roboczej. Może być wykorzystana do przechowywania danych wspólnych dla danej grupy roboczej. Istnieje również możliwość zmapowania do fragmentu pamięci globalnej.
+\item Pamięć prywatna - jest dospna do zapisu i~odczytu dla jednej jednostki obliczeniowej. Używana jest do przechowywania zmiennych potrzebny tylko przez jedną jednostkę obliczeniową.
+\end{itemize}
+
+\subsection{Model programowania}
+\label{programmingModel}
+
+Model programowania OpenCL wspiera równoległość danych, równoległość zadań lub ich połączenie. Podstawowym modelem jest model równoległości danych. W~tym wariancie dla wielu danych wykonywany jest ten sam kod. Istnieje możliwość zdefiniowania liczby jednostek roboczych albo pozostawienie tego problemu implementacji OpenCL. W~przypadku zastosowania modelu równoległości zadań użytkownik może wykonać kernel dla dowolnych danych używając grupy roboczej składającej się z~jednej jednostki roboczej. Jednocześnie może uruchomić inny kernel na kolejnej grupie roboczej.
+
 \section{Implementacja algorytmów z~użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
 
