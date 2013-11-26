@@ -1,0 +1,43 @@
+\chapter{Dane otrzymane z~testów szybkości}
+\label{cha:daneTestySzybjkosci}
+
+
+\begin{table}[h]
+\caption{Wynik testów szybkości dla karty Nvidia GT 555M dla wyznaczania reprezentacji skali dla wszystkich implementacji dla 10 skal}
+\label{tab:allGT}
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Implementacja & 1 [ms] & 2 [ms] & 3 [ms] & 4  [ms]  & 5 [ms]   & 6 [ms]   & 7  [ms]  & 8 [ms]   & 9 [ms]    & 10[ms]    \\ \hline
+OpenCL               & 601        & 1099              & 1836     & 2886 & 4088 & 5691 & 7566 & 9541 & 11976 & 14519 \\ \hline
+OpenCVCPU            & 452        & 1369              & 5870     & 5886 & 5918 & 5932 & 6363 & 6396 & 6991  & 7019  \\ \hline
+OpenCVGPU            & 458        & 1340              & 5862     & 5872 & 5888 & 5928 & 6329 & 6379 & 6954  & 6967  \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Wynik testów szybkości dla karty Nvidia GTX 670 dla wyznaczania reprezentacji skali dla wszystkich implementacji dla 10 skal}
+\label{tab:allGTX}
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Implementacja & 1 [ms] & 2 [ms] & 3 [ms] & 4  [ms]  & 5 [ms]   & 6 [ms]   & 7  [ms]  & 8 [ms]   & 9 [ms]    & 10[ms]    \\ \hline
+OpenCL               & 285        & 300               & 332      & 604  & 770  & 984  & 1336 & 1605 & 1988  & 2356  \\ \hline
+OpenCVCPU            & 364        & 1064              & 4179     & 4494 & 4195 & 4619 & 4961 & 5148 & 5586  & 5507  \\ \hline
+OpenCVGPU            & 506        & 1441              & 5163     & 5774 & 5601 & 4944 & 5381 & 5819 & 6005  & 6240  \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\caption{Wynik testów szybkości dla karty graficznej GTX 670 dla wszystkich cech dla 10 skal}
+\label{tab:allV}
+
+\begin{tabular}{|p{2cm}|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Cecha               & 1  [ms] & 2  [ms] & 3  [ms] & 4  [ms] & 5    [ms]& 6    [ms]& 7    [ms]& 8    [ms]& 9    [ms]& 10   [ms]\\ \hline
+Reprezentacja skali & 285 & 300 & 332 & 604 & 770  & 984  & 1336 & 1605 & 1988 & 2356 \\ \hline
+Plamy               & 225 & 380 & 380 & 604 & 815  & 1016 & 1304 & 1740 & 1940 & 2484 \\ \hline
+Krawędzie           & 524 & 588 & 725 & 890 & 1128 & 1256 & 1620 & 1988 & 2276 & 2678 \\ \hline
+Narożniki           & 300 & 300 & 428 & 604 & 740  & 1048 & 1320 & 1695 & 1988 & 2452 \\ \hline
+Granie              & 492 & 604 & 665 & 815 & 1048 & 1256 & 1575 & 1956 & 2196 & 2694 \\ \hline
+\end{tabular}
+\end{table}
