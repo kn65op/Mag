@@ -147,7 +147,7 @@ Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do u
 \subsection{Zaimplementowane kernele}
 \label{subsec:kernele}
 
-W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:rozpoznawaniePlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:detekcjaPlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
 \afterpage{
 \begin{landscape}
@@ -242,7 +242,7 @@ __kernel void  edge_max(__read_only image2d\_t Lvv_image, __write_only image2d\_
 }
 \end{lstlisting}
 
-Na listingu \ref{lis:edge} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsubsec:rozpoznawanieKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
+Na listingu \ref{lis:edge} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsubsec:detekcjaKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
 
 W~pierwszej linii, analogicznie do poprzedniego kernela, pojawia się definicja samplera, który jest używany do pobierania wartości obrazów. Używany jest sampler o~tych samych własnościach, co poprzednio wspomniany.
 

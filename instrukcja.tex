@@ -24,6 +24,11 @@ Program przyjmuje następujące parametry, które zostały opisane w~poniższym 
 	\end{itemize}
 	Jeśli parametr nie jest ustalony, to wyznaczana jest tylko reprezentacja skali.
 \item \texttt{-t,--type} - format pliku wejściowego. Dostępne wartości to: bayer - oznaczający odczytywanie pliku zapisanego w~formacie Bayera lub gray - oznaczający odczytywanie pliku monochromatycznego.
+\item \texttt{-c,--opencl} - wybór urządzenia na którym będą wykonywane kernele OpenCL. Jeśli w~systemie jest więcej niż jedno urządzenie danej firmy to zostanie wybrane pierwsze urządzenie na liście. Jeśli nie zostanie określony to użytkownik może wybrać urządzenie z listy.
+	\begin{itemize}
+		\item nvidia - urządzenie firmy NVIDIA,
+        \item intel - urządzenie firmy intel.
+	\end{itemize}
 \item \texttt{-p,--processor} - wybór implementacji. Dozwolone wartości:
 	\begin{itemize}
 		\item cl, opencl - implementacja z~użyciem OpenCL,
