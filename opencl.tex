@@ -128,7 +128,7 @@ Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać 
 \item obraz 2D - \texttt{image2d\_t},
 \item obraz 3D (tylko jako argument wejściowy) - \texttt{image3d\_t}.
 \end{itemize}
-Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, jeśli są konieczne do wykonania obliczeń lub wskaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
+Kolejnymi argumentami mogą być parametry pomocnicze lub wskaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
 
 \subsection{Obsługa błędów}
 \label{subsec:obslugabledow}
@@ -143,12 +143,12 @@ Kolejnymi argumentami mogą być inne dane. Mogą to być parametry pomocnicze, 
 \label{fig:diagramwyjatkow}
 \end{figure}
 
-Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~biblioteki, dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
+Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~biblioteki, dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu OpenCL. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
 
 \subsection{Zaimplementowane kernele}
 \label{subsec:kernele}
 
-W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy wykorzystywane w pracy. Są to: obliczanie konwolucji obrazu z maską oraz algorytmy służące detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:detekcjaPlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy opisane we wstępie. Są to: obliczanie konwolucji obrazu oraz algorytmy służące do detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:detekcjaPlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
 
 \afterpage{
 \begin{landscape}
