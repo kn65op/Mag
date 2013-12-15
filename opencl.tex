@@ -67,18 +67,18 @@ Poniżej są przedstawione możliwości oraz szczegóły techniczne dotyczące p
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLDevice.png}
-\caption{Klasa OpenCL Device}
+\caption{Diaram klasy OpenCL Device}
 \label{fig:opencldevice}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithmsStream.png}
-\caption{Klasa odpowiedzialna za obsługę potoku}
+\caption{Diaram klasy odpowiedzialna za obsługę potoku}
 \label{fig:openCLAlgorithmsStream}
 \end{subfigure}
 \end{center}
 
-\caption{Klasy \texttt{OpenCLDevice} i \texttt{OpenCLAlgorithmsStream}}
+\caption{Diagramy klas \texttt{OpenCLDevice} i \texttt{OpenCLAlgorithmsStream}}
 \label{fig:opencldeviceIopenCLAglorithmsStream}
 \end{figure}
 
@@ -94,11 +94,11 @@ Kod kernela może być podany w~jednej z~dwóch postaci: jako zmienna typu std::
 %v[width=3cm]
 \includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithms.png}
 \end{center}
-\caption{Klasy algorytmów}
+\caption{Diagram klas algorytmów}
 \label{fig:openclalgorithms}
 \end{figure}
 
-Funkcjonalność ta ułatwia użytkownikowi proces kompilacji oraz wykonywania kerneli wraz z~przekazywaniem argumentów oraz pobieraniem wyników. Ten fragment biblioteki składa się z~wielu klas, których diagram jest przedstawiony na rys. \ref{fig:openclalgorithms}. Duża liczba klas jest spowodowana potrzebą umożliwienia zastosowania biblioteki do wielu rodzajów kerneli. Prace nad biblioteką były skupione na realizacji algorytmów operujących na obrazach. Konieczność wprowadzenia dużego rozróżnienia wynika z dużej liczby struktur wykorzystywanych w~standardzie do przekazywania parametrów wejściowych i wyjściowych oraz chęcią uściślenia zastosowania danego algorytmu.
+Funkcjonalność ta ułatwia użytkownikowi proces kompilacji oraz wykonywania kerneli wraz z~przekazywaniem argumentów oraz pobieraniem wyników. Ten fragment biblioteki składa się z~wielu klas, których diagram jest przedstawiony na rys. \ref{fig:openclalgorithms}. Duża liczba klas wynika z~potrzeby umożliwienia zastosowania biblioteki do wielu rodzajów kerneli. Prace nad biblioteką były skupione na realizacji algorytmów operujących na obrazach. Konieczność wprowadzenia dużego rozróżnienia wynika z dużej liczby struktur wykorzystywanych w~standardzie do przekazywania parametrów wejściowych i wyjściowych oraz chęcią uściślenia zastosowania danego algorytmu.
 
 Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliwia, w~optymalnych przypadkach, na minimalne zaangażowanie użytkownika biblioteki w~tworzenie kodu kontrolera i~skupienie się na konstrukcji kodu kernela. Koniecznymi do podania informacjami są: format obrazu danych wejściowych i~wyjściowych oraz kod kernela (zawarty w~pliku lub w~łańcuchu znakowym). Dla bardziej zaawansowanych algorytmów, do działania których potrzebnych jest więcej argumentów wejściowych lub danych rezultatów konieczne jest więcej pracy włożonej w~napisanie kodu kontrolera. Dla takich przypadków zrealizowano funkcje pomocnicze. Aby stworzyć własną klasę odpowiedzialną za realizację danego kernela należy dziedziczyć po odpowiednio wybranej klasie. Wybór klasy jest zależny od danych jakie kernel przyjmuje i~jakie zwraca.
 
@@ -109,11 +109,11 @@ Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliw
 \begin{center}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLStream.png}
 \end{center}
-\caption{Klasy algorytmów używane w potokach}
+\caption{Diagram klas algorytmów używanych w potokach}
 \label{fig:diagrampotok}
 \end{figure}
 
-Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele z~tych mniejszych operacji jest używana w~większej liczbie algorytmów, dlatego pożądana jest możliwość wielokrotnego użycia raz napisanego kernela.
+Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele elementarnych operacji jest używana w~większej liczbie algorytmów, dlatego pożądana jest możliwość wielokrotnego użycia raz napisanego kernela.
 
 W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem.
 
