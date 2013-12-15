@@ -54,7 +54,7 @@ Filtry dolnoprzepustowe ze współczynnikami Gaussa są jednymi z podstawowych o
 Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \eqref{eq:gaussian}:
 \begin{equation}
 \label{eq:gaussian}
-g(x,y,\sigma)=\frac{1}{2 \cdot \pi \cdot \sigma^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})}
+g(x,y,\sigma)=\frac{1}{2  \pi  \sigma^ {2} } e^{(-\frac{x^{2} + y^{2}}{2  \sigma ^{2}})}
 \end{equation}
 gdzie:\\
 
@@ -68,7 +68,7 @@ Ponieważ podczas obliczeń z~użyciem komputera nie jest możliwe używanie prz
 Dla dwuwymiarowych sygnałów dyskretnych, zostały użyte filtry Gaussa określone wzorem \eqref{eq:gaussian_discrete}:
 \begin{equation}
 \label{eq:gaussian_discrete}
-g(x,y,N,\sigma) = \alpha \cdot e^{-((x+y)-N/2)^2/(2 \cdot \sigma)^2}
+g(x,y,N,\sigma) = \alpha  e^{-((x+y)-N/2)^2/(2  \sigma)^2}
 \end{equation}
 gdzie:
 
@@ -78,7 +78,7 @@ $ \alpha $ - współczynnik skalujący w celu spełnienia warunku normalizacji (
 
 $ N $ - rozmiar filtru,
 
-$ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3 \cdot (N \cdot 0,5 - 1) + 0,8$.
+$ \sigma $ - wariancja obliczona zgodnie ze wzorem $ \sigma = 0.3  (N  0,5 - 1) + 0,8$.
 
 W~tym przypadku rozmiar filtru określa skalę. Za pomocą podanego wzoru obliczane są współczynniki filtra, z~użyciem którego będzie przeprowadzona konwolucja z~obrazem. W ten sposób otrzymany będzie obraz w danej skali.
 
@@ -137,16 +137,17 @@ Do detekcji plam wykorzystano operator Laplace'a, którego współczynniki w~pos
 
 \begin{equation}
 \label{eq:blobRadius}
-r = \sigma \cdot \sqrt{2}
+r = \sigma  \sqrt{2}
 \end{equation}
 gdzie:
 
+$ r $ - promień okręgu,
 $ \sigma $ - wariancja (parametr skali) ustalony podczas tworzenia filtru Gaussa dla danej skali.
 
 \subsubsection{Detekcja krawędzi}
 \label{subsubsec:detekcjaKrawedzi}
 
-Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone w~równaniach \eqref{eq:edgeDetection}.
+Warunki istnienia krawędzi w~danym punkcie obrazu dla sygnału ciągłego są określone wyrażeniami \eqref{eq:edgeDetection}.
 
 \begin{equation}
 \label{eq:edgeDetection}
@@ -213,24 +214,24 @@ Do wykonania algorytmu Scale Space jest konieczne przeprowadzenie dużej ilości
 \item $ B $ - liczba działań konieczna do wyznaczenia wartości warunków \eqref{eq:edgeDetection}.
 \end{itemize}
 
-Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego z~współczynnikami określonymi za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar kontekstu. Zgodnie z~wzorem \eqref{eq:gaussian_discrete} współczynniki filtra są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie, koniecznych jest wykonanie $ P \cdot (2M_i - 1) $ operacji.
+Do wyznaczenia obrazu będącego reprezentacją w~danej skali stosowana będzie konwolucja obrazu wejściowego ze współczynnikami określonymi za pomocą wzoru \eqref{eq:gaussian_discrete}. Im większa skala, tym większy będzie rozmiar kontekstu. Zgodnie ze wzorem \eqref{eq:gaussian_discrete} współczynniki filtra są w~postaci znormalizowanej. Zatem do wykonania konwolucji konieczne będzie przeprowadzenia $ M_i $ działań mnożenia oraz $ M_i - 1 $ działań dodawania dla każdego z~$P$ pikseli obrazu. Łącznie, koniecznych jest wykonanie $ P  (2M_i - 1) $ operacji.
 
 Do wyznaczenia całej reprezentacji konieczne będzie wykonanie 
-%$ P \cdot (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P \cdot \sum_(i=1)^I(2 M_i) - I   $  
-$ P \cdot \sum_{i=1}^I(2 M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników filtra. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru filtra i~wynosi $ A \cdot M_i $.
+%$ P  (2 M_1 - 1 + 2 M_2 - 1 + ... + 2 M_I - 1) = P  \sum_(i=1)^I(2 M_i) - I   $  
+$ P  \sum_{i=1}^I(2 M_i - 1) $ operacji tylko w celu obliczenia reprezentacji. Liczba $ M_i $ jest różna dla każdej skali. Przedtem będzie konieczne wyznaczenie współczynników filtra. Jest to operacja jednorazowa dla każdej skali. Liczba działań do wykonania jest zależna od rozmiaru filtra i~wynosi $ A  M_i $.
 
-Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I \cdot (A \cdot M_i + P \cdot \sum_{i=1}^I(2 M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników filtra i~zachowania ich w~pamięci dla wielu obrazów, można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową przedstawioną na równaniu \eqref{eq:zlozonoscReprezentacjaSkali}. 
+Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I  (A  M_i + P  \sum_{i=1}^I(2 M_i - 1)) $ działań. Zakładając, że $ A << P $ oraz możliwość jednokrotnego obliczenia współczynników filtra i~zachowania ich w~pamięci dla wielu obrazów, można stwierdzić, że wyznaczanie reprezentacji skali ma złożoność obliczeniową przedstawioną na równaniu \eqref{eq:zlozonoscReprezentacjaSkali}. 
 
 \begin{equation}
 \label{eq:zlozonoscReprezentacjaSkali}
-O(I \cdot P \cdot M_I)
+O(I  P  M_I)
 \end{equation}
 
-Złożoność detekcji cech jest zależna od cechy. Omówiony zostanie tylko algorytm wykrywania krawędzi. Dla pozostałych cech można przeprowadzić analogiczne rozważania. Dla detekcji krawędzi należy wyznaczyć wartości pochodnych dla każdego piksela a~następnie sprawdzić czy zachodzi warunek \eqref{eq:edgeDetection}. Do wykonania tych operacji koniecznych jest przeprowanie $ B \approx 130 $ operacji. Do sprawdzenia warunków dla wszystkich pikseli dla jednej skali wykonywanych jest $ P \cdot B $ operacji. Wartość B jest niezależna od wielkości obrazu i~ilości skal. Zakładając, że $ B << P $, więc złożoność obliczeniowa detekcji krawędzi wynosi $ O(P) $. Dla wszystkich skal złożoność wynosi $ O (P \cdot I) $. Sumaryczna złożoność całego algorytmu jest przedstawiona na równaniu \eqref{eq:zlozonosc}.
+Złożoność detekcji cech jest zależna od cechy. Omówiony zostanie tylko algorytm wykrywania krawędzi. Dla pozostałych cech można przeprowadzić analogiczne rozważania. Dla detekcji krawędzi należy wyznaczyć wartości pochodnych dla każdego piksela a~następnie sprawdzić czy zachodzi warunek \eqref{eq:edgeDetection}. Do wykonania tych operacji konieczne jest przeprowanie $ B \approx 130 $ operacji. Do sprawdzenia warunków dla wszystkich pikseli dla jednej skali wykonywanych jest $ P  B $ operacji. Wartość B jest niezależna od wielkości obrazu i~liczby skal. Zakładając, że $ B << P $, złożoność obliczeniowa detekcji krawędzi wynosi $ O(P) $. Dla wszystkich skal złożoność wynosi $ O (P  I) $. Sumaryczna złożoność całego algorytmu jest przedstawiona w~równaniu \eqref{eq:zlozonosc}.
 
 \begin{equation}
 \label{eq:zlozonosc}
-O(I \cdot P \cdot M_I)
+O(I  P  M_I)
 \end{equation}
 
 \section{Standard OpenCL}
