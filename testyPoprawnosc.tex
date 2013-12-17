@@ -1,17 +1,17 @@
 \section{Testowanie poprawności funkcjonalnej}
 \label{sec:testPoprawnosc}
 
-Celem tej części testów było sprawdzenie czy zrealizowane implementacje działają w~ten sam sposób. Testy przeprowadzono na karcie graficznej GeForce GT 555M. Proces testowania był następujący:
+Celem tej części testów było sprawdzenie czy za pomocą zrealizowanych implementacji osiągany jest ten sam wynik. Testy przeprowadzono na karcie graficznej GeForce GT 555M. Proces testowania był następujący:
 
 \begin{enumerate}
 \item Przetworzenie tego samego obrazu za pomocą wszystkich implementacji. Wybrany obraz był reprezentowany w~kilku skalach. Przeprowadzono obliczenia dla każdej wykrywanej cechy.
 \item Zestawienie obrazów wynikowych z~podziałem na cechy oraz skalę. Dla każdej cechy i~skali otrzymano trzy obrazy, po jednym dla każdej implementacji.
-\item Porównanie wyników. Pożądanym wynikiem byłoby otrzymanie trzech identycznych obrazów. W praktyce jest to mało prawdopodobne, z~uwagi na zaokrąleń.
+\item Porównanie wyników. Pożądanym wynikiem byłoby otrzymanie trzech identycznych obrazów. W~praktyce jest to mało prawdopodobne, z~uwagi na różne sposoby zaokrąleń w~sposób.
 \end{enumerate}
 
 Dla każdej wykrywanej cechy oraz dla samego wyznaczania reprezentacji skali wybrano pięć obrazów. Obliczenia przeprowadzono dla dziesięciu skal przy kroku cztery. Spośród otrzymanych obrazów wybrano dwa najbardziej interesujące (osobno dla każdej cechy i~dla reprezentacji skali) i~zaprezentowano w~części \ref{subsec:prezentacjaObrazowRoznicowych}.
 
-W~celu porównania numerycznego stworzono dwa współczynniki przedstawione we wzorach: \eqref{eq:procentZlychPikseli} i~\eqref{eq:sredniaOdchylenia}. W~części \ref{subsec:porownanieNumerycznePoprawnosc} zaprezentowano wartości podanych współczynników dla wybranych wcześniej dwóch obrazów.
+W~celu porównania numerycznego ustalono dwa współczynniki przedstawione we wzorach: \eqref{eq:procentZlychPikseli} i~\eqref{eq:sredniaOdchylenia}. W~części \ref{subsec:porownanieNumerycznePoprawnosc} zaprezentowano wartości podanych współczynników dla wybranych wcześniej dwóch obrazów.
 
 \begin{equation}
 \label{eq:procentZlychPikseli}
@@ -21,7 +21,7 @@ gdzie:
 
 $ e_{CD} $ - współczynnik liczby różnych pikseli,
 
-$ C, D $ - obrazy, dla których wyznaczany jest współczynnik,
+$ C_{ij}, D_{ij} $ - piksele obrazów $ C $ i~$ D $ o~współrzędnych $i$, $j$,
 
 $ P $ - liczba pikseli w~obrazie,
 
@@ -35,4 +35,4 @@ gdzie:
 
 $ v_{CD} $ - współczynnik wielkości średniego odchylenia wartości piksela,
 
-Współczynnik liczby różnych pikseli pokazuje ile różnych pikseli, w~stosunku do całego obrazu, jest obecnych dla dwóch różnych implementacji. Współczynnik wielkości średniego odchylenia jest wykorzystywany tylko dla obrazów reprezentacji skali, ponieważ obrazy wyjściowe dla wyznaczania cech są binarne. Współczynnik są wyliczane dla jednego obrazu w~jednej skali dla wszystkich trzech implementacji (porównywany jest wynik każdej implementacji z~każdą).
+Współczynnik liczby różnych pikseli pokazuje ile różnych pikseli $ e_{CD} $, w~stosunku do całego obrazu, jest obecnych dla dwóch różnych implementacji. Współczynnik wielkości średniego odchylenia $ v_{CD} $ jest wykorzystywany tylko dla obrazów reprezentacji skali, ponieważ obrazy wyjściowe dla wyznaczania cech są binarne. Współczynnik są wyliczane dla jednego obrazu w~jednej skali dla wszystkich trzech implementacji (porównywany jest wynik każdej implementacji z~każdą).

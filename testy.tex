@@ -1,25 +1,29 @@
 \chapter{Testy}
 \label{cha:testy}
 
-W niniejszym rozdziale przedstawiono proces testowania zaimplementowanych algorytmów oraz uzyskane wyniki. Obszarem zainteresowań jest poprawność zaimplementowanego algorytmu oraz porównanie szybkości działania z~innymi implementacjami.
+W niniejszym rozdziale przedstawiono proces testowania zaimplementowanych w~sposób równoległy algorytmów oraz uzyskane wyniki. Obszarem zainteresowań jest poprawność zaimplementowanego algorytmu oraz porównanie szybkości działania z~innymi implementacjami: równoległymi i~sekwencyjnymi.
 
 Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z użyciem biblioteki OpenCV: jedna przeprowadza obliczenia na procesorze (CPU), druga przeprowadza obliczenia na karcie graficznej (GPU) z~wykorzystaniem pakietu CUDA.
 
 \section{Środowisko testowe}
 \label{sec:srodowiskoTesty}
 
-Do testów użyto dwóch kart graficznych.
+Do testów użyto zestawów urządzeń.
 
 \begin{enumerate}
-\item GeForce GT 555M \cite{GT555M} o następujących parametrach:
+\item Zestaw pierwszy:
+\begin{itemize}
+\item karta graficzna: GeForce GT 555M \cite{GT555M} o następujących parametrach:
 \begin{itemize}
 \item liczba rdzeni: 144,
 \item zegar układu graficznego: 675 MHz,
 %\item zegar procesora: 1350 MHz,
-\item częstotliwość danych pamięci: 1800 MHz,
+\item częstotliwość szyny danych pamięci: 1800 MHz,
 \item interfejs pamięci: 128-bitowy,
 \item szerokość pasma pamięci: 28,80GB/s,
 \item dostępna pamięć: 4095 MB.
+\end{itemize}
+\item procesor: Intel Core i7-2670QM pracujący z~częstotliwością 2200 MHz.
 \end{itemize}
 
 \item GeForce GTX 670 \cite{GTX670} o następujących parametrach:
@@ -27,21 +31,20 @@ Do testów użyto dwóch kart graficznych.
 \item liczba rdzeni: 1344,
 \item zegar układu graficznego: 980 MHz,
 %\item zegar procesora: 1350 MHz,
-\item częstotliwość danych pamięci: 6008 MHz,
+\item częstotliwość szyny danych pamięci: 6008 MHz,
 \item interfejs pamięci: 256-bitowy,
 \item szerokość pasma pamięci: 192.26 GB/s,
 \item dostępna pamięć: 4096 MB.
 \end{itemize}
+\item procesor: Intel Core i5-3570 pracujący z~częstotliwością 3400 MHz.
 \end{enumerate}
 
-Implementacja wykonywana na CPU była uruchamiana na procesorze Intel Core i7-2670QM pracującym z~częstotliwością 2200 MHz.
-
-W~niniejszym rodziale użyto następujących skrótów:
+W~niniejszym rodziale przyjęto następujące oznaczenia:
 \begin{itemize}
 \item CL, OpenCL - implementacja wykonana z~użyciem OpenCL,
-\item CVCPU, OpenCVCPU - implementacja wykonana z~użyciem OpenCV wykonywania na procesorze CPU,
-\item CVGPU, OpenCVGPU - implementacja wykonana z~użyciem OpenCV wykonywania na procesorze graficznym GPU,
+\item CVCPU, OpenCVCPU - implementacja wykonana z~użyciem OpenCV wykonywania na procesorze CPU w~sposób sekwencyjny,
+\item CVGPU, OpenCVGPU - implementacja wykonana z~użyciem OpenCV wykonywania na procesorze graficznym GPU w~sposób równoległy z~wykorzystaniem ,
 \item CL-CVCPU - oznacza porównanie pomiędzy wynikiem implementacji wykonanej w~OpenCL a implementacją wykonaną za pomocą OpenCV na procesorze,
-\item CL-CVCPU - oznacza porównanie pomiędzy wynikiem implementacji wykonanej w~OpenCL a implementacją wykonaną za pomocą OpenCV na karcie graficznej,
-\item CL-CVCPU - oznacza porównanie pomiędzy wynikiem implementacji wykonanej za pomocą OpenCV na procesorze a implementacją wykonaną za pomocą OpenCV na karcie graficznej.
+\item CL-CVGPU - oznacza porównanie pomiędzy wynikiem implementacji wykonanej w~OpenCL a implementacją wykonaną za pomocą OpenCV na karcie graficznej,
+\item CVCPU-CVGPU - oznacza porównanie pomiędzy wynikiem implementacji wykonanej za pomocą OpenCV na procesorze a implementacją wykonaną za pomocą OpenCV na karcie graficznej.
 \end{itemize}
