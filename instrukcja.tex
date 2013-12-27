@@ -1,10 +1,11 @@
 \chapter{Instrukcja używania programu}
 \label{cha:instrukcja}
 
-Program jest uruchamiany w~konsoli i~nie posiada żadnego graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświetlić używają parametru \texttt{-h} lub \texttt{--help}). Parametry podawane są w~sposób zgodne ze standardem znanym z~projektu GNU.
+Program jest uruchamiany w~konsoli i~nie posiada graficznego interfejsu użytkowania. Do programu dołączona jest pomoc (można ją wyświetlić używają parametru \texttt{-h} lub \texttt{--help}). Parametry podawane są w~sposób zgodny ze standardem znanym z~projektu GNU.
 
 Program przyjmuje następujące parametry, które zostały opisane w~poniższym spisie. Każdy parametr może być podany w formie krótkiej lub długiej. Jeśli nie określono pliku lub plików wejściowy pobierany będzie obraz z~kamery.
 
+Lista parametrów:
 \begin{itemize}
 \item \texttt{-i,--in} - obraz jest odczytywany z pliku podanego jako argument.
 \item \texttt{-I,--in-prefix} - obrazy wejściowe są odczytywane z~podanej lokalizacji. Format nazw plików wejściowy musi być w~formacie prefiks\_XX.YYY. W~prefiksie może być podany katalog. YYY jest to rozszerzenie pliku. Wspierane są pliki w~formatach: BMP, JPG lub PNG.
@@ -22,12 +23,12 @@ Program przyjmuje następujące parametry, które zostały opisane w~poniższym 
 		\item ridge - granie,
 		\item corner - narożniki.
 	\end{itemize}
-	Jeśli parametr nie jest ustalony, to wyznaczana jest tylko reprezentacja skali.
+	Jeśli parametr nie jest ustalony, wyznaczana jest tylko reprezentacja skali.
 \item \texttt{-t,--type} - format pliku wejściowego. Dostępne wartości to: bayer - oznaczający odczytywanie pliku zapisanego w~formacie Bayera lub gray - oznaczający odczytywanie pliku monochromatycznego.
 \item \texttt{-c,--opencl} - wybór urządzenia na którym będą wykonywane kernele OpenCL. Jeśli w~systemie jest więcej niż jedno urządzenie danej firmy to zostanie wybrane pierwsze urządzenie na liście. Jeśli nie zostanie określony to użytkownik może wybrać urządzenie z listy.
 	\begin{itemize}
 		\item nvidia - urządzenie firmy NVIDIA,
-        \item intel - urządzenie firmy intel.
+        \item intel - urządzenie firmy Intel (wersja eksperymentalna).
 	\end{itemize}
 \item \texttt{-p,--processor} - wybór implementacji. Dozwolone wartości:
 	\begin{itemize}
