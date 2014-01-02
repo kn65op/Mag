@@ -49,6 +49,15 @@ Istotne jest to, aby sygnały dla większych skal zawierały mniej szczegółów
 
 \subsection{Filtracja dolnoprzepustowa}
 \label{subsec:filtracjaGaussa}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=15cm]{obrazy/gaussian.png}
+\end{center}
+\caption{Przedstawienie dwuwymiarowego filtru Gaussa o~rozmiarze 19}
+\label{fig:gaussian_kernel}
+\end{figure}
+
 Filtry dolnoprzepustowe ze współczynnikami Gaussa są jednymi z podstawowych operacji wykorzystywanych w przetwarzaniu obrazów cyfrowych. Są to filtry rozmywające obraz, po zastosowaniu których ze sceny można odczytać ogólne kształty przedstawionych obiektów. Po tej operacji szczegóły zostają usunięte, bądź zostaje znacznie zmniejszony ich wpływ na całość. Ich zaletą wykorzystywaną w~tej pracy jest zgodność z aksjomatami Scale Space zarówno w~postaci ciągłej, jak i~w~postaci dyskretnej.
 
 Współczynniki kolejnych filtrów Gaussa w przestrzeni ciągłej dwuwymiarowej są określone wzorem \eqref{eq:gaussian}:
