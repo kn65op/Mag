@@ -1,4 +1,4 @@
-\section{Testowanie szybkości działania}
+\subsection{Testowanie szybkości działania}
 \label{sec:testSzybkosci}
 
 Testowanie szybkości działania oparto na porównaniu czasów wykonania wszystkich implementacji algorytmu Scale Space. Liczony był czas działania algorytmu. Im krótszy czas tym lepsza implementacja algorytmu Scale Space.
@@ -17,7 +17,7 @@ Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznyc
 \begin{center}
 \includegraphics[width=\textwidth]{TestySzybkosci/PureMoje.png}
 \end{center}
-\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem karty graficznej GeForce GT 555M}
+\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem zestawu pierwszego}
 \label{fig:pureSzybkoscMoje}
 \end{figure}
 
@@ -25,7 +25,7 @@ Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznyc
 \begin{center}
 \includegraphics[width=\textwidth]{TestySzybkosci/PureAGH.png}
 \end{center}
-\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem karty graficznej GeForce GTX 670}
+\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem zestawu drugiego}
 \label{fig:pureSzybkoscAGH}
 \end{figure}
 
@@ -61,7 +61,7 @@ Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania
 
 Na wykresie \ref{fig:AllAGH} przedstawiono porównanie czasu obliczeń dla wszystkich cech. Przedstawione dane pochodzą z~testów wykonany na karcie graficznej GeforceGTX670. Biorąc pod uwagę czas potrzebny do wykonania obliczeń można zauważyć, że realizowane działania można podzielić na dwie grupy. Wyznaczanie reprezentacji skali, detekcja plam oraz detekcja narożników trwają tak samo długo a rozbieżności pomiędzy wykrywaniem grani i~krawędzi są niewielkie. Jest to spowodowane tym, że do detekcji grani i~krawędzi wymagane jest wyznaczenie dwóch obrazów pośrednich. Różnica pomiędzy tym grupami jest niezależna od skali. Detektory używają kontekstu o~stałym rozmiarze. Z~tego powodu czas trwania obliczeń dla detektorów jest niezależny od użytej skali.
 
-\section{Możliwość działania w~czasie rzeczywistym}
+\subsection{Możliwość działania w~czasie rzeczywistym}
 \label{dzialanieRT}
 
 Przeprowadzono próby pozwalające określić w~jakich warunkach obliczenia mogą być wykonywane w~czasie rzeczywistym. Utrudnieniem podczas analizy jest zapis obrazów na dysk, który spowolnia działanie programu. Uzyskano zadowalający efekt dla obrazów o~rozdzielczości 512x512 pikseli dla 4-ech skal dla detekcji krawędzi. W~takich warunkach uzyskano przetwarzanie około 30 obrazów na sekundę. Test przeprowadzono dla karty GT 555M. Dla karty GTX 670 jest możliwość działania programu w~czasie rzeczywistym dla większych obrazów lub większej liczby skal.

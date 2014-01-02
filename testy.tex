@@ -1,11 +1,11 @@
-\chapter{Testy}
+\section{Testy}
 \label{cha:testy}
 
 W niniejszym rozdziale przedstawiono proces testowania zaimplementowanych w~sposób równoległy algorytmów oraz uzyskane wyniki. Obszarem zainteresowań jest poprawność zaimplementowanego algorytmu oraz porównanie szybkości działania z~innymi implementacjami: równoległymi i~sekwencyjnymi.
 
 Do porównań opracowano dwie dodatkowe implementacje algorytmu zrealizowane z użyciem biblioteki OpenCV: jedna przeprowadza obliczenia na procesorze (CPU), druga przeprowadza obliczenia na karcie graficznej (GPU) z~wykorzystaniem pakietu CUDA.
 
-\section{Środowisko testowe}
+\subsection{Środowisko testowe}
 \label{sec:srodowiskoTesty}
 
 Do testów użyto zestawów urządzeń.
@@ -26,7 +26,9 @@ Do testów użyto zestawów urządzeń.
 \item procesor: Intel Core i7-2670QM pracujący z~częstotliwością 2200 MHz.
 \end{itemize}
 
-\item GeForce GTX 670 \cite{GTX670} o następujących parametrach:
+\item Zestaw drugi:
+\begin{itemize}
+\item karta graficzna: GeForce GTX 670 \cite{GTX670} o następujących parametrach:
 \begin{itemize}
 \item liczba rdzeni: 1344,
 \item zegar układu graficznego: 980 MHz,
@@ -37,6 +39,7 @@ Do testów użyto zestawów urządzeń.
 \item dostępna pamięć: 4096 MB.
 \end{itemize}
 \item procesor: Intel Core i5-3570 pracujący z~częstotliwością 3400 MHz.
+\end{itemize}
 \end{enumerate}
 
 W~niniejszym rodziale przyjęto następujące oznaczenia:

@@ -1,5 +1,8 @@
-\chapter{Przedstawienie działania programu i~algorytmu}
-\label{cha:dzialanie}
+\chapter{Wyniki}
+\label{cha:wyniki}
+
+\section{Omówienie obrazów wynikowych}
+\label{sec:testy}
 
 \begin{figure}[h]
 \begin{center}
@@ -23,7 +26,7 @@
 
 W~niniejszym rodziale przedstawiono przykładowe wyniki działania algorytmu Scale Space zaimplementowanego w~sposób równoległy z~użyciem OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery} o~rozdielczości 1024x1024, który jest przedstawiony na rys \ref{fig:input}. Wszystkie obrazy w~tej części są przedstawione dla rozmiaru skali~7.
 
-\section{Reprezentacja skali}
+\subsection{Reprezentacja skali}
 \label{sec:dzialanieRep}
 
 Reprezentacja skali jest przedstawiona na rys \ref{fig:dzialanieRep}. Jest to obraz otrzymany po zastosowaniu dolnoprzepustowego filtru Gaussa. Filtracji podlega obraz w~skali szarości, które jest otrzymany z~wyniku barwnej interpolacji obrazu z kamery. Aproksymacja jest zrealizowana również na karcie graficznej z~użyciem OpenCL. Jest to również obraz wejściowy dla dalszych kroków algorytmu.
@@ -31,7 +34,7 @@ Reprezentacja skali jest przedstawiona na rys \ref{fig:dzialanieRep}. Jest to ob
 Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają się w jeden obiekt. W~ten sposób można otrzymać większą skalę i~wykrywać obiekty, które są większe, pomijając szczegóły. Reprezentacja skali składa się z~kilku takich obrazów w~różnych skalach.
 
 
-\section{Detekcja plam}
+\subsection{Detekcja plam}
 \label{sec:dzialanieBlob}
 
 \begin{figure}[h]
@@ -56,7 +59,7 @@ Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają 
 
 Do detekcji plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większa wartość. Za punkty środkowe plam są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu detekcji plam. Ciemne piksele oznaczają środek wykrytych plam.
 
-\section{Detekcja krawędzi}
+\subsection{Detekcja krawędzi}
 \label{sec:dzialanieEdge}
 
 \begin{figure}[h]
@@ -89,7 +92,7 @@ Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyraże�
 
 Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego warunku (przedstawiona w~części \ref{subsubsec:detekcjaKrawedzi}), aby wyszukiwać miejsca, gdzie pierwszy znak zmienia znak zamiast wartości zerowych.
 
-\section{Detekcja narożników}
+\subsection{Detekcja narożników}
 \label{sec:dzialanieCorner}
 
 \begin{figure}[h]
@@ -126,7 +129,7 @@ Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego war
 
 Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego w~równaniu \eqref{eq:cornerDetection}. Wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{fig:cornerIntermediate}. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większą ma wartość. Zidentyfikowane lokalne maksima są przedstawione na rys \ref{fig:cornerResult}. Jest to wynik algorytmu detekcji krawędzi. Ciemne piksele oznaczają miejsca, gdzie wykryto narożniki.
 
-\section{Detekcja grani}
+\subsection{Detekcja grani}
 \label{sec:dzialanieRidge}
 
 \begin{figure}[h]

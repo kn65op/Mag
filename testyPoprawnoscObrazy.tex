@@ -1,4 +1,4 @@
-\subsection{Omówienie różnic w~obrazach wynikowych}
+\subsubsection{Omówienie różnic w~obrazach wynikowych}
 \label{subsec:prezentacjaObrazowRoznicowych}
 
 Poniżej przedstawiono wyniki porównań pomiędzy obrazami otrzymanymi za pomocą różnych implementacji. Wykorzystano po dwa obrazy wejściowe dla każdej wykrywanej cechy oraz dla reprezentacji skali. Na każdym zestawie wyników znajdują się:
@@ -105,7 +105,8 @@ Obrazy różnicowe są otoczone ramką w~celu zwiększenia czytelności. Obrazy 
 \label{fig:valPure3}
 \end{figure}
 
-\subsubsection{Reprezentacja skali}
+\begin{itemize}
+\item{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSkaliRysunki}
 
 
@@ -208,7 +209,7 @@ Funkcje dostępne w~OpenCV, dla liczenia reprezentacji skali, dają identyczne w
 \label{fig:valBlob2}
 \end{figure}
 
-\subsubsection{Detekcja plam}
+\item{Detekcja plam}
 \label{subsubsec:plamyRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valBlob1} i~\ref{fig:valBlob2}. 
@@ -312,7 +313,7 @@ Na rys. \ref{fig:valBlob2} widać również różnice w~środku obrazu. Różnic
 \label{fig:valEdge2}
 \end{figure}
 
-\subsubsection{Detekcja krawędzi}
+\item{Detekcja krawędzi}
 \label{subsubsec:krawedzieRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge2}. Na obrazach różnicowych powstałych poczas detekcji krawędzi można zauważyć, że liczba różnych pikseli jest niewielka. Zdecydowana większość tych pikseli znajduje się na krawędziach. Jest to spowodowane różnicami powstałymi na etapie tworzenia reprezentacji skali. W~środku obrazu również można zauważyć różnice, lecz jest ich niewielka liczba.
@@ -411,7 +412,7 @@ Zestawy obrazów są przedstawione na rys. \ref{fig:valEdge0} i~\ref{fig:valEdge
 \label{fig:valCorner2}
 \end{figure}
 
-\subsubsection{Deteckja narożników}
+\item{Deteckja narożników}
 \label{subsubsec:naroznikiRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valCorner1} i~\ref{fig:valCorner2}. Na obrazach różnicowych można zauważyć pojedyncze różnice. Jest to też efektem tego, że liczba wykrywanych narożników na przedstawionych obrazach w~wybranej skali nie jest duża. Mniejsza liczba wykrytych obiektów powoduje, że liczba błędów jest mała.
@@ -512,7 +513,8 @@ Na rys. \ref{fig:valCorner2} nie występują żadne różnice.
 \label{fig:valRidge4}
 \end{figure}
 
-\subsubsection{Detekcja granii}
+\item{Detekcja granii}
 \label{subsubsec:granieRysunki}
 
 Zestawy obrazów są przedstawione na rys. \ref{fig:valRidge1} i~\ref{fig:valRidge4}. Na obrazach różnicowych można zauważyć, że na krawędziach powstało bardzo dużo różnic. Są one pochodną rozbieżności powstałych na etapie tworzenia reprezentacji skali. W~środku obrazu widać tylko pojedyncze różnice. 
+\end{itemize}
