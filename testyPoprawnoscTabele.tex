@@ -36,6 +36,7 @@ Tabela \ref{tab:allE} przedstawia wartości parametru $ e $ dla wcześniej przed
 \item{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSakliTabele}
 
+\nopagebreak
 W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas tworzenia reprezentacji skali podzieloną na skale dla obrazów I~i~II. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli w~okoliacch brzegów obrazu. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
 
 Porównując wyniki dla obu obrazów można zauważyć, że w~obrazie II~występuje mniej różnic. Ponieważ najwięcej różnic występuje w~otoczeniu brzegów obrazu, to największe wartości współczynnika $ e $ będą otrzymywane dla obrazów, które posiadają złożone struktury na brzegach obrazu. Obraz II~ma mniej szczegółów w~otoczeniu brzegu obrazu, dlatego wyliczone wartości są mniejsze, niż dla obrazu I. Drugą własnością obrazu, która może wpływać znacząco na wartości współczynnika $ e $~jest wielkość obrazu. Dla mniejszych obrazów stosunek liczby pikseli leżących w~pobliżu brzegu obrazu do liczby wszystkich pikseli będzie większy, co spowoduje wzrost liczby różnic w~wynikach otrzymanych za pomocą różnych implementacji. Niska wartość obliczona dla obrazu czwartego wynika z~tego, że na tym obrazie obszary bliskie krawędzi są jednorodne.
@@ -69,6 +70,7 @@ Można zauważyć, że dla obrazu \ref{fig:valPure3} wartość współczynnika $
 \item{Detekcja plam}
 \label{subsubsec:plamyTabele}
 
+\nopagebreak
 W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji detekcji plam podzieloną na skale dla obrazów III~i~IV. Można zauważyć, że największa wartość współczynnika $ e $ jest osiągana dla skali drugiej. Ogólny trend zmniejszania się liczby różnic jest spowodowany dużą liczbą wykrywanych plam w~niższych skalach. Większa liczba wykrywanych obiektów generuje więcej różnic. Wpływ zwiększania się liczby pikseli mających w~swoim otoczeniu piksele brzegowe na liczbę różnic jest ograniczony. Jest to spowodowane tym, że liczba wykrywanych plam maleje szybciej niż wzrasta liczba rozbieżności spowodowanych różnicami powstałymi na etapie tworzenia reprezentacji skali.
 
 Wartości współczynnika $ e $ dla obrazu III są największymi wyznaczonymi wartościami dla detekcji plam. Ten obraz, jest najmniejszym z~analizowanych obrazów. Można zauważyć, że zdecydowana większość różnic powstała przy brzegach obrazu, co wraz z~małym rozmiarem powoduje, wysoką wartość współczynnika $ e $. Dla tego obrazu widać również, że wartości współczynnika $ e $, pomimo trendu malejącego wraz ze wzrostem skali nie maleją przy każdej kolejnej skali. Wynika to z~rosnącej liczby różnic pojawiąjących się podczas tworzenia reprezentacji skali.
@@ -77,11 +79,13 @@ Wartości współczynnika $ e $ dla obrazu III są największymi wyznaczonymi wa
 \item{Detekcja krawędzi}
 \label{subsubsec:krawedzieTabele}
 
+\nopagebreak
 W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji krawędzi podzieloną na skale dla obrazów V~i~VI. Można zauważyć, że stosunek rozbieżnych pikseli do wszystkich pikseli na obrazie maleje wraz ze wzrostem skali. Zmniejszanie się podanego stosunku wraz ze wzrostem skali jest spowodowany mniejszą liczbą wykrytych krawędzi na obrazach w~kolejnych skalach. Efekt zwiększania się liczby pikseli, które mają w~swoim otoczeniu piksele brzegowe nie jest w~tym przypadku zauważalny. Jest to spowodowane również znacznym zmniejszeniem liczby pikseli, które są uznawane za piksele krawędzi oraz tym, że krawędzie są w~niewielkim stopniu wykrywane na brzegach obrazów.
 
 \item{Detekcja narożników}
 \label{subsubsec:naroznikiTabele}
 
+\nopagebreak
 W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji narożników podzieloną na skale dla obrazów VII~i~VIII. Można zauważyć, że wartości współczynników są niskie i~maleją wraz ze zwiększaniem skali. W wyniku analizy wszystkich obrazów zauważono, że maksymalne wartości współczynnika $ e $ dla detekcji narożników nie przekraczają $ 0,3 \% $. Ogólna niska wartość współczynników wynika z~niewielkiej liczby wykrywanych obiektów oraz dobrej jakości detektora narożników. Zmniejszanie się liczby rozbieżności jest związane z~malejącą liczbą wykrywanych obiektów.
 
 W~tym przypadku również nie jest zauważalny wpływ zwiększającej się liczby pikseli mający w~swoim otoczeniu piksele brzegowe na większą liczbę błędów. Jest to spowodowane analogicznymi powodami jak w~przypadku detekcji krawędzi.
@@ -89,5 +93,6 @@ W~tym przypadku również nie jest zauważalny wpływ zwiększającej się liczb
 \item{Detekcja grani}
 \label{subsubsec:granieTabele}
 
+\nopagebreak
 W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji grani podzieloną na skale dla obrazów IX~i~X. Można zauważyć, że wartości współczynnika $ e $ rosną wraz ze wzrostem skali. Jest to spowodowane przez różnice wprowadzone podczas tworzenia reprezentacji skali oraz przez słabą jakość detektora grani. Detektor grani daje gorsze wyniki, niż pozostałe detektory. Dodatkowym czynnikiem wpływającym na większą liczbę różnic dla większych skal jest większa ilość pikseli, które zostały zakwalifikowane jako piksele grani podczas przetwarzania.
 \end{itemize}
