@@ -134,7 +134,7 @@ W~opisie wszystkich procesów detekcji cech przyjęto oznaczenia ($ a$,$ b$,$ c 
 \subsubsection{Detekcja plam}
 \label{subsubsec:detekcjaPlam}
 
-Do detekcji plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnejdla kontekstu 3x3 zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksmimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \eqref{eq:blobRadius}.
+Do detekcji plam wykorzystano operator Laplace'a, którego współczynniki w~postaci dyskretnejdla kontekstu 3x3 zostały przedstawione na rys \ref{fig:laplacian_kernel}. Wszystkie obrazy składające się na reprezentację skali są przetwarzanie za pomocą tego operatora. Po wyznaczeniu wartości pikseli liczony jest ich moduł. Następnie, wśród otrzymanej struktury trójwymiarowej wyszukiwane są lokalne maksima. Skala, w~której wykryto maksimum określa wielkość danej plamy. Plamy są aproksymowane okręgami o~promieniu wyznaczonym za pomocą wzoru \eqref{eq:blobRadius}.
 
 \begin{figure}
 \begin{center}
@@ -236,7 +236,7 @@ Podsumowując do wyznaczenia całej reprezentacji skali konieczne wykonanie $ I 
 O(I  P  M_I)
 \end{equation}
 
-Złożoność detekcji cech jest zależna od cechy. Omówiony zostanie tylko algorytm wykrywania krawędzi. Dla pozostałych cech można przeprowadzić analogiczne rozważania. Dla detekcji krawędzi należy wyznaczyć wartości pochodnych dla każdego piksela a~następnie sprawdzić czy zachodzi warunek \eqref{eq:edgeDetection}. Do wykonania tych operacji konieczne jest przeprowanie $ B \approx 130 $ operacji. Do sprawdzenia warunków dla wszystkich pikseli dla jednej skali wykonywanych jest $ P  B $ operacji. Wartość B jest niezależna od wielkości obrazu i~liczby skal. Zakładając, że $ B << P $, złożoność obliczeniowa detekcji krawędzi wynosi $ O(P) $. Dla wszystkich skal złożoność wynosi $ O (P  I) $. Sumaryczna złożoność całego algorytmu jest przedstawiona w~równaniu \eqref{eq:zlozonosc}.
+Złożoność detekcji cech jest zależna od cechy. Omówiony zostanie tylko algorytm wykrywania krawędzi. Dla pozostałych cech można przeprowadzić analogiczne rozważania. Dla detekcji krawędzi należy wyznaczyć wartości pochodnych dla każdego piksela a~następnie sprawdzić czy zachodzi warunek \eqref{eq:edgeDetection}. Do wykonania tych operacji konieczne jest przeprowadzenie $ B \approx 130 $ operacji. Do sprawdzenia warunków dla wszystkich pikseli dla jednej skali wykonywanych jest $ P  B $ operacji. Wartość B jest niezależna od wielkości obrazu i~liczby skal. Zakładając, że $ B << P $, złożoność obliczeniowa detekcji krawędzi wynosi $ O(P) $. Dla wszystkich skal złożoność wynosi $ O (P  I) $. Sumaryczna złożoność całego algorytmu jest przedstawiona w~równaniu \eqref{eq:zlozonosc}.
 
 \begin{equation}
 \label{eq:zlozonosc}

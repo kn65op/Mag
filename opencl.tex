@@ -22,14 +22,14 @@ Programy napisane z~wykorzystaniem standardu OpenCL są uruchamiane na procesorz
 \subsection{Model wykonania programu kerneli}
 \label{executionModel}
 
-Program wykonywany na procesorze CPU zarządza wykonywaniem kerneli na urządzeniu. Kiedy kernel jest uruchamiany przez gospodarza tworzony jest przestrzeń indeksów określonej wielkości (zgodnej ze strukturą danych wejściowych). Dla każdego ideksu w~przestrzeni wykonywany jest kernel. Instancja kernela jest nazywana jednostką roboczą i~jest określona poprzez indeks, dla którego jest wykonywana. Jednostki robocze są zorganizowane w~grupy robocze. Wykonanie programu kernela może być zrealizowane synchronicznie lub asynchronicznie.
+Program wykonywany na procesorze CPU zarządza wykonywaniem kerneli na urządzeniu. Kiedy kernel jest uruchamiany przez gospodarza tworzony jest przestrzeń indeksów określonej wielkości (zgodnej ze strukturą danych wejściowych). Dla każdego indeksu w~przestrzeni wykonywany jest kernel. Instancja kernela jest nazywana jednostką roboczą i~jest określona poprzez indeks, dla którego jest wykonywana. Jednostki robocze są zorganizowane w~grupy robocze. Wykonanie programu kernela może być zrealizowane synchronicznie lub asynchronicznie.
 
 \subsection{Model pamięci}
 \label{memoryModel}
 
 Pamięć urządzenia jest podzielona na cztery regiony. Różnią się one uprawnieniami oraz czasem dostępu.
 \begin{itemize}
-\item Pamięc globalna - jest dostępna do odczytu i~zapisu dla każdej jednostki roboczej. Jest używana do komunikacji pomiędzy gospodarzem oraz urządzeniem, na którym wykonywane są kernele.
+\item Pamięć globalna - jest dostępna do odczytu i~zapisu dla każdej jednostki roboczej. Jest używana do komunikacji pomiędzy gospodarzem oraz urządzeniem, na którym wykonywane są kernele.
 \item Pamięć stałych - jest dostępna tylko do odczytu dla każdej jednostki roboczej. Nie zmienia się podczas wykonywania kernela. Gospodarz może zapisać dane do tego obszaru pamięci. Dostęp do tego regionu pamięci jest szybszy, niż dostęp do pamięci globalnej.
 \item Pamięć lokalna - jest dostępna do zapisu i~odczytu dla każdej jednostki roboczej w~obrębie grupy roboczej. Może być wykorzystana do przechowywania danych wspólnych dla danej grupy roboczej. Istnieje również możliwość zmapowania jej do fragmentu pamięci globalnej.
 \item Pamięć prywatna - jest dostępna do zapisu i~odczytu dla jednej jednostki obliczeniowej. Używana jest do przechowywania zmiennych potrzebnych tylko przez jedną jednostkę obliczeniową.
@@ -47,7 +47,7 @@ W celu implementacji algorytmów z~użyciem standardu OpenCL konieczne było nap
 
 Algorytmy implementowane są w~postaci funkcji, które są nazywane kernelami. Są one napisane w~języku opracowanym przez twórców standardu OpenCL. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służącymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów, macierzy oraz obrazów. Maksymalna wielkość obrazów, osobno dla obrazów 2D i 3D, jest określona dla konkretnego urządzenia. Kompilacja kodu napisanego w~tym języku odbywa się w~trakcie działania programu kontrolera, ponieważ sposób kompilacji jest zależny od posiadanego urządzenia, na którym będzie wykonywany kod. Jest to spowodowane tym, że kod języka OpenCL jest kompilowany zależnie od platformy, na której jest uruchamiany. Może to powodować problemy z~przenoszalnością pomiędzy różnymi urządzeniami w~przypadku, gdy używane są rozszerzenia OpenCL. W~celu uniknięcia problemów należy stosować konstrukcje języka, które są częścią podstawowej wersji standardu. Ta część jest wystarczająca do większości algorytmów.
 
-Zadania kodu kontrolera można podzielić na dwa typy. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowego, kompilacja kerneli oraz przygotowanie do wykonania. Proces wyboru urządzenia może być bardziej skomplikowany w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~takim przypadku pożądanym będzie wykorzytanie urządzenia o~lepszych parametrach dla danego zadania. Po wyborze platformy docelowej należy skompilować kernel, który należy następnie przygotować do wykonania. W~tym celu należy utworzyć obiekty, które będą parametrami kernela. Mogą to być wektory danych lub obrazy. Po stworzeniu tych obiektów, należy przypisać je do argumentów kernela, zgodnie z~deklaracją w~kodzie.
+Zadania kodu kontrolera można podzielić na dwa typy. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowego, kompilacja kerneli oraz przygotowanie do wykonania. Proces wyboru urządzenia może być bardziej skomplikowany w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~takim przypadku pożądanym będzie wykorzystanie urządzenia o~lepszych parametrach dla danego zadania. Po wyborze platformy docelowej należy skompilować kernel, który należy następnie przygotować do wykonania. W~tym celu należy utworzyć obiekty, które będą parametrami kernela. Mogą to być wektory danych lub obrazy. Po stworzeniu tych obiektów, należy przypisać je do argumentów kernela, zgodnie z~deklaracją w~kodzie.
 
 Drugą funkcjonalnością kodu kontrolera jest przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizowane przy wykonaniu każdego algorytmu. Dane, z~których korzysta kernel są kopiowane pomiędzy pamięcią urządzenia a~pamięcią RAM komputera, na którym jest wykonywany kontroler. Każdą z~tych operacji można wykonać synchroniczne lub asynchronicznie. Przy wykonaniu asynchronicznym jest możliwość zarejestrowania funkcji zwrotnej lub poczekania na zakończenie wykonania kernela.
 
@@ -67,13 +67,13 @@ Poniżej są przedstawione możliwości oraz szczegóły techniczne dotyczące p
 \begin{center}
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLDevice.png}
-\caption{Diaram klasy OpenCL Device}
+\caption{Diagram klasy OpenCL Device}
 \label{fig:opencldevice}
 \end{subfigure}
 ~
 \begin{subfigure}[t]{0.3\textwidth}
 \includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithmsStream.png}
-\caption{Diaram klasy odpowiedzialna za obsługę potoku}
+\caption{Diagram klasy odpowiedzialna za obsługę potoku}
 \label{fig:openCLAlgorithmsStream}
 \end{subfigure}
 \end{center}
@@ -82,7 +82,7 @@ Poniżej są przedstawione możliwości oraz szczegóły techniczne dotyczące p
 \label{fig:opencldeviceIopenCLAglorithmsStream}
 \end{figure}
 
-Funkcjonalność ta jest realizowana przez klasę \texttt{OpenCLDevice} przedstawioną na rysunku \ref{fig:opencldevice}. Jest ona odpowiedzialna za pobieranie litsy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniach, tworzenie i~udostępnianie kontekstu oraz kolejki komend (opisanych w~standardzie OpenCL) oraz za kompilację kerneli na konkretne urządzenie. Kontekst oraz kolejka komend są obiektami z API OpenCL za pomocą, których przeprowadzane jest wykonanie kodu na urządzeniu OpenCL.
+Funkcjonalność ta jest realizowana przez klasę \texttt{OpenCLDevice} przedstawioną na rysunku \ref{fig:opencldevice}. Jest ona odpowiedzialna za pobieranie listy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniach, tworzenie i~udostępnianie kontekstu oraz kolejki komend (opisanych w~standardzie OpenCL) oraz za kompilację kerneli na konkretne urządzenie. Kontekst oraz kolejka komend są obiektami z API OpenCL za pomocą, których przeprowadzane jest wykonanie kodu na urządzeniu OpenCL.
 
 Kod kernela może być podany w~jednej z~dwóch postaci: jako zmienna typu std::string, której zawartością jest kod lub jako zapisany w~osobnym pliku, który jest czytany i~przekazywany do funkcji wykonującej kompilację. Umożliwienie dwóch metod jest spowodowane różnymi ich właściwościami. Podczas tworzenia algorytmu bardziej przydatne jest używanie pliku, ponieważ łatwiej go edytować.  Wadą tego rozwiązania jest umieszczenie danego pliku w~odpowiednim miejscu w~systemie plików. Gdy praca nad kernelem jest zakończona wtedy można umieścić jego kod w~źródłach programu aby uniknąć problemów z~przenoszeniem aplikacji. Jest to operacja jednorazowa w~przypadku ostatecznej wersji kernela, więc nie istnieje problem edycji kodu.
 
@@ -206,7 +206,7 @@ __kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\
 Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
 W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podczas analizy pikseli brzegowych, pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
 W linii 3 zaczyna się definicja kernela. Posiada on trzy argumenty, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
-W~liniach 5~i~6 pobierane są współrzędne aktualnie przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są później wielokrotnie. Jeśli podczas każdego odwołania się do nich pobieranoby wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
+W~liniach 5~i~6 pobierane są współrzędne aktualnie przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są później wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano by wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
 W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do obliczenia warunków detekcji krawędzi.
 W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
 Na końcu, w~liniach 42~i~43, obliczone wartości są zapisywane do obrazów wyjściowych.

@@ -24,7 +24,7 @@
 \caption{Obraz wejściowy oraz fragment reprezentacji skali}
 \end{figure}
 
-W~niniejszym rodziale przedstawiono przykładowe wyniki działania algorytmu Scale Space zaimplementowanego w~sposób równoległy z~użyciem OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery} o~rozdielczości 1024x1024, który jest przedstawiony na rys \ref{fig:input}. Wszystkie obrazy w~tej części są przedstawione dla rozmiaru skali~7.
+W~niniejszym rodziale przedstawiono przykładowe wyniki działania algorytmu Scale Space zaimplementowanego w~sposób równoległy z~użyciem OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery} o~rozdzielczości 1024x1024, który jest przedstawiony na rys \ref{fig:input}. Wszystkie obrazy w~tej części są przedstawione dla rozmiaru skali~7.
 
 \subsection{Reprezentacja skali}
 \label{sec:dzialanieRep}
@@ -85,7 +85,7 @@ Do detekcji plam używany jest operator przedstawiony na rys. \ref{fig:laplacian
 
 \end{center}
 \label{fig:showEdge}
-\caption{Obrazy pośrednie oraz wynik detekcji krawędz}
+\caption{Obrazy pośrednie oraz wynik detekcji krawędzi}
 \end{figure}
 
 Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na tych obrazach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~miejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemne. Wynik działania algorytmu detekcji krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}. Ciemne piksele występują w~miejscach, gdzie wykryto krawędź.
@@ -155,7 +155,7 @@ Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współc
 
 \end{center}
 \label{fig:showEdge}
-\caption{Obazy pośrednie oraz wynik detekcji grani}
+\caption{Obrazy pośrednie oraz wynik detekcji grani}
 \end{figure}
 
 Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:ridgeDetection}. Wartości wyznaczone za pomocą przedstawionych wyżej warunków są przedstawione na rys. \ref{fig:ridgeIntermediate1}~i~\ref{fig:ridgeIntermediate2}. Piksele szare oznaczają wartości bliskie zera. Ciemniejsze punkty to wartości ujemne, a jaśniejsze przedstawiają wartości dodatnie. Wynik detekcji grani są przedstawione na rys. \ref{fig:ridgeResult}. Ciemne piksele znajdują się w~miejscach, gdzie wykryto granie.

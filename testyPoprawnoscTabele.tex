@@ -1,14 +1,3 @@
-\subsubsection{Numeryczna analiza obrazów wynikowych}
-\label{subsec:porownanieNumerycznePoprawnosc}
-
-W~poniższych akapitach przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione w~równaniach \eqref{eq:procentZlychPikseli}~i~\eqref{eq:sredniaOdchylenia}.
-
-Do sporządzenia zestawień wykorzystano wcześniej pokazane obrazy, po dwa dla każdej cechy i~dla reprezentacji skali. Przeprowadzono analizę liczby różniących się pikseli oraz dla reprezentacji skali średnią różnicę dla dziesięciu skal. 
-
-Z przedstawionych danych wynika, że implementacje CVCPU i~CVGPU są prawie identyczne. Z~tego powodu uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL z~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
-
-Tabela \ref{tab:allE} przedstawia wartości parametru $ e $ dla wcześniej przedstawionych obrazów. W~następnych akapitach znajduje się omówienie przedstawionych danych.
-
 \afterpage{
 \begin{landscape}
 \begin{table}[h]
@@ -32,14 +21,29 @@ Tabela \ref{tab:allE} przedstawia wartości parametru $ e $ dla wcześniej przed
 \end{table}
 \end{landscape}}
 
+\newpage
+
+\subsubsection{Numeryczna analiza obrazów wynikowych}
+\label{subsec:porownanieNumerycznePoprawnosc}
+
+W~poniższych akapitach przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione w~równaniach \eqref{eq:procentZlychPikseli}~i~\eqref{eq:sredniaOdchylenia}.
+
+Do sporządzenia zestawień wykorzystano wcześniej pokazane obrazy, po dwa dla każdej cechy i~dla reprezentacji skali. Przeprowadzono analizę liczby różniących się pikseli oraz dla reprezentacji skali średnią różnicę dla dziesięciu skal. 
+
+Z przedstawionych danych wynika, że implementacje CVCPU i~CVGPU są prawie identyczne. Z~tego powodu uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL z~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
+
+Tabela \ref{tab:allE} przedstawia wartości parametru $ e $ dla wcześniej przedstawionych obrazów. W~następnych akapitach znajduje się omówienie przedstawionych danych.
+
 \begin{itemize}
 \item{Reprezentacja skali}
 \label{subsubsec:reprezentacjaSakliTabele}
 
 \nopagebreak
-W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas tworzenia reprezentacji skali podzieloną na skale dla obrazów I~i~II. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli w~okoliacch brzegów obrazu. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas tworzenia reprezentacji skali podzieloną na skale dla obrazów I~i~II. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli w~okolicach brzegów obrazu. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
 
 Porównując wyniki dla obu obrazów można zauważyć, że w~obrazie II~występuje mniej różnic. Ponieważ najwięcej różnic występuje w~otoczeniu brzegów obrazu, to największe wartości współczynnika $ e $ będą otrzymywane dla obrazów, które posiadają złożone struktury na brzegach obrazu. Obraz II~ma mniej szczegółów w~otoczeniu brzegu obrazu, dlatego wyliczone wartości są mniejsze, niż dla obrazu I. Drugą własnością obrazu, która może wpływać znacząco na wartości współczynnika $ e $~jest wielkość obrazu. Dla mniejszych obrazów stosunek liczby pikseli leżących w~pobliżu brzegu obrazu do liczby wszystkich pikseli będzie większy, co spowoduje wzrost liczby różnic w~wynikach otrzymanych za pomocą różnych implementacji. Niska wartość obliczona dla obrazu czwartego wynika z~tego, że na tym obrazie obszary bliskie krawędzi są jednorodne.
+
+W~tabeli \ref{tab:allV} przedstawiono średnią różnicę pomiędzy pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na skale dla obrazów I~i~II. Wnioski, które można wyciągnąć z~przedstawionych danych są analogiczne jak podczas analizy tabel przedstawiających wartości współczynnika $ e $ dla reprezentacji skali. Dla obrazów o~większej liczbie szczegółów poza liczbą różnic rośnie również wielkość tych różnic. Podobnie dla obrazów mniejszych, gdy rośnie stosunek liczby pikseli leżących w~pobliżu pikseli brzegowych, to równocześnie ze wzrostem liczby różnic rośnie ich wielkość.
 
 \begin{center}
 \begin{table}
@@ -63,9 +67,8 @@ Nr skali & Obraz I  &  Obraz II\\ \hline
 \end{table}
 \end{center}
 
-W~tabeli \ref{tab:allV} przedstawiono średnią różnicę pomiędzy pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na skale dla obrazów I~i~II. Wnioski, które można wyciągnąć z~przedstawionych danych są analogiczne jak podczas analizy tabel przedstawiających wartości współczynnika $ e $ dla reprezentacji skali. Dla obrazów o~większej liczbie szczegółów poza liczbą różnic rośnie również wielkość tych różnic. Podobnie dla obrazów mniejszych, gdy rośnie stosunek liczby pikseli leżących w~pobliżu pikseli brzegowych, to równocześnie ze wzrostem liczby różnic rośnie ich wielkość.
 
-Można zauważyć, że dla obrazu \ref{fig:valPure3} wartość współczynnika $ v $ jest równa jeden niezależnie od skali.
+Można zauważyć, że dla obrazu \ref{fig:valPure3} wartość współczynnika $ v $ jest równa jeden niezależnie od skali. Jest to najmniejsza niezerowa wartość współczynnika, jaką można uzyskać i~oznacza, że każda różnica pomiędzy implementacjami, dla tego obrazu jest równa jeden.
 
 \item{Detekcja plam}
 \label{subsubsec:plamyTabele}
