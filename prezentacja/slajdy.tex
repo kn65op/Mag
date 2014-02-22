@@ -1,4 +1,3 @@
-
 %---------------------------------------------------------------------------
 
 \begin{frame}
@@ -6,25 +5,18 @@
 
 \begin{enumerate}
 \item Algorytm Scale Space
-\item Przetwarzanie obrazów w~przestrzeni skali
 \item Standard OpenCL
-\item Dotychczasowe osiągnięcia
+\item Wyniki
 \end{enumerate}
 
 \end{frame}
 
 %---------------------------------------------------------------------------
 
-\begin{frame}
-\frametitle{Geneza algorytmu Scale Space}
+%Jednym z istotniejszych problemów podczas automatycznego przetwarzania i analizy obrazów jest wybór skali.
 
-Jednym z istotniejszych problemów podczas automatycznego przetwarzania i analizy obrazów jest wybór skali.
+%Obrazy mogą być rejestrowane w~różnych skalach.
 
-Obrazy mogą być rejestrowane w~różnych skalach.
-
-\end{frame}
-
-%---------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Algorytm Scale Space}
 \begin{block}{Scale Space}
@@ -93,11 +85,12 @@ $ g(x,y,\sigma)= \frac{1}{2 \cdot \pi \cdot \sigma ^ {2} }\cdot e^{(-\frac{x^{2}
 \begin{frame}
 \frametitle{Przetwarzanie obrazów w przestrzeni skali}
 
-Po wyznaczeniu reprezentacji skali dla obrazu można przeprowadzić dalsze operacje, w zależności od ustalonego celu. Przykładowe cele:
+Po wyznaczeniu reprezentacji skali dla obrazu można przeprowadzić dalsze operacje. W pracy zrealizowano:
 \begin{itemize}
-\item rozpoznawanie plam,
-\item rozpoznawanie krawędzi,
-\item rozpoznawanie innych struktur.
+\item detekcje plam,
+\item detekcje krawędzi,
+\item detekcje narożników,
+\item detekcje grani.
 \end{itemize}
 Dzięki temu, że obraz jest przetwarzany w~różnych skalach, można rozpoznawać dane struktury dla różnych stopni szczegółowości.
 \end{frame}
@@ -129,96 +122,66 @@ Do implementacji algorytmu z~wykorzystaniem OpenCL konieczne jest:
 
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Dotychczas zrealizowane zadania}
+\frametitle{Detekcja struktur}
 
-Do tej pory udało się zrealizować:
-\begin{itemize}
-\item szkielet (bibliotekę), ułatwiający implementację kerneli,
-\item kernel realizujący konwolucję - używany z filtrami Gaussa,
-\item kernele realizujące rozpoznawanie plam (blobs)*.
-\end{itemize}
+Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
 
-\end{frame}
-
-
-%---------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Rozpoznawanie plam}
-
-Po wyznaczeniu reprezentacji skali obrazu wykorzystuje się operator Laplace'a.
-\begin{center}
-\includegraphics[width=3cm]{laplacian.png}
-\end{center}
-Jest on stosowany do całej reprezentacji skali. Następnie wyznaczane są maksima (lub minima) w otrzymanej trójwymiarowej strukturze.
 
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Rozpoznawanie plam - przykład}
+\frametitle{Przykład detekcji}
 
 \begin{figure}[h]
 \begin{center}
 \begin{subfigure}[b]{2cm}
-                 \centering
-                 \includegraphics[width=2cm]{original.jpg}
-         \end{subfigure}%
-		 ~
-\begin{subfigure}[b]{2cm}
 \centering
-\includegraphics[width=2cm]{circles1.jpg}
+\includegraphics[width=2cm]{../Operation/blobResult.png}
 \end{subfigure}~
 \begin{subfigure}[b]{2cm}
 \centering
-\includegraphics[width=2cm]{circles2.jpg}
-\end{subfigure}~
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{circles3.jpg}
+\includegraphics[width=2cm]{../Operation/edgeResult.png}
 \end{subfigure}
 
-
 \begin{subfigure}[b]{2cm}
 \centering
-\includegraphics[width=2cm]{circles4.jpg}
+\includegraphics[width=2cm]{../Operation/cornerResult.png}
 \end{subfigure}~
 \begin{subfigure}[b]{2cm}
 \centering
-\includegraphics[width=2cm]{circles5.jpg}
-\end{subfigure}~
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{circles6.jpg}
-\end{subfigure}~
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{circles7.jpg}
+\includegraphics[width=2cm]{../Operation/ridgeResult.png}
 \end{subfigure}
 \caption{Wynik przetworzenia obrazów w reprezentacji skali operatorem Laplace'a}
-\label{circles}
+\label{fig:wynik}
 \end{center}
 \end{figure}
 
 \end{frame}
-
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Znalezione plamy}
-\begin{figure}
-\begin{center}
-\begin{subfigure}[b]{5cm}
-\centering
-\includegraphics[width=5cm]{outp.png}
-\end{subfigure}~
-\begin{subfigure}[b]{5cm}
-\centering
-\includegraphics[width=5cm]{result.png}
-\end{subfigure}
-\end{center}
-\caption{Znalezione plamy są zaznaczone szarym okręgiem.}
-\end{figure}
-\end{frame}
+\frametitle{Poprawność rozwiązania}
 
+Na podstawie porównania z implementacją realizowaną na procesorze CPU stwierdzono, że wykonanie algorytmu na karcie graficznej daje poprawne wyniki.
+
+Największe rozbieżności są na poziomie 2\%, w~większości przypadków nie przekraczają 1\%.
+
+
+\end{frame}
 %---------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Szybkość rozwiązania}
+
+Wykonaniu algorymtu na karcie graficznej okazało się znacznie szybsze.
+\begin{center}
+\includegraphics[width=7cm]{../TestySzybkosci/PureAGH.png}
+
+\end{center}
+
+
+
+\end{frame}
+%---------------------------------------------------------------------------
+
 \begin{frame}
 \frametitle{}
 \begin{center}
