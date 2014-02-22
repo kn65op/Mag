@@ -204,10 +204,7 @@ W~tym przypadku nie jest konieczne sprawdzanie zmiany znaku pomiędzy pikselami,
 
 Do wyznaczania narożników wykorzystywany jest współczynnik krzywizny, który jest wyznaczany zgodnie ze wzorem \eqref{eq:cornerDetection}.
 
-\begin{equation}
-\label{eq:cornerDetection}
-k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}|
-\end{equation}
+$$ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}| $$
 
 Współczynnik krzywizny jest obliczany dla każdego piksela w każdej skali. Następnie wśród trójwymiarowej struktury są wyszukiwane lokalne maksima. W punktach występowania lokalnych maksimów znajdują się wykryte narożniki.
 

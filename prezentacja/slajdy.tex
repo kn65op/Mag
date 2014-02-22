@@ -124,6 +124,15 @@ Do implementacji algorytmu z~wykorzystaniem OpenCL konieczne jest:
 
 Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
 
+Poniższy wzór przedstawia sposób detekcji narożników. Wyszukiwane są maksima lokalne wartości $ k $.
+
+$$ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}| $$
+
+$ k $ - współczynnik krzywizny,
+
+$ L $ - pochodna wyznaczona z obrazu.
+
+
 
 \end{frame}
 %---------------------------------------------------------------------------
@@ -149,7 +158,6 @@ Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje mat
 \centering
 \includegraphics[width=2cm]{../Operation/ridgeResult.png}
 \end{subfigure}
-\caption{Wynik przetworzenia obrazów w reprezentacji skali operatorem Laplace'a}
 \label{fig:wynik}
 \end{center}
 \end{figure}
