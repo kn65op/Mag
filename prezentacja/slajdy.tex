@@ -1,13 +1,13 @@
 %---------------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Plan prezentacji}
+	\frametitle{Plan prezentacji}
 
-\begin{enumerate}
-\item Algorytm Scale Space
-\item Standard OpenCL
-\item Wyniki
-\end{enumerate}
+	\begin{enumerate}
+		\item Algorytm Scale Space
+		\item Standard OpenCL
+		\item Wyniki
+	\end{enumerate}
 
 \end{frame}
 
@@ -18,177 +18,187 @@
 %Obrazy mogą być rejestrowane w~różnych skalach.
 
 \begin{frame}
-\frametitle{Algorytm Scale Space}
-\begin{block}{Scale Space}
-Algorytm służący do przedstawiania sygnałów w reprezentacji skali.
-\end{block}
-Można go zastosować do dowolnych sygnałów. Praca skupia się na wykorzystaniu algorytmu do przetwarzania obrazów.
+	\frametitle{Algorytm Scale Space}
+	\begin{block}{Scale Space}
+		Algorytm służący do przedstawiania sygnałów w reprezentacji skali.
+	\end{block}
+	Można go zastosować do dowolnych sygnałów. Praca skupia się na wykorzystaniu algorytmu do przetwarzania obrazów.
 
 \end{frame}
 
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Podstawy matematyczne}
-Do wyznaczenia przestrzeni skali stosuje się filtry Gaussa. Poniżej przedstawiono sposób wyznaczania współczynników filtra w przestrzeni dwuwymiarowej.
+	\frametitle{Podstawy matematyczne}
+	Do wyznaczenia przestrzeni skali stosuje się filtry Gaussa. Poniżej przedstawiono sposób wyznaczania współczynników filtra w przestrzeni dwuwymiarowej.
 
-\begin{center}
-\includegraphics[width=4.5cm]{gaussian2d.png}
+	\begin{center}
+		\includegraphics[width=4.5cm]{gaussian2d.png}
 
-$ g(x,y,\sigma)= \frac{1}{2 \cdot \pi \cdot \sigma ^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})} $
-\end{center}
+		$ g(x,y,\sigma)= \frac{1}{2 \cdot \pi \cdot \sigma ^ {2} }\cdot e^{(-\frac{x^{2} + y^{2}}{2 \cdot \sigma ^{2}})} $
+	\end{center}
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Algorytm Scale Space dla obrazów}
+	\frametitle{Algorytm Scale Space dla obrazów}
 
 
-\begin{figure}[h]
-\begin{center}
-\begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales1.jpg}
-         \end{subfigure}%
-		 ~
-\begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales2.jpg}
-         \end{subfigure}%
-		 ~
-\begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales3.jpg}
-         \end{subfigure}%
-		 
-		 
-\begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales4.jpg}
-         \end{subfigure}%
-		 ~
-		 \begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales5.jpg}
-         \end{subfigure}%
-		 ~
-\begin{subfigure}[b]{2.5cm}
-                 \centering
-                 \includegraphics[width=2.5cm]{Lena_scales6.jpg}
-         \end{subfigure}%
-\caption{Obraz w przestrzeni skali}
-\label{lena_scales}
-\end{center}
-\end{figure}
-\end{frame}
+	\begin{figure}[h]
+		\begin{center}
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales1.jpg}
+			\end{subfigure}%
+			~
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales2.jpg}
+			\end{subfigure}%
+			~
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales3.jpg}
+			\end{subfigure}%
 
 
-%---------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Przetwarzanie obrazów w przestrzeni skali}
-
-Po wyznaczeniu reprezentacji skali dla obrazu można przeprowadzić dalsze operacje. W pracy zrealizowano:
-\begin{itemize}
-\item detekcję plam,
-\item detekcję krawędzi,
-\item detekcję narożników,
-\item detekcję grani.
-\end{itemize}
-Dzięki temu, że obraz jest przetwarzany w~różnych skalach, można rozpoznawać dane struktury dla różnych stopni szczegółowości.
-\end{frame}
-
-%---------------------------------------------------------------------------
-\begin{frame}
-\frametitle{OpenCL}
-\begin{block}{OpenCL}
-Otwarty, wieloplatformowy standard pozwalający na wykorzystanie procesorów kart graficznych oraz innych urządzeń w celu wykonywania obliczeń ogólnego przeznaczenia. Wykorzystanie karty graficznej pozwala na zrównoleglenie obliczeń.
-\end{block}
-
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales4.jpg}
+			\end{subfigure}%
+			~
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales5.jpg}
+			\end{subfigure}%
+			~
+			\begin{subfigure}[b]{2.5cm}
+				\centering
+				\includegraphics[width=2.5cm]{Lena_scales6.jpg}
+			\end{subfigure}%
+			\caption{Obraz w przestrzeni skali}
+			\label{lena_scales}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Wykorzystanie OpenCL do zrównoleglenia obliczeń}
+	\frametitle{Przetwarzanie obrazów w przestrzeni skali}
 
-Do implementacji algorytmu z~wykorzystaniem OpenCL konieczne jest:
-\begin{itemize}
-\item Napisanie kodu kerneli - fragmentów kodu wykonywanych na karcie graficznej.
-\item Napisanie kodu wykonywanego na procesorze, który będzie kontrolował część wykonywaną na karcie graficznej. W tym zawiera się przekazanie parametrów do kerneli oraz pobranie wyników.
-\end{itemize}
+	Po wyznaczeniu reprezentacji skali dla obrazu można przeprowadzić dalsze operacje. W pracy zrealizowano:
+	\begin{itemize}
+		\item detekcję plam,
+		\item detekcję krawędzi,
+		\item detekcję narożników,
+		\item detekcję grani.
+	\end{itemize}
+	Dzięki temu, że obraz jest przetwarzany w~różnych skalach, można rozpoznawać dane struktury dla różnych stopni szczegółowości.
+\end{frame}
+
+%---------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{OpenCL}
+	\begin{block}{OpenCL}
+		Otwarty, wieloplatformowy standard pozwalający na wykorzystanie procesorów kart graficznych oraz innych urządzeń w celu wykonywania obliczeń ogólnego przeznaczenia. Wykorzystanie karty graficznej pozwala na zrównoleglenie obliczeń.
+	\end{block}
 
 \end{frame}
 
 
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Detekcja struktur}
+	\frametitle{Wykorzystanie OpenCL do zrównoleglenia obliczeń}
 
-Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
+	Do implementacji algorytmu z~wykorzystaniem OpenCL konieczne jest:
+	\begin{itemize}
+		\item Napisanie kodu kerneli - fragmentów kodu wykonywanych na karcie graficznej.
+		\item Napisanie kodu wykonywanego na procesorze, który będzie kontrolował część wykonywaną na karcie graficznej. W tym zawiera się przekazanie parametrów do kerneli oraz pobranie wyników.
+	\end{itemize}
 
-Poniższy wzór przedstawia sposób detekcji narożników. Wyszukiwane są maksima lokalne wartości $ k $.
+\end{frame}
 
-$$ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}| $$
 
-$ k $ - współczynnik krzywizny,
+%---------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Detekcja struktur}
 
-$ L $ - pochodna wyznaczona z obrazu.
+	Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
+
+	Poniższy wzór przedstawia sposób detekcji narożników. Wyszukiwane są maksima lokalne wartości $ k $.
+
+	$$ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}| $$
+
+	$ k $ - współczynnik krzywizny,
+
+	$ L $ - pochodna wyznaczona z obrazu.
 
 
 
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Przykład detekcji}
+	\frametitle{Przykład detekcji}
+%\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{Operation/input.png}
 
-\begin{figure}[h]
-\begin{center}
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{../Operation/blobResult.png}
-\end{subfigure}~
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{../Operation/edgeResult.png}
-\end{subfigure}
+	\begin{figure}[h]
+		\begin{center}
 
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{../Operation/cornerResult.png}
-\end{subfigure}~
-\begin{subfigure}[b]{2cm}
-\centering
-\includegraphics[width=2cm]{../Operation/ridgeResult.png}
-\end{subfigure}
-\label{fig:wynik}
-\end{center}
-\end{figure}
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/input.png}
+			\end{subfigure}~
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/blobResult.png}
+			\end{subfigure}~
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/edgeResult.png}
+			\end{subfigure}
+
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/null.png}
+			\end{subfigure}~
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/cornerResult.png}
+			\end{subfigure}~
+			\begin{subfigure}[b]{3cm}
+				\centering
+				\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{../Operation/ridgeResult.png}
+			\end{subfigure}
+			\label{fig:wynik}
+		\end{center}
+	\end{figure}
 
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Poprawność rozwiązania}
+	\frametitle{Poprawność rozwiązania}
 
-Na podstawie porównania z implementacją realizowaną na procesorze CPU stwierdzono, że wykonanie algorytmu na karcie graficznej daje poprawne wyniki.
+	Na podstawie porównania z implementacją realizowaną na procesorze CPU stwierdzono, że wykonanie algorytmu na karcie graficznej daje poprawne wyniki.
 
-Największe rozbieżności są na poziomie 2\%, w~większości przypadków nie przekraczają 1\%.
+	Największe rozbieżności są na poziomie 2\%, w~większości przypadków nie przekraczają 1\%.
 
 
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Szybkość rozwiązania}
+	\frametitle{Szybkość rozwiązania}
 
-Z pomiarów czasu obliczeń można zauważyć, że obliczenia na karcie graficznej Nvidia GeForce GTX 670 trwały krócej.
+	Z pomiarów czasu obliczeń można zauważyć, że obliczenia na karcie graficznej Nvidia GeForce GTX 670 trwały krócej.
 
-\begin{center}
-\includegraphics[width=8cm]{../TestySzybkosci/PureAGH.png}
-\end{center}
+	\begin{center}
+		\includegraphics[width=8cm]{../TestySzybkosci/PureAGH.png}
+	\end{center}
 
 \end{frame}
 %---------------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{}
-\begin{center}
-Dziękuję za uwagę.
-\end{center}
+	\frametitle{}
+	\begin{center}
+		Dziękuję za uwagę.
+	\end{center}
 \end{frame}
