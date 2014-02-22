@@ -1,8 +1,244 @@
-\chapter{OpenCL}
+\chapter{Obsługa API OpenCL z poziomu C++}
 \label{cha:opencl}
 
-W~tym rodziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną bibliotekę służącą jej ułatwieniu. Zdecydowano się na jej stworzenie z~uwagi na to, że w cześci programu, która kontroluje wykonanie kodu na karcie graficznej (kerneli) wiele czynności się powtarza przy każdym kolejnym algorytmie. Zatem zadaniem biblioteki jest ułatwienie implementacji kontrolera nie ograniczając możliwości oferowanych przez standard OpenCL.
+W~niniejszym rozdziale przedstawiono sposób implementacji algorytmów z~użyciem standardu OpenCL oraz stworzoną w ramach pracy bibliotekę równoległego przetwarzania obrazów. Jest ona odpowiedzialna za sterowanie wykonywaniem kodu kerneli. Pozwala na implementację kontrolera bez ograniczania możliwości oferowanych przez standard OpenCL oraz umożliwia łatwe rozszerzenie dostępnych funkcji. Biblioteka była tworzona oraz testowana dla wersji 1.1 standardu OpenCL. Przedstawiono i~omówiono również część z~zaimplementowanych kerneli.
 
-\section{Szczegóły implementacji z użyciem OpenCL}  
+\section{Architektura OpenCL}
+\label{sec:architekturaOpenCL}
+
+W~poniższych akapitach przedstawiono elementy standardu OpenCL \cite{OpenCLspecification}. Standard określa składnię używaną do pisania kerneli oraz definiuje sposób kompilacji oraz wykonywania kerneli. Standard określa następujące modele:
+\begin{itemize}
+\item model platformy,
+\item model wykonania,
+\item model pamięci,
+\item model programowania.
+\end{itemize}
+
+\subsection{Model platformy}
+\label{platformModel}
+
+Programy napisane z~wykorzystaniem standardu OpenCL są uruchamiane na procesorze CPU (gospodarz) zgodnie z~architekturą danego procesora. Do gospodarza jest podłączone urządzenie, na którym będą wykonywane kernele. Urządzenie jest podzielone na jednostki obliczeniowe, które są podzielone na elementy przetwarzające. Obliczenia są wykonywane w~elementach przetwarzających. Obliczenia przeprowadzane są zgodnie z~architekturą SIMD (Single Instruction Multiple Data) co oznacza, że jeden kernel jest wykonywany dla wielu danych równolegle.
+
+\subsection{Model wykonania programu kerneli}
+\label{executionModel}
+
+Program wykonywany na procesorze CPU zarządza wykonywaniem kerneli na urządzeniu. Kiedy kernel jest uruchamiany przez gospodarza tworzony jest przestrzeń indeksów określonej wielkości (zgodnej ze strukturą danych wejściowych). Dla każdego indeksu w~przestrzeni wykonywany jest kernel. Instancja kernela jest nazywana jednostką roboczą i~jest określona poprzez indeks, dla którego jest wykonywana. Jednostki robocze są zorganizowane w~grupy robocze. Wykonanie programu kernela może być zrealizowane synchronicznie lub asynchronicznie.
+
+\subsection{Model pamięci}
+\label{memoryModel}
+
+Pamięć urządzenia jest podzielona na cztery regiony. Różnią się one uprawnieniami oraz czasem dostępu.
+\begin{itemize}
+\item Pamięć globalna - jest dostępna do odczytu i~zapisu dla każdej jednostki roboczej. Jest używana do komunikacji pomiędzy gospodarzem oraz urządzeniem, na którym wykonywane są kernele.
+\item Pamięć stałych - jest dostępna tylko do odczytu dla każdej jednostki roboczej. Nie zmienia się podczas wykonywania kernela. Gospodarz może zapisać dane do tego obszaru pamięci. Dostęp do tego regionu pamięci jest szybszy, niż dostęp do pamięci globalnej.
+\item Pamięć lokalna - jest dostępna do zapisu i~odczytu dla każdej jednostki roboczej w~obrębie grupy roboczej. Może być wykorzystana do przechowywania danych wspólnych dla danej grupy roboczej. Istnieje również możliwość zmapowania jej do fragmentu pamięci globalnej.
+\item Pamięć prywatna - jest dostępna do zapisu i~odczytu dla jednej jednostki obliczeniowej. Używana jest do przechowywania zmiennych potrzebnych tylko przez jedną jednostkę obliczeniową.
+\end{itemize}
+
+\subsection{Model programowania}
+\label{programmingModel}
+
+Model programowania OpenCL wspiera równoległość danych, równoległość zadań lub ich połączenie. Podstawowym modelem jest model równoległości danych. W~tym wariancie dla wielu danych wykonywany jest ten sam kod. Istnieje możliwość zdefiniowania liczby jednostek roboczych albo pozostawienie tego problemu implementacji OpenCL. W~przypadku zastosowania modelu równoległości zadań użytkownik może wykonać kernel dla dowolnych danych używając grupy roboczej składającej się z~jednej jednostki roboczej. Jednocześnie może uruchomić inny kernel na kolejnej grupie roboczej.
+
+\section{Implementacja algorytmów z~użyciem OpenCL}  
 \label{sec:szczegolyOpenCL}
 
+W celu implementacji algorytmów z~użyciem standardu OpenCL konieczne było napisanie dwóch oddzielnych części. Pierwszą jest kod algorytmu zapisany w~języku zgodnym z~OpenCL, drugą jest kod wykonywany na procesorze ogólnego przeznaczania wykorzystujący API, które jest zdefiniowane w~języku C.
+
+Algorytmy implementowane są w~postaci funkcji, które są nazywane kernelami. Są one napisane w~języku opracowanym przez twórców standardu OpenCL. Bazuje on na języku ISO C99 i~zawiera jego podzbiór wraz z~rozszerzeniami służącymi implementacji algorytmów w sposób równoległy, ułatwiającymi obsługę wektorów, macierzy oraz obrazów. Maksymalna wielkość obrazów, osobno dla obrazów 2D i 3D, jest określona dla konkretnego urządzenia. Kompilacja kodu napisanego w~tym języku odbywa się w~trakcie działania programu kontrolera, ponieważ sposób kompilacji jest zależny od posiadanego urządzenia, na którym będzie wykonywany kod. Jest to spowodowane tym, że kod języka OpenCL jest kompilowany zależnie od platformy, na której jest uruchamiany. Może to powodować problemy z~przenoszalnością pomiędzy różnymi urządzeniami w~przypadku, gdy używane są rozszerzenia OpenCL. W~celu uniknięcia problemów należy stosować konstrukcje języka, które są częścią podstawowej wersji standardu. Ta część jest wystarczająca do większości algorytmów.
+
+Zadania kodu kontrolera można podzielić na dwa typy. Pierwszym, jest inicjalizacja, podczas której jest dokonywany wybór urządzenia docelowego, kompilacja kerneli oraz przygotowanie do wykonania. Proces wyboru urządzenia może być bardziej skomplikowany w przypadku, gdy w~systemie jest dostępnych więcej niż jedna platforma OpenCL. Przykładem takiej sytuacji jest posiadanie dwóch kart graficznych w~jednym komputerze. W~takim przypadku pożądanym będzie wykorzystanie urządzenia o~lepszych parametrach dla danego zadania. Po wyborze platformy docelowej należy skompilować kernel, który należy następnie przygotować do wykonania. W~tym celu należy utworzyć obiekty, które będą parametrami kernela. Mogą to być wektory danych lub obrazy. Po stworzeniu tych obiektów, należy przypisać je do argumentów kernela, zgodnie z~deklaracją w~kodzie.
+
+Drugą funkcjonalnością kodu kontrolera jest przekazywanie parametrów, wykonywanie kerneli oraz pobieranie wyników. Te czynności są realizowane przy wykonaniu każdego algorytmu. Dane, z~których korzysta kernel są kopiowane pomiędzy pamięcią urządzenia a~pamięcią RAM komputera, na którym jest wykonywany kontroler. Każdą z~tych operacji można wykonać synchroniczne lub asynchronicznie. Przy wykonaniu asynchronicznym jest możliwość zarejestrowania funkcji zwrotnej lub poczekania na zakończenie wykonania kernela.
+
+\section{Opis zrealizowanej biblioteki}  
+\label{sec:biblioteka}
+
+Biblioteka zastała zaimplementowana w języku C++. Wybrano ten język ponieważ jego integracja z~API OpenCL napisanym w języku C jest prosta. Biblioteka została zrealizowana w~sposób obiektowy oraz z~użyciem wyjątków ułatwiających obsługę sytuacji krytycznych. Więcej szczegółów dotyczących wyjątków przedstawiono w~sekcji \ref{subsec:obslugabledow}. Obiektowość pozwala na ograniczenie redundancji napisanego kodu odpowiedzialnego za kompilację, przekazywanie argumentów, wykonywanie kernel oraz pobieranie wyników. Aby to umożliwić należy opracować zbiór reguł, których należy przestrzegać podczas pisania kerneli. Są one opisane w sekcji \ref{subsec:regulykerneli}. Reguły te nie ograniczają możliwości oferowanych przez standard. Biblioteka oferuje również możliwość realizacji algorytmów przetwarzających obrazy w~sposób potokowy. Taka realizacja ma zastosowanie wtedy, kiedy zachodzi potrzeba użycia kilku kerneli, dla których dane wejściowe kolejnego programu są danymi wyjściowymi poprzedniego. Implementacja minimalizuje liczbę operacji kopiowania danych pomiędzy pamięcią RAM komputera a~pamięcią wewnętrzną urządzenia, na którym wykonywany jest program poprzez zachowywanie cząstkowych obliczeń w~pamięci urządzenia.
+
+W bibliotece można wyróżnić dwie części: część odpowiedzialną za kompilację kerneli i~wszelkie powiązane z~tym kwestie oraz część odpowiedzialną za wykonywanie kerneli.
+Poniżej są przedstawione możliwości oraz szczegóły techniczne dotyczące poszczególnych części.
+
+\subsection{Kompilacja kerneli oraz obsługa urządzeń obliczeniowych}
+\label{subsec:kompilacjakerneli}
+
+\begin{figure}[h]
+
+\begin{center}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Diagrams/OpenCLDevice.png}
+\caption{Diagram klasy OpenCL Device}
+\label{fig:opencldevice}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithmsStream.png}
+\caption{Diagram klasy odpowiedzialna za obsługę potoku}
+\label{fig:openCLAlgorithmsStream}
+\end{subfigure}
+\end{center}
+
+\caption{Diagramy klas \texttt{OpenCLDevice} i \texttt{OpenCLAlgorithmsStream}}
+\label{fig:opencldeviceIopenCLAglorithmsStream}
+\end{figure}
+
+Funkcjonalność ta jest realizowana przez klasę \texttt{OpenCLDevice} przedstawioną na rysunku \ref{fig:opencldevice}. Jest ona odpowiedzialna za pobieranie listy dostępnych urządzeń, pobieranie podstawowych informacji o urządzeniach, tworzenie i~udostępnianie kontekstu oraz kolejki komend (opisanych w~standardzie OpenCL) oraz za kompilację kerneli na konkretne urządzenie. Kontekst oraz kolejka komend są obiektami z API OpenCL za pomocą, których przeprowadzane jest wykonanie kodu na urządzeniu OpenCL.
+
+Kod kernela może być podany w~jednej z~dwóch postaci: jako zmienna typu std::string, której zawartością jest kod lub jako zapisany w~osobnym pliku, który jest czytany i~przekazywany do funkcji wykonującej kompilację. Umożliwienie dwóch metod jest spowodowane różnymi ich właściwościami. Podczas tworzenia algorytmu bardziej przydatne jest używanie pliku, ponieważ łatwiej go edytować.  Wadą tego rozwiązania jest umieszczenie danego pliku w~odpowiednim miejscu w~systemie plików. Gdy praca nad kernelem jest zakończona wtedy można umieścić jego kod w~źródłach programu aby uniknąć problemów z~przenoszeniem aplikacji. Jest to operacja jednorazowa w~przypadku ostatecznej wersji kernela, więc nie istnieje problem edycji kodu.
+
+\subsection{Wykonywanie kerneli}
+\label{subsec:wykonywaniekerneli}
+
+\begin{figure}
+\begin{center}
+%v[width=3cm]
+\includegraphics[width=\textwidth]{Diagrams/OpenCLAlgorithms.png}
+\end{center}
+\caption{Diagram klas algorytmów}
+\label{fig:openclalgorithms}
+\end{figure}
+
+Funkcjonalność ta ułatwia użytkownikowi proces kompilacji oraz wykonywania kerneli wraz z~przekazywaniem argumentów oraz pobieraniem wyników. Ten fragment biblioteki składa się z~wielu klas, których diagram jest przedstawiony na rys. \ref{fig:openclalgorithms}. Duża liczba klas wynika z~potrzeby umożliwienia zastosowania biblioteki do wielu rodzajów kerneli. Prace nad biblioteką były skupione na realizacji algorytmów operujących na obrazach. Konieczność wprowadzenia dużego rozróżnienia wynika z dużej liczby struktur wykorzystywanych w~standardzie do przekazywania parametrów wejściowych i wyjściowych oraz chęcią uściślenia zastosowania danego algorytmu.
+
+Zastosowanie klas przedstawionych na rysunku \ref{fig:openclalgorithms} umożliwia, w~optymalnych przypadkach, na minimalne zaangażowanie użytkownika biblioteki w~tworzenie kodu kontrolera i~skupienie się na konstrukcji kodu kernela. Koniecznymi do podania informacjami są: format obrazu danych wejściowych i~wyjściowych oraz kod kernela (zawarty w~pliku lub w~łańcuchu znakowym). Dla bardziej zaawansowanych algorytmów, do działania których potrzebnych jest więcej argumentów wejściowych lub danych rezultatów konieczne jest więcej pracy włożonej w~napisanie kodu kontrolera. Dla takich przypadków zrealizowano funkcje pomocnicze. Aby stworzyć własną klasę odpowiedzialną za realizację danego kernela należy dziedziczyć po odpowiednio wybranej klasie. Wybór klasy jest zależny od danych jakie kernel przyjmuje i~jakie zwraca.
+
+\subsection{Tworzenie potoków kerneli}
+\label{subsec:potokikerneli}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{Diagrams/OpenCLStream.png}
+\end{center}
+\caption{Diagram klas algorytmów używanych w potokach}
+\label{fig:diagrampotok}
+\end{figure}
+
+Mechanizmem często wykorzystywanym podczas przetwarzania danych, w~tym obrazów są potoki. Pozwalają na łączenie kilku elementarnych operacji w~jeden ciąg zadań. Wiele elementarnych operacji jest używana w~większej liczbie algorytmów, dlatego pożądana jest możliwość wielokrotnego użycia raz napisanego kernela.
+
+W~bibliotece zaimplementowano możliwość stworzenia w~prosty sposób potoku używającego jako danych wejściowych i~wyjściowych obrazów dwuwymiarowych. Klasy konieczne do realizacji potoku są przedstawione na rys \ref{fig:diagrampotok}. Zaimplementowane rozwiązanie posiada wady oraz zalety. Przy tradycyjnym podejściu wykonania kerneli konieczne jest każdorazowe kopiowanie danych z~i~do pamięci urządzenia. Użycie potoku pozwala na ograniczenie ilości kopiowanych danych. Zaimplementowano sposób wykonania kolejnych kerneli w~sposób sekwencyjny, pozwalający na bezpośrednie wykorzystanie wyników obliczeń jako argumentów wejściowych kolejnego kernela. Dodatkową zaletą jest możliwości wykorzystania kerneli stworzonych do potoku jako samodzielny algorytm przy małym nakładzie pracy oraz braku konieczności edycji kodu kernela. Istnieje możliwość zwrócenia przez ostatni kernel potoku dodatkowej wartości, poza wynikowym obrazem.
+
+Za samą realizację potoku jest odpowiedzialna klasa \texttt{OpenCLAlgorithmsStream} przedstawiona na rys. \ref{fig:openCLAlgorithmsStream}. Sposób jej wykorzystania jest prosty. Najpierw należy dodać algorytmy do potoku. Podczas dodawania sprawdzane jest czy dane wejściowe do kolejnego algorytmu są zgodne ze zwracanymi wartościami z~algorytmu poprzedniego. Dotyczy to między innymi sprawdzenie typów danych oraz ich formatu. Następnie należy przygotować strumień do działania oraz podać wielkość przetwarzanych danych. Po tych operacjach można uruchomić potok podając skąd pobierać i~gdzie zapisywać dane. Jeden potok może być uruchamiany dowolną liczbę razy.
+
+\subsection{Reguły dotyczące kerneli}
+\label{subsec:regulykerneli}
+
+Każdy kernel, który ma być użyty z~zastosowaniem biblioteki musi spełniać klika warunków. Najważniejszą jest kolejność argumentów. Zawsze pierwszym argumentem są dane wejściowe a drugim wskaźnik do bufora, w~którym są zapisywane wyniki. Obecnie wspierane są następujące typy argumentów:
+\begin{itemize}
+\item wektor - \texttt{float\*} lub \texttt{int\*},
+\item obraz 2D - \texttt{image2d\_t},
+\item obraz 3D (tylko jako argument wejściowy) - \texttt{image3d\_t}.
+\end{itemize}
+Kolejnymi argumentami mogą być parametry pomocnicze lub wskaźniki do miejsc, gdzie można przechować kolejne wyniki, jeśli rezultatem danego algorytmu jest więcej niż jeden obraz lub wektor.
+
+\subsection{Obsługa błędów}
+\label{subsec:obslugabledow}
+
+
+\begin{figure}
+\begin{center}
+%v[width=3cm]
+\includegraphics[width=0.7\textwidth]{Diagrams/OpenCLExceptions.png}
+\end{center}
+\caption{Diagram wyjątków}
+\label{fig:diagramwyjatkow}
+\end{figure}
+
+Biblioteka przekazuje błędy występujące podczas wywoływania API OpenCL do użytkownika za pomocą wyjątków, które są usystematyzowane. Hierarchia wyjątków jest przedstawiona na rysunku \ref{fig:diagramwyjatkow}. Większość zwracanych błędów występuje przy wywołaniach funkcji OpenCL. Z~tego powodu do opisu błędu z~biblioteki, dodawana jest informacja o~kodzie błędu, który wystąpił podczas wywołania funkcji standardu OpenCL. Zwracany kod jest w~postaci zgodnej z dokumentacją, dlatego pozwala na szybkie rozpoznanie przyczyny błędu.
+
+\subsection{Zaimplementowane kernele}
+\label{subsec:kernele}
+
+W~ramach biblioteki zaimplementowano w~sposób równoległy algorytmy opisane we wstępie. Są to: obliczanie konwolucji obrazu oraz algorytmy służące do detekcji i~wyznaczaniu cech (plamy, krawędzie, narożniki, granie) przedstawione w rozdziale \ref{subsubsec:detekcjaPlam}. Na rys. \ref{fig:diagramWszystko} przedstawiono wszystkie klasy, które kontrolują zaimplementowane kernele.
+
+\afterpage{
+\begin{landscape}
+\begin{figure}
+\begin{center}
+%v[width=3cm]
+\includegraphics[width=\textheight,keepaspectratio]{Diagrams/AllAlgorithms.png}
+\end{center}
+\caption{Diagram wszystkich klas algorytmów}
+\label{fig:diagramWszystko}
+\end{figure}
+\end{landscape}
+}
+
+\lstset{language=C,caption={Detektor krawędzi},label=lis:edgeDetector,breaklines=true,numbers=left,basicstyle=\scriptsize\ttfamily}
+\begin{lstlisting}[float]
+const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
+
+__kernel void  edge_detector(__read_only image2d\_t input, __write_only image2d\_t out_Lvv, __write_only image2d\_t out_Lvvv)
+{
+	int i = get_global_id(0); //column number
+	int j = get_global_id(1); //row number
+
+	float ul = read_imagef(input, sampler, (int2)(i - 1, j - 1)).x;
+	float u = read_imagef(input, sampler, (int2)(i, j - 1)).x;
+	float ur = read_imagef(input, sampler, (int2)(i + 1, j - 1)).x;
+	float l = read_imagef(input, sampler, (int2)(i - 1, j)).x;
+	float c = read_imagef(input, sampler, (int2)(i, j)).x;
+	float r = read_imagef(input, sampler, (int2)(i + 1, j)).x;
+	float dl = read_imagef(input, sampler, (int2)(i - 1, j + 1)).x;
+	float d = read_imagef(input, sampler, (int2)(i, j + 1)).x;
+	float dr = read_imagef(input, sampler, (int2)(i + 1, j + 1)).x;
+
+	float Lx = 0.5*(ur+2.0*r+dr-ul-2.0*l-dl);
+	float Ly = 0.5*(dl+2.0*d+dr-ul-2.0*u-ur);
+	float Lxx = ul/12.0-u/6.0+ur/12.0+5.0*l/6.0-5.0*c/3.0+5.0*r/6.0+dl/12.0-d/6.0+dr/12.0;
+	float Lxy = ul/4.0-ur/4.0+-dl/4.0+dr/4.0;
+	float Lyy = ul/12.0+5.0*u/6.0+ur/12.0-l/6.0-5.0*c/3.0-r/6.0+dl/12.0+5.0*d/6.0+dr/12.0;
+	float Lxxx = 0.5*(ul+dl-ur-dr)+l-r;
+	float Lxxy = -ul/8.0+u/4.0-ur/8.0+dl/8.0-d/4.0+dr/8.0;
+	float Lxyy = ul/8.0-ur/8.0-l/4.0+r/4.0+dl/8.0-dr/8.0;
+	float Lyyy = 0.5*(ul+ur-dr-dl)+u-d;
+	
+	float Lvv = Lx*Lx*Lxx+2.0*Lx*Ly*Lxy+Ly*Ly*Lyy;
+	if (fabs(Lvv) < 1e-5)
+	{
+		Lvv = 0;
+	}
+	float Lvvv = (Lx*Lx*Lx*Lxxx+3.0*Lx*Lx*Ly*Lxxy+3.0*Lx*Ly*Ly*Lxyy+Ly*Ly*Ly*Lyyy);
+	write_imagef(out_Lvv, (int2)(i, j), Lvv);
+	write_imagef(out_Lvvv, (int2)(i, j), Lvvv);
+}
+\end{lstlisting}
+
+Na listingu \ref{lis:edgeDetector} przedstawiono kernel liczący wartości warunków \eqref{eq:edgeDetection}, które są wykorzystywane do wykrywania krawędzi. 
+W~pierwszej linii pojawia się deklaracja i definicja samplera - obiektu, który jest używany do pobierania wartości. We wszystkich kernelach wykorzystywany jest sampler, który nie korzysta ze znormalizowanych wartości. W~przypadku pobierania wartości pikseli spoza obrazu, które są czytane podczas analizy pikseli brzegowych, pobierany jest piksel tła. Ponieważ w~kernelach nie są wykorzystywane wartości pomiędzy pikselami ostatni parametr nie jest istotny.
+W linii 3 zaczyna się definicja kernela. Posiada on trzy argumenty, które są typu \texttt{image2d\_t}. Pierwszym jest obraz wejściowy i~dlatego jest oznaczony jako tylko do odczytu. Pozostałe dwa są obrazami, w~których będą zapisane wartości pikseli wyliczone z~warunków. Są one oznaczone jako zmienne tylko do zapisu.
+W~liniach 5~i~6 pobierane są współrzędne aktualnie przetwarzanego piksela. W~kolejnych liniach (8-16) pobierane są wartości pikseli. Jest istotne, aby zapisać wartości pikseli do zmiennej, ponieważ używane są później wielokrotnie. Jeśli podczas każdego odwołania się do nich pobierano by wartości bezpośrednio z~obrazu, to zmniejszyło by to szybkość działania kernela.
+W~liniach 18-34 obliczane są wartości pochodnych dla danego piksela. Następne te wartości są wykorzystywane do obliczenia warunków detekcji krawędzi.
+W liniach 37-40 wartości z~pierwszego warunku są zerowane jeśli ich wartość bezwzględna jest mniejsza niż $  10^{-5} $.
+Na końcu, w~liniach 42~i~43, obliczone wartości są zapisywane do obrazów wyjściowych.
+
+\lstset{language=C,caption={Kernel znajdujący krawędzie},label=lis:edge,breaklines=true,basicstyle=\scriptsize\ttfamily}
+\begin{lstlisting}[float]
+const sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP | CLK_FILTER_NEAREST;
+
+__kernel void  edge_max(__read_only image2d\_t Lvv_image, __write_only image2d\_t output, __read_only image2d\_t Lvvv_image)
+{
+	int i = get_global_id(0); //column number
+	int j = get_global_id(1); //row number
+
+	float c = read_imagef(Lvv_image, sampler, (int2)(i, j)).x;
+	float r = read_imagef(Lvv_image, sampler, (int2)(i + 1, j)).x;
+	float d = read_imagef(Lvv_image, sampler, (int2)(i, j + 1)).x;
+	float dr = read_imagef(Lvv_image, sampler, (int2)(i + 1, j + 1)).x;
+	
+	float Lvvv = read_imagef(Lvvv_image, sampler, (int2)(i, j)).x;
+	if ((c * r < 0 || c * dr <0 || c * d <0) && Lvvv < 0)
+	{
+		write_imageui(output, (int2)(i, j), 255);
+	}
+	else
+	{
+		write_imageui(output, (int2)(i, j), 0);
+	}
+}
+\end{lstlisting}
+
+Na listingu \ref{lis:edge} przedstawiono kernel sprawdzający wartości wyliczonych wcześniej warunków zgodnie z~opisem przedstawionym w~punkcie \ref{subsubsec:detekcjaKrawedzi}. Wynikiem działania kernela jest obraz z~zaznaczonymi punktami, w~których znajdują się krawędzie.
+W~pierwszej linii, analogicznie do poprzedniego kernela, pojawia się definicja samplera, który jest używany do pobierania wartości obrazów. Używany jest sampler o~tych samych własnościach, co poprzednio wspomniany.
+W~linii 3 rozpoczyna się definicja kernela. Ma on trzy parametry, które są typu obraz 2D. Pierwsze dwa są wartościami pikseli wyliczonymi za pomocą poprzedniego kernela i~są tylko do odczytu. Ostatni argument jest obrazem, do jest zapisywana informacja o~tym, czy znaleziono w~danym miejscu krawędź.
+W~liniach 5~i~6 pobierane są współrzędne analizowanego piksela. W kolejnych liniach (8-11) pobierane są wartości obrazu wejściowego. Do obliczeń potrzebne są jedynie wartości obecnie analizowanego piksela oraz jego trzech sąsiadów zgodnie z rys. \ref{fig:comparePixels}.
+W~liniach 14-18 sprawdzane są warunki, jakie musi spełniać piksel, aby być uznanym za piksel krawędzi. Jest to: zmiana znaku wartości warunku pierwszego pomiędzy danym pikselem a~jednym z~jego trzech sąsiadów (oznaczonych na rys. \ref{fig:comparePixels}) oraz wartość drugiego warunku mniejsza niż zero. Jeśli warunki są spełnione to w~obrazie wyjściowym jest przypisywana wartość 255 dla tego piksela, co oznacza że wykryto krawędź. W~przeciwnym wypadku ustawiana jest wartość 0.

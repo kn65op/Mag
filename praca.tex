@@ -3,13 +3,20 @@
 % \documentclass[pdflatex,en]{aghdpl}  % praca w języku angielskim
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{morefloats} %może do usunięcia
 
 % dodatkowe pakiety
+\usepackage{float}
+\usepackage{multirow}
 \usepackage{enumerate}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{amsmath}
-%\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{afterpage}
 \lstloadlanguages{TeX}
 
 %---------------------------------------------------------------------------
@@ -18,26 +25,27 @@
 \shortauthor{T. Drzewiecki}
 
 \titlePL{Równoległa realizacja algorytmu Scale Space przy pomocy procesorów graficznych}
-\titleEN{title en}
+\titleEN{Parallel implementation of ScaleSpace Algorithm on GPU processors}
 
 \shorttitlePL{Równoległa realizacja algorytmu Scale Space} % skrócona wersja tytułu jeśli jest bardzo długi
-\shorttitleEN{short title en}
+\shorttitleEN{Parallel implementation of ScaleSpace Algorithm}
 
-\thesistypePL{Praca dyplomowa magisterska}
-\thesistypeEN{Master's Thesis}
+\thesistype{Praca dyplomowa magisterska}
 
-\supervisorPL{dr inż. Mirosław Jabłoński}
-\supervisorEN{Mirosław Jabłoński, Ph.D}
 
-\date{2013}
+\supervisor{dr inż. Mirosław Jabłoński}
+\degreeprogramme{Informatyka}
 
-\departmentPL{Katedra Automatyki i~Inżynierii Biomedycznej}
-\departmentEN{Department of Automatics and Biomedical Engineering}
 
-\facultyPL{Wydział Elektrotechniki, Automatyki, Informatyki i~Inżynierii Biomedycznej}
-\facultyEN{Faculty of Electrical Engineering, Automatics, Computer Science and Biomedical Engineering}
+\date{2014}
 
-\acknowledgements{Serdecznie dziękuję }
+\department{Katedra Automatyki i~Inżynierii Biomedycznej}
+
+
+\faculty{Wydział Elektrotechniki, Automatyki,\protect\\[-1mm] Informatyki i Inżynierii Biomedycznej}
+
+
+\acknowledgements{Serdecznie dziękuję promotorowi dr inż. Mirosławowi Jabłońskiemu za wszelką pomoc w~trakcie realizacji pracy oraz konstruktywne uwagi.}
 
 
 
@@ -54,20 +62,110 @@
 
 \include{wstep}
 \include{opencl}
+\include{kamera}
+\input{dzialanie}
+\input{testy}
+\input{testyPoprawnosc}
+\input{testyPoprawnoscObrazy}
+\input{testyPoprawnoscTabele}
+\input{testySzybkosci}
 %\include{realizacja}
 %\include{czesc_trzecia}
 %\include{technologie}
 %\include{wnioski}
-%\include{podsumowanie}
+\include{podsumowanie}
 
 %\include{rozdzial2}
 
+%Bibliografia
+\begin{thebibliography}{10}
 
-\bibliographystyle{plain}
-\bibliography{praca}{}
+\bibitem{JAISDK}
+{Dokumentacja interfejsu do kamery: JAI SDK}.
 
-%\appendix
-%\include{zawartoscCD}
-%\include{opiskodow}
+\bibitem{Signum}
+Funkcja signum.
+\newblock \texttt{http://pl.wikipedia.org/wiki/Signum}, dostęp 13.11.2013.
+
+\bibitem{mutexCpp}
+{Mutex z~biblioteki standardowej C++}.
+
+\newblock \texttt{http://en.cppreference.com/w/cpp/thread/mutex}, dostęp 17.09.2013.
+
+\bibitem{GT555M}
+{NVIDIA GeForce GT 555M}.
+
+\newblock \texttt{http://www.nvidia.pl/object/product-geforce-gt-555m-pl.html}, dostęp 26.11.2013.
+
+\bibitem{GTX670}
+{NVIDIA GeForce GTX 670}.
+
+\newblock \texttt{http://www.nvidia.pl/object/geforce-gtx-670-pl.html}, dostęp 26.11.2013.
+
+\bibitem{OpenCL}
+{OpenCL official website}.
+\newblock \texttt{http://www.khronos.org/opencl}, dostęp 04.07.2013.
+
+\bibitem{OpenCLspecification}
+{The OpenCL Specification}.
+
+\newblock \texttt{http://www.khronos.org/registry/cl/specs/opencl-1.1.pdf}, dostęp 04.07.2013.
+
+\bibitem{Bayer}
+Bryce Bayer.
+\newblock {Color imaging array}.
+\newblock {US Patent 3,971,065},
+\newblock 1976.
+
+\bibitem{BFIOCL}
+Tomasz~Drzewiecki Bartłomiej~Bułat.
+\newblock {Równoległa interpolacja obrazu barwnego z kamery cyfrowej}.
+\newblock {AGH},
+\newblock 2013.
+
+\bibitem{FromCudaToOpenCL}
+Peng Du, Rick Weber, Piotr Luszczek, Stanimire Tomov, Gregory Peterson, and
+  Jack Dongarra.
+\newblock {From CUDA to OpenCL: Towards a performance-portable solution for
+  multi-platform GPU programming}.
+\newblock {\em Parallel Computing}, 38(8) pp. 391 -- 407, 2012.
+
+\bibitem{SSFDS}
+T.~Lindeberg.
+\newblock Scale-space for discrete signals.
+\newblock {\em Pattern Analysis and Machine Intelligence, IEEE Transactions
+  on}, 12(3) pp. 234--254, 1990.
+
+\bibitem{SSFramework}
+Tony Lindeberg.
+\newblock {Scale-space: A framework for handling image structures at multiple
+  scales}
+\newblock 1996.
+
+\bibitem{ScaleSpaceAxioms}
+Tony Lindeberg.
+\newblock On the axiomatic foundations of linear scale-space.
+\newblock In Jon Sporring, Mads Nielsen, Luc Florack, and Peter Johansen,
+  editors, {\em Gaussian Scale-Space Theory}, volume~8 of {\em Computational
+  Imaging and Vision}, pp. 75--97, Springer Netherlands, 1997.
+
+\bibitem{Enc09}
+Tony Lindeberg.
+\newblock {\em {Encyclopedia of Computer Science and Egeneering}},
+\newblock {John Wiley \& Sons, Inc.}
+\newblock 2009.
+
+\end{thebibliography}
+
+%\bibliographystyle{plain}
+%\bibliography{praca}{}
+
+\appendix
+\include{instrukcja}
+\include{dokumentacja}
+\include{kernele}
+\include{biblioteki}
+\include{zawartoscCD}
+\include{daneTestySzybkosci}
 
 \end{document}

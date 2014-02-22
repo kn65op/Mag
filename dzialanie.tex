@@ -1,0 +1,161 @@
+\chapter{Wyniki}
+\label{cha:wyniki}
+
+\section{Omówienie obrazów wynikowych}
+\label{sec:testy}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/input.png}
+\caption{Wejściowy obraz pozyskany z~kamery}
+\label{fig:input}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/reprezentacja.png}
+\caption{Obraz w~jednej skali}
+\label{fig:dzialanieRep}
+\end{subfigure}
+
+\end{center}
+\label{fig:inputIDzialanie}
+\caption{Obraz wejściowy oraz fragment reprezentacji skali}
+\end{figure}
+
+W~niniejszym rodziale przedstawiono przykładowe wyniki działania algorytmu Scale Space zaimplementowanego w~sposób równoległy z~użyciem OpenCL. Obrazem wejściowym jest obraz pobrany przy pomocy kamery przedstawionej w~rozdziale \ref{cha:obslugakamery} o~rozdzielczości 1024x1024, który jest przedstawiony na rys \ref{fig:input}. Wszystkie obrazy w~tej części są przedstawione dla rozmiaru skali~7.
+
+\subsection{Reprezentacja skali}
+\label{sec:dzialanieRep}
+
+Reprezentacja skali jest przedstawiona na rys \ref{fig:dzialanieRep}. Jest to obraz otrzymany po zastosowaniu dolnoprzepustowego filtru Gaussa. Filtracji podlega obraz w~skali szarości, które jest otrzymany z~wyniku barwnej interpolacji obrazu z kamery. Aproksymacja jest zrealizowana również na karcie graficznej z~użyciem OpenCL. Jest to również obraz wejściowy dla dalszych kroków algorytmu.
+
+Na przedstawionym obrazie widać, że szczegóły są mało widoczne i~zlewają się w jeden obiekt. W~ten sposób można otrzymać większą skalę i~wykrywać obiekty, które są większe, pomijając szczegóły. Reprezentacja skali składa się z~kilku takich obrazów w~różnych skalach.
+
+
+\subsection{Detekcja plam}
+\label{sec:dzialanieBlob}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/blobIntermediate.png}
+\caption{Obraz pośredni używany przy detekcji plam}
+\label{fig:blobIntermediate}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/blobResult.png}
+\caption{Wynik detekcji plam}
+\label{fig:blobResult}
+\end{subfigure}
+
+\end{center}
+\label{fig:showBlob}
+\caption{Obraz pośredni oraz wynik detekcji plam (negatyw)}
+\end{figure}
+
+Do detekcji plam używany jest operator przedstawiony na rys. \ref{fig:laplacian_kernel}. Rys. \ref{fig:blobIntermediate} przedstawia wynik działania operatora Laplace'a na jednym z~obrazów reprezentacji skali. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większa wartość. Za punkty środkowe plam są uznawane maksima lokalne, które są przedstawione na rys. \ref{fig:blobResult}. Jest to wynik działania algorytmu detekcji plam. Ciemne piksele oznaczają środek wykrytych plam.
+
+\subsection{Detekcja krawędzi}
+\label{sec:dzialanieEdge}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/edge01Intermediate.png}
+\caption{Obraz pośredni otrzymany przy detekcji krawędzi, wynik warunku pierwszego \eqref{eq:edgeDetection}}
+\label{fig:edgeIntermediate1}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/edge02Intermediate.png}
+\caption{Obraz pośredni używany przy detekcji krawędzi, wynik warunku drugiego \eqref{eq:edgeDetection}}
+\label{fig:edgeIntermediate2}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/edgeResult.png}
+\caption{Wynik detekcji krawędzi}
+\label{fig:edgeResult}
+\end{subfigure}
+
+\end{center}
+\label{fig:showEdge}
+\caption{Obrazy pośrednie oraz wynik detekcji krawędzi}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:edgeDetection}. Rys. \ref{fig:edgeIntermediate1}~i~\ref{fig:edgeIntermediate2} przedstawiają wartości wyżej wymienionych wyrażeń. Kolor szary na tych obrazach oznacza wartości zerowe lub bliskie zeru. Punkty ciemniejsze to wartości ujemne a punkty jaśniejsze to wartości dodatnie. Można zauważyć, że w~miejscach, gdzie występują krawędzie jest zmiana znaku wartości pierwszego warunku oraz drugi warunek przyjmuje wartości ujemne. Wynik działania algorytmu detekcji krawędzi jest przedstawiony na rys. \ref{fig:edgeResult}. Ciemne piksele występują w~miejscach, gdzie wykryto krawędź.
+
+Z~przedstawionych obrazów wynika, że konieczna jest modyfikacja pierwszego warunku (przedstawiona w~części \ref{subsubsec:detekcjaKrawedzi}), aby wyszukiwać miejsca, gdzie pierwszy znak zmienia znak zamiast wartości zerowych.
+
+\subsection{Detekcja narożników}
+\label{sec:dzialanieCorner}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/cornerIntermediate.png}
+\caption{Obraz pośredni używany przy detekcji narożników (negatyw)}
+\label{fig:cornerIntermediate}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/cornerResult.png}
+\caption{Wynik detekcji narożników (negatyw)}
+\label{fig:cornerResult}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{Operation/input.png}
+\caption{Wejściowy obraz pozyskany z~kamery (powiększenie, negatyw)}
+\label{fig:inputCornerZoom}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[trim=200 100 200 300, clip=true,width=\textwidth]{Operation/cornerResult.png}
+\caption{Wynik detekcji narożników (powiększenie)}
+\label{fig:cornerResultZoom}
+\end{subfigure}
+
+\end{center}
+\label{fig:showEdge}
+\caption{Obraz pośredni oraz wynik detekcji narożników (negatyw)}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości współczynnika przedstawionego w~równaniu \eqref{eq:cornerDetection}. Wyniki dla podanego obrazu wejściowego są przedstawione na rys. \ref{fig:cornerIntermediate}. Jasne punkty oznaczają wartości bliskie zera. Im ciemniejszy piksel tym większą ma wartość. Zidentyfikowane lokalne maksima są przedstawione na rys \ref{fig:cornerResult}. Jest to wynik algorytmu detekcji krawędzi. Ciemne piksele oznaczają miejsca, gdzie wykryto narożniki.
+
+\subsection{Detekcja grani}
+\label{sec:dzialanieRidge}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/ridge01Intermediate.png}
+\caption{Obraz pośredni używany przy detekcji grani, wynik warunku pierwszego \eqref{eq:ridgeDetection}}
+\label{fig:ridgeIntermediate1}
+\end{subfigure}
+~
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/ridge02Intermediate.png}
+\caption{Obraz pośredni używany przy detekcji grani, wynik warunku drugiego \eqref{eq:ridgeDetection}}
+\label{fig:ridgeIntermediate2}
+\end{subfigure}
+
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{Operation/ridgeResult.png}
+\caption{Wynik detekcji grani (negatyw)}
+\label{fig:ridgeResult}
+\end{subfigure}
+
+\end{center}
+\label{fig:showEdge}
+\caption{Obrazy pośrednie oraz wynik detekcji grani}
+\end{figure}
+
+Podczas detekcji krawędzi pierwszym krokiem jest wyznaczenie wartości wyrażeń przedstawionych na równaniu \eqref{eq:ridgeDetection}. Wartości wyznaczone za pomocą przedstawionych wyżej warunków są przedstawione na rys. \ref{fig:ridgeIntermediate1}~i~\ref{fig:ridgeIntermediate2}. Piksele szare oznaczają wartości bliskie zera. Ciemniejsze punkty to wartości ujemne, a jaśniejsze przedstawiają wartości dodatnie. Wynik detekcji grani są przedstawione na rys. \ref{fig:ridgeResult}. Ciemne piksele znajdują się w~miejscach, gdzie wykryto granie.

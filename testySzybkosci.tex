@@ -1,0 +1,63 @@
+\subsection{Testowanie szybkości działania}
+\label{sec:testSzybkosci}
+
+Testowanie szybkości działania oparto na porównaniu czasów wykonania wszystkich implementacji algorytmu Scale Space. Liczony był czas działania algorytmu. Im krótszy czas tym lepsza implementacja algorytmu Scale Space.
+
+Mierzeniu podlegał czas trwania następujących operacji:
+\begin{itemize}
+\item czas wyzaczania reprezentacji Scale Space wraz z~interpolacją obrazu barwnego, zamianą na obraz w skali szarości oraz niezbędnych konwersji,
+\item czas wykrywania cech na obrazach (wraz z~wcześniejszym wykonaniem operacji wymienionych powyżej) - osobno dla każdej cechy.
+\end{itemize}
+
+Dla obliczeń wykonywanych na procesorze mierzony był czas trwania obliczeń. Dla implementacji wykonywanej na karcie graficzne mierzony był czas trwania obliczeń oraz przeprowadzenia niezbędnych transferów pomiędzy pamięcią RAM a~pamięcią karty graficznej.
+
+Testy zostały zrealizowane na obu przedstawionych wcześniej kartach graficznych. Użyto dwudziestu obrazów pobranych z~kamery o~wymiarach 2456 na~2056 pikseli. Na wykresach przedstawione są uśrednione czasy przetwarzania dla jednego obrazu podzielone na skale. Obliczenia przeprowadzono dla dziesięciu skal z~krokiem 4. Ponieważ podczas przetwarzania pierwszego obrazu może występować spowolnienie spowodowane inicjalizacją środowiska (karty graficznej oraz użytych bibliotek) dodano przetwarzanie jednego obrazu, którego czas nie jest wliczany do przedstawionych w~niniejszej sekcji danych. Wykonano pomiary dla każdej z~implementacji dla wyznaczania reprezentacji skali i~detekcji każdej z~cech. Wyniki pomiarów dla wyznaczania reprezentacji skali przedstawiono na rysunkach \ref{fig:pureSzybkoscMoje}-\ref{fig:pureOpenCL}. Wyniki pomiarów dla wszystkich detektorów przedstawiono na rys. \ref{fig:AllAGH}.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{TestySzybkosci/PureMoje.png}
+\end{center}
+\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem pierwszego zestawu komputerowego}
+\label{fig:pureSzybkoscMoje}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{TestySzybkosci/PureAGH.png}
+\end{center}
+\caption{Wykres czasu obliczeń wyznaczania reprezentacji skali dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem drugiego zestawu komputerowego}
+\label{fig:pureSzybkoscAGH}
+\end{figure}
+
+Na wykresie \ref{fig:pureSzybkoscMoje} przedstawiono porównanie wyników czasowych dla poszczególnych skal dla obliczeń wykonanych na pierwszym zestawie komputerowym, który ma kratę graficzną GeForce GT 555M. Można zauważyć, że dla skal 1, 2 i~6 szybkość obu implementacje jest prawie taka sama. Dla skal od trzeciej do piątej implementacja zrealizowana w~OpenCL jest wyraźnie szybsza. Dla skal większych od sześciu implementacje zrealizowane w~OpenCV są szybsze.
+
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają prawie identyczne wyniki. Dodatkowo można zauważyć że czas wykonywania obliczeń dla tych implementacji od trzeciej skali rośnie bardzo wolno ze wzrostem skali. Dla implementacji zrealizowanej w~OpenCL można zauważyć, że czas potrzebny do wykonania obliczeń rośnie wraz ze~wrostem skali.
+
+Na wykresie \ref{fig:pureSzybkoscAGH} przedstawiono porównanie wyników dla poszczególnych skal dla obliczeń wykonanych drugim zestawie komputerowym, który ma kratę graficzną GeForce GTX 670. Można zauważyć, że dla wszystkich skal poza pierwszą implementacja wykonana w~OpenCL jest wyraźnie szybsza.
+
+Obie implementacje zrealizowane w~OpenCV (wykonywane na procesorze CPU i~procesorze GPU) dają porównywalne wyniki czasowe, choć nieco szybsza jest implementacja wykonywana na procesorze graficznym GPU. Można zauważyć wyraźny wzrost czasu wykonywania pomiędzy drugą i~trzecią skalą. Dla większych skal wzrost jest mniejszy. Dla implementacji zrealizowanej w~OpenCL czas potrzebny na wykonanie obliczeń rośnie wraz ze wzrostem skali. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{TestySzybkosci/PureOpenCL.png}
+\end{center}
+\caption{Wykresy szybkości działania z~użyciem obu kart graficznych dla wyznaczania reprezentacji skali}
+\label{fig:pureOpenCL}
+\end{figure}
+
+Na wykresie \ref{fig:pureOpenCL} przedstawiono porównanie szybkości działania implementacji wykonanej za pomocą biblioteki OpenCL dla obu kart graficznych. Można zauważyć znaczne różnice szybkości dla obu kart. Są one spowodowane wydajnością obu kart. Karta GeForce GT 555M jest kartą wyprodukowaną dla komputerów przenośnych kilka lat temu. Karta GeForce GTX 670 jest kartą nowszej generacji i~ma lepsze parametry. To powoduje znacznie szybsze wykonanie algorytmu na karcie GTX 670. Parametrem mocno wpływającym na szybkość wykonania algorytmu, zwłaszcza dla większych skal, jest wielkość pamięci wewnętrznej dla grup roboczych jednostek obliczeniowych karty graficznej. W~przypadku gdy fragment zapisywany w pamięci lokalnej dla jednostki obliczeniowej jest mniejszy niż wielkość aktualnie przetwarzanej skali znacznie zwiększa się czas przetwarzania, ponieważ bieżąca jednostka obliczeniowa musi pobierać dodatkowe dane z~pamięci globalnej karty graficznej. Ponadto częstotliwości pracy oraz liczba jednostek obliczeniowych karty GT 555M są znacznie mniejsze niż karty GTX 670, co jest przedstawione w~sekcji \ref{sec:srodowiskoTesty}. Można również zauważyć, że interfejs pamięci oraz szerokość pasma pamięci są większe dla karty GTX 670. Pozwala to zmniejszyć czas potrzebny na dostęp do pamięci karty.
+
+\begin{figure}[!hb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{TestySzybkosci/AllAGH.png}
+\end{center}
+\caption{Wykresy czasu obliczeń obliczeń dla wszystkich cech dla obrazów z~kamery o~rozdzielczości 2456x2056 z~użyciem karty graficznej GeForce GTX 670}
+\label{fig:AllAGH}
+\end{figure}
+
+Na wykresie \ref{fig:AllAGH} przedstawiono porównanie czasu obliczeń dla wszystkich cech. Przedstawione dane pochodzą z~testów wykonany na karcie graficznej GeforceGTX670. Biorąc pod uwagę czas potrzebny do wykonania obliczeń można zauważyć, że realizowane działania można podzielić na dwie grupy. Wyznaczanie reprezentacji skali, detekcja plam oraz detekcja narożników trwają tak samo długo a rozbieżności pomiędzy wykrywaniem grani i~krawędzi są niewielkie. Jest to spowodowane tym, że do detekcji grani i~krawędzi wymagane jest wyznaczenie dwóch obrazów pośrednich. Różnica pomiędzy tym grupami jest niezależna od skali. Detektory używają kontekstu o~stałym rozmiarze. Z~tego powodu czas trwania obliczeń dla detektorów jest niezależny od użytej skali.
+
+\subsection{Możliwość działania w~czasie rzeczywistym}
+\label{dzialanieRT}
+
+Przeprowadzono próby pozwalające określić w~jakich warunkach obliczenia mogą być wykonywane w~czasie rzeczywistym. Utrudnieniem podczas analizy jest zapis obrazów na dysk, który spowalnia działanie programu. Uzyskano zadowalający efekt dla obrazów o~rozdzielczości 512x512 pikseli dla 4-ech skal dla detekcji krawędzi. W~takich warunkach uzyskano przetwarzanie około 30 obrazów na sekundę. Test przeprowadzono dla karty GT 555M. Dla karty GTX 670 jest możliwość działania programu w~czasie rzeczywistym dla większych obrazów lub większej liczby skal.

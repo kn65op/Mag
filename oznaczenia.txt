@@ -1,0 +1,18 @@
+g - gaussian
+\sigma - sigma
+x,y - piksle
+\alpha - współczynnika skalujący
+N - rozmiar filtru
+L - reprezentacja skali
+f - sygnał
+P - liczba pikseli obrazu
+I - rozmiar reprezentacji skali
+M_i - rozmair kotekstu
+A - liczba działań do wysznaczenia jednego spółcznikka kontekstu
+B - liczba działań do wyznaczenia pochodnych
+L - pochodne
+k - współczynnik zakrzywienia
+r - promień plamy
+e - współczynnik liczby różnych pikseli
+C, D - obrazy
+v - współczynnik wilości średniego odchylenia

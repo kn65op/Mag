@@ -1,0 +1,2 @@
+AllImagesCalcImageSingle;
+AllImagesCalcImageDeviationSingle;

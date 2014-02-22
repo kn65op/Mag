@@ -1,0 +1,101 @@
+\afterpage{
+\begin{landscape}
+\begin{table}[h]
+\caption{Wartości współczynnika $ e $ dla wcześniej przedstawionych obrazów podzielone na skale}
+\label{tab:allE}
+\begin{tabular}{|p{0.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|}
+\cline{2-11}
+                               & \multicolumn{2}{|l}{Reprezentacja skali} & \multicolumn{2}{|l}{Detekcja plam} & \multicolumn{2}{|l}{Detekcja krawędzi} & \multicolumn{2}{|l}{Detekcja narożników} & \multicolumn{2}{|l|}{Detekcja grani} \\ \hline
+\multicolumn{1}{|l|}{Nr skali} & Obraz I                & Obraz II               & Obraz III     & Obraz IV    & Obraz V           & Obraz VI           & Obraz VII          & Obraz VIII          & Obraz IX          & Obraz X          \\ \hline
+\multicolumn{1}{|l|}{1}        & 0.05                   & 0.02                   & 0.70                 & 0.14        & 0.06              & 0.01               & 0.03               & 0.02                & 0.10              & 0.09                    \\ \hline
+\multicolumn{1}{|l|}{2}        & 0.08                   & 0.04                   & 0.84                 & 0.15        & 0.03              & 0.01               & 0.01               & 0.00                & 0.35              & 0.30                    \\ \hline
+\multicolumn{1}{|l|}{3}        & 0.11                   & 0.05                   & 0.68                 & 0.15        & 0.02              & 0.01               & 0.01               & 0.00                & 0.63              & 0.58                    \\ \hline
+\multicolumn{1}{|l|}{4}        & 0.14                   & 0.07                   & 0.55                 & 0.13        & 0.01              & 0.00               & 0.00               & 0.00                & 0.75              & 0.95                    \\ \hline
+\multicolumn{1}{|l|}{5}        & 0.17                   & 0.10                   & 0.48                 & 0.13        & 0.01              & 0.00               & 0.00               & 0.00                & 0.89              & 1.17                    \\ \hline
+\multicolumn{1}{|l|}{6}        & 0.20                   & 0.12                   & 0.61                 & 0.13        & 0.00              & 0.00               & 0.00               & 0.00                & 1.12              & 1.52                    \\ \hline
+\multicolumn{1}{|l|}{7}        & 0.23                   & 0.15                   & 0.41                 & 0.13        & 0.00              & 0.00               & 0.00               & 0.00                & 1.29              & 1.91                    \\ \hline
+\multicolumn{1}{|l|}{8}        & 0.26                   & 0.18                   & 0.32                 & 0.13        & 0.00              & 0.00               & 0.00               & 0.00                & 1.56              & 2.08                    \\ \hline
+\multicolumn{1}{|l|}{9}        & 0.28                   & 0.22                   & 0.45                 & 0.13        & 0.00              & 0.00               & 0.00               & 0.00                & 1.75              & 1.76                    \\ \hline
+\multicolumn{1}{|l|}{10}       & 0.31                   & 0.25                   & 0.34                 & 0.14        & 0.00              & 0.00               & 0.00               & 0.00                & 1.83              & 1.04                    \\ \hline
+\end{tabular}
+\end{table}
+\end{landscape}}
+
+\newpage
+
+\subsubsection{Numeryczna analiza obrazów wynikowych}
+\label{subsec:porownanieNumerycznePoprawnosc}
+
+W~poniższych akapitach przedstawiono numeryczne porównanie obrazów otrzymanych z~użyciem trzech implementacji. Wykorzystano do tego celu współczynniki przedstawione w~równaniach \eqref{eq:procentZlychPikseli}~i~\eqref{eq:sredniaOdchylenia}.
+
+Do sporządzenia zestawień wykorzystano wcześniej pokazane obrazy, po dwa dla każdej cechy i~dla reprezentacji skali. Przeprowadzono analizę liczby różniących się pikseli oraz dla reprezentacji skali średnią różnicę dla dziesięciu skal. 
+
+Z przedstawionych danych wynika, że implementacje CVCPU i~CVGPU są prawie identyczne. Z~tego powodu uwaga w~niniejszym podrozdziale jest skupiona na porównaniu implementacji wykonanej z~wykorzystaniem OpenCL z~implementacjami wykonanymi z~użyciem biblioteki OpenCV.
+
+Tabela \ref{tab:allE} przedstawia wartości parametru $ e $ dla wcześniej przedstawionych obrazów. W~następnych akapitach znajduje się omówienie przedstawionych danych.
+
+\begin{itemize}
+\item{Reprezentacja skali}
+\label{subsubsec:reprezentacjaSakliTabele}
+
+\nopagebreak
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas tworzenia reprezentacji skali podzieloną na skale dla obrazów I~i~II. Można zauważyć, że wraz ze wzrostem skali rośnie liczba pikseli, które się różnią. Jest to związane z~nieco odmiennym traktowaniu pikseli w~okolicach brzegów obrazu. Dla większych skal istnieje więcej takich pikseli, dlatego stosunek różnych pikseli do wszystkich pikseli rośnie wraz ze wzrostem skali.
+
+Porównując wyniki dla obu obrazów można zauważyć, że w~obrazie II~występuje mniej różnic. Ponieważ najwięcej różnic występuje w~otoczeniu brzegów obrazu, to największe wartości współczynnika $ e $ będą otrzymywane dla obrazów, które posiadają złożone struktury na brzegach obrazu. Obraz II~ma mniej szczegółów w~otoczeniu brzegu obrazu, dlatego wyliczone wartości są mniejsze, niż dla obrazu I. Drugą własnością obrazu, która może wpływać znacząco na wartości współczynnika $ e $~jest wielkość obrazu. Dla mniejszych obrazów stosunek liczby pikseli leżących w~pobliżu brzegu obrazu do liczby wszystkich pikseli będzie większy, co spowoduje wzrost liczby różnic w~wynikach otrzymanych za pomocą różnych implementacji. Niska wartość obliczona dla obrazu czwartego wynika z~tego, że na tym obrazie obszary bliskie krawędzi są jednorodne.
+
+W~tabeli \ref{tab:allV} przedstawiono średnią różnicę pomiędzy pikselami dla porównań implemetacji podczas tworzenia reprezentacji skali podzielona na skale dla obrazów I~i~II. Wnioski, które można wyciągnąć z~przedstawionych danych są analogiczne jak podczas analizy tabel przedstawiających wartości współczynnika $ e $ dla reprezentacji skali. Dla obrazów o~większej liczbie szczegółów poza liczbą różnic rośnie również wielkość tych różnic. Podobnie dla obrazów mniejszych, gdy rośnie stosunek liczby pikseli leżących w~pobliżu pikseli brzegowych, to równocześnie ze wzrostem liczby różnic rośnie ich wielkość.
+
+\begin{center}
+\begin{table}
+\centering
+\caption{Wartość współczynnika $ v $ dla reprezentacji skali dla obrazów \ref{fig:valPure2}~i~\ref{fig:valPure3} podzielone na skale}
+\label{tab:allV}
+\begin{tabular}{|c|r|r|r|}
+\hline
+Nr skali & Obraz I  &  Obraz II\\ \hline
+1        & 1.12     & 1.00\\ \hline
+2        & 1.16     & 1.00\\ \hline
+3        & 1.18     & 1.00\\ \hline
+4        & 1.20     & 1.00\\ \hline
+5        & 1.23     & 1.00\\ \hline
+6        & 1.26     & 1.00\\ \hline
+7        & 1.28     & 1.00\\ \hline
+8        & 1.31     & 1.00\\ \hline
+9        & 1.33     & 1.00\\ \hline
+10       & 1.36     & 1.00\\ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+
+Można zauważyć, że dla obrazu \ref{fig:valPure3} wartość współczynnika $ v $ jest równa jeden niezależnie od skali. Jest to najmniejsza niezerowa wartość współczynnika, jaką można uzyskać i~oznacza, że każda różnica pomiędzy implementacjami, dla tego obrazu jest równa jeden.
+
+\item{Detekcja plam}
+\label{subsubsec:plamyTabele}
+
+\nopagebreak
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji detekcji plam podzieloną na skale dla obrazów III~i~IV. Można zauważyć, że największa wartość współczynnika $ e $ jest osiągana dla skali drugiej. Ogólny trend zmniejszania się liczby różnic jest spowodowany dużą liczbą wykrywanych plam w~niższych skalach. Większa liczba wykrywanych obiektów generuje więcej różnic. Wpływ zwiększania się liczby pikseli mających w~swoim otoczeniu piksele brzegowe na liczbę różnic jest ograniczony. Jest to spowodowane tym, że liczba wykrywanych plam maleje szybciej niż wzrasta liczba rozbieżności spowodowanych różnicami powstałymi na etapie tworzenia reprezentacji skali.
+
+Wartości współczynnika $ e $ dla obrazu III są największymi wyznaczonymi wartościami dla detekcji plam. Ten obraz, jest najmniejszym z~analizowanych obrazów. Można zauważyć, że zdecydowana większość różnic powstała przy brzegach obrazu, co wraz z~małym rozmiarem powoduje, wysoką wartość współczynnika $ e $. Dla tego obrazu widać również, że wartości współczynnika $ e $, pomimo trendu malejącego wraz ze wzrostem skali nie maleją przy każdej kolejnej skali. Wynika to z~rosnącej liczby różnic pojawiąjących się podczas tworzenia reprezentacji skali.
+
+
+\item{Detekcja krawędzi}
+\label{subsubsec:krawedzieTabele}
+
+\nopagebreak
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji krawędzi podzieloną na skale dla obrazów V~i~VI. Można zauważyć, że stosunek rozbieżnych pikseli do wszystkich pikseli na obrazie maleje wraz ze wzrostem skali. Zmniejszanie się podanego stosunku wraz ze wzrostem skali jest spowodowany mniejszą liczbą wykrytych krawędzi na obrazach w~kolejnych skalach. Efekt zwiększania się liczby pikseli, które mają w~swoim otoczeniu piksele brzegowe nie jest w~tym przypadku zauważalny. Jest to spowodowane również znacznym zmniejszeniem liczby pikseli, które są uznawane za piksele krawędzi oraz tym, że krawędzie są w~niewielkim stopniu wykrywane na brzegach obrazów.
+
+\item{Detekcja narożników}
+\label{subsubsec:naroznikiTabele}
+
+\nopagebreak
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji narożników podzieloną na skale dla obrazów VII~i~VIII. Można zauważyć, że wartości współczynników są niskie i~maleją wraz ze zwiększaniem skali. W wyniku analizy wszystkich obrazów zauważono, że maksymalne wartości współczynnika $ e $ dla detekcji narożników nie przekraczają $ 0,3 \% $. Ogólna niska wartość współczynników wynika z~niewielkiej liczby wykrywanych obiektów oraz dobrej jakości detektora narożników. Zmniejszanie się liczby rozbieżności jest związane z~malejącą liczbą wykrywanych obiektów.
+
+W~tym przypadku również nie jest zauważalny wpływ zwiększającej się liczby pikseli mający w~swoim otoczeniu piksele brzegowe na większą liczbę błędów. Jest to spowodowane analogicznymi powodami jak w~przypadku detekcji krawędzi.
+
+\item{Detekcja grani}
+\label{subsubsec:granieTabele}
+
+\nopagebreak
+W~tabeli \ref{tab:allE} przedstawiono liczbę różnych pikseli dla porównań implementacji podczas detekcji grani podzieloną na skale dla obrazów IX~i~X. Można zauważyć, że wartości współczynnika $ e $ rosną wraz ze wzrostem skali. Jest to spowodowane przez różnice wprowadzone podczas tworzenia reprezentacji skali oraz przez słabą jakość detektora grani. Detektor grani daje gorsze wyniki, niż pozostałe detektory. Dodatkowym czynnikiem wpływającym na większą liczbę różnic dla większych skal jest większa ilość pikseli, które zostały zakwalifikowane jako piksele grani podczas przetwarzania.
+\end{itemize}
