@@ -151,14 +151,34 @@
 
 
 %---------------------------------------------------------------------------
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Użycie OpenCL do zrównoleglenia obliczeń}
-
+	\begin{tiny}
 	Do implementacji algorytmu z~wykorzystaniem OpenCL konieczne jest:
 	\begin{itemize}
 		\item Napisanie kodu kerneli - fragmentów kodu wykonywanych na karcie graficznej.
 		\item Napisanie kodu wykonywanego na procesorze, który będzie kontrolował część wykonywaną na karcie graficznej. W tym zawiera się przekazanie parametrów do kerneli oraz pobranie wyników.
 	\end{itemize}
+	\end{tiny}
+
+	\lstset{language=C,label=lis:edgeDetector,breaklines=true,basicstyle=\tiny\ttfamily}
+	\begin{lstlisting}
+__kernel void findLocalMax(__read_only image2d_t input, __write_only image2d_t output)
+{
+  int i = get_global_id(0);
+  int j = get_global_id(1);
+
+  float sum = read_imagef(input, sampler, (int2)(i, j)).x;
+  for (int ii = -1; ii < 2; ++ii)
+   for (int jj = -1; jj < 2; ++jj)
+    if (read_imagef(input, sampler, (int2)(i + ii, j + jj)).x > sum)
+      write_imageui(output, (int2)(i, j), 255);
+    else
+      write_imageui(output, (int2)(i, j), 0);
+}
+\end{lstlisting}
+
+
 
 \end{frame}
 
