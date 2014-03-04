@@ -141,7 +141,7 @@
 \begin{frame}
 	\frametitle{OpenCL}
 	\begin{block}{OpenCL}
-		Otwarty, wieloplatformowy standard pozwalający na wykorzystanie procesorów kart graficznych oraz innych urządzeń w celu wykonywania obliczeń ogólnego przeznaczenia. Wykorzystanie karty graficznej pozwala na zrównoleglenie obliczeń.
+		Otwarty, wieloplatformowy standard pozwalający na wykorzystanie procesorów kart graficznych oraz innych urządzeń (w tym wielordzeniowe procesory CPU) w celu wykonywania obliczeń ogólnego przeznaczenia. Wykorzystanie karty graficznej pozwala na zrównoleglenie obliczeń.
 	\end{block}
 
 \end{frame}
@@ -162,18 +162,18 @@
 
 %---------------------------------------------------------------------------
 \begin{frame}
-	\frametitle{Detekcja struktur}
+	\frametitle{Detekcja narożników}
 
-	Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
 
-	Poniższy wzór przedstawia sposób detekcji narożników. Wyszukiwane są maksima lokalne wartości $ k $.
 
 	$$ k = |L_x^2L_{yy}  + L_y^2L_{xx} - 2L_xL_yL_{xy}| $$
 
 	$ k $ - współczynnik krzywizny,
 
 	$ L $ - pochodna wyznaczona z obrazu.
+	%Po wyznaczeniu reprezentacji skali obrazu wykonywane są określone operacje matematyczne w~celu detekcji określonych struktur.
 
+	%Poniższy wzór przedstawia sposób detekcji narożników. Wyszukiwane są maksima lokalne wartości $ k $.
 
 
 \end{frame}
