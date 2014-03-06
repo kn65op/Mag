@@ -63,41 +63,42 @@
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales1.jpg}
-				\caption{$\sigma = 0,95$, $N = 3$}
+				\caption{Obraz oryginalny}
 			\end{subfigure}
 			~
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales2.jpg}
-				\caption{$\sigma = 1,25$, $N = 5$}
+				\caption{$\sigma = 0,95$, $N = 3$}
 			\end{subfigure}
 			~
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales3.jpg}
-				\caption{$\sigma = 1,55$, $N = 7$}
+				\caption{$\sigma = 1,25$, $N = 5$}
 			\end{subfigure}
 
 
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales4.jpg}
-				\caption{$\sigma = 1,85$, $N = 9$}
+				\caption{$\sigma = 1,55$, $N = 7$}
 			\end{subfigure}
 			~
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales5.jpg}
-				\caption{$\sigma = 2,15$, $N = 11$}
+				\caption{$\sigma = 1,85$, $N = 9$}
 			\end{subfigure}
 			~
 			\begin{subfigure}[b]{3.5cm}
 				\centering
 				\includegraphics[width=2.5cm]{Lena_scales6.jpg}
-				\caption{$\sigma = 2,45$, $N = 13$}
+				\caption{$\sigma = 2,15$, $N = 11$}
 			\end{subfigure}
 			\label{lena_scales}
 		\end{center}
+		\label{fig:as}
 	\end{figure}
 \end{frame}
 
@@ -133,6 +134,7 @@
 				\caption{grani}
 			\end{subfigure}
 		\end{center}
+		\label{fig:asss}
 	\end{figure}
 \end{frame}
 
@@ -203,40 +205,87 @@ __kernel void findLocalMax(__read_only image2d_t input, __write_only image2d_t o
 \end{frame}
 %---------------------------------------------------------------------------
 \begin{frame}
-	\frametitle{Przykład detekcji}
-%\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{Operation/input.png}
-Skala 7.
+	\frametitle{Przykład detekcji plam}
+%\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{Operation/input.png}
 	\begin{figure}[h]
 		\begin{center}
 
-			\begin{subfigure}[b]{3cm}
+			\begin{subfigure}[b]{5cm}
 				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/input.png}
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/input.png}
 			\end{subfigure}~
-			\begin{subfigure}[b]{3cm}
+			\begin{subfigure}[b]{5cm}
 				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/blobResult.png}
-			\end{subfigure}~
-			\begin{subfigure}[b]{3cm}
-				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/edgeResult.png}
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/blobResult.png}
 			\end{subfigure}
+		\end{center}
+	\end{figure}
+	
+Obraz w skali 7.
+	
+\end{frame}
+%---------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Przykład detekcji krawędzi}
+%\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{Operation/input.png}
+	\begin{figure}[h]
+		\begin{center}
 
-			\begin{subfigure}[b]{3cm}
+			\begin{subfigure}[b]{5cm}
 				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/null.png}
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/input.png}
 			\end{subfigure}~
-			\begin{subfigure}[b]{3cm}
+			\begin{subfigure}[b]{5cm}
 				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/cornerResult.png}
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/edgeResult.png}
+			\end{subfigure}
+			
+					\end{center}
+	\end{figure}
+	
+	Obraz w skali 7.
+\end{frame}
+%---------------------------------------------------------------------------
+
+\begin{frame}
+	\frametitle{Przykład detekcji narożników}
+%\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{Operation/input.png}
+	\begin{figure}[h]
+		\begin{center}
+
+			\begin{subfigure}[b]{5cm}
+				\centering
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/input.png}
 			\end{subfigure}~
-			\begin{subfigure}[b]{3cm}
+			\begin{subfigure}[b]{5cm}
 				\centering
-				\includegraphics[trim=280 200 320 400, clip=true,width=\textwidth]{../Operation/ridgeResult.png}
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/cornerResult.png}
+			\end{subfigure}
+			\end{center}
+	\end{figure}
+	
+	Obraz w skali 7.
+\end{frame}
+%---------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Przykład detekcji grani}
+%\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{Operation/input.png}
+	\begin{figure}[h]
+		\begin{center}
+
+			\begin{subfigure}[b]{5cm}
+				\centering
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/input.png}
+			\end{subfigure}~
+			\begin{subfigure}[b]{5cm}
+				\centering
+				\includegraphics[trim=260 200 300 400, clip=true,width=\textwidth]{../Operation/ridgeResult.png}
 			\end{subfigure}
 			\label{fig:wynik}
 		\end{center}
 	\end{figure}
+	
+	Obraz w skali 7.
 
 \end{frame}
 %---------------------------------------------------------------------------
@@ -246,7 +295,24 @@ Skala 7.
 	Na podstawie porównania z implementacją realizowaną na procesorze CPU stwierdzono, że wykonanie algorytmu na karcie graficznej daje poprawne wyniki.
 
 	Największe rozbieżności są na poziomie 2\%, w~większości przypadków nie przekraczają 1\%.
-
+	\begin{tiny}
+	\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Nr skali & Reprezentacja skali & Detekcja plam & Detekcja krawędzi & Detekcja narożników & Detekcja grani \\ \hline
+1        & 0.05                & 0.70          & 0.06              & 0.03                & 0.10           \\ \hline
+2        & 0.08                & 0.84          & 0.03              & 0.01                & 0.35           \\ \hline
+3        & 0.11                & 0.68          & 0.02              & 0.01                & 0.63           \\ \hline
+4        & 0.14                & 0.55          & 0.01              & 0.00                & 0.75           \\ \hline
+5        & 0.17                & 0.48          & 0.01              & 0.00                & 0.89           \\ \hline
+6        & 0.20                & 0.61          & 0.00              & 0.00                & 1.12           \\ \hline
+7        & 0.23                & 0.41          & 0.00              & 0.00                & 1.29           \\ \hline
+8        & 0.26                & 0.32          & 0.00              & 0.00                & 1.56           \\ \hline
+9        & 0.28                & 0.45          & 0.00              & 0.00                & 1.75           \\ \hline
+10       & 0.31                & 0.34          & 0.00              & 0.00                & 1.83           \\ \hline
+\end{tabular}
+\end{table}
+\end{tiny}
 
 \end{frame}
 %---------------------------------------------------------------------------
